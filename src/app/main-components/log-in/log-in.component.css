@@ -1,0 +1,116 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('/assets/background.jpg'); /* Add your background image */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .form-box {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    text-align: center;
+  }
+  
+  .form-toggle {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .form-toggle button {
+    width: 50%;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #e0e0e0;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .form-toggle button.active {
+    background-color: #c2185b;
+    color: white;
+  }
+  
+  .form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .input-box {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .input-box input {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .input-box input:focus {
+    border-color: #e45a92;
+  }
+  
+  .btn {
+    background-color:#c2185b;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #d73f7c;
+  }
+  
+  .forgot-password {
+    display: block;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: #c2185b;
+    text-decoration: none;
+  }
+  
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+  
+  p {
+    font-size: 0.9rem;
+    color: rgb(46, 19, 19);
+  }
+  
+  p a {
+    color: #c2185b;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  p a:hover {
+    text-decoration: underline;
+  }
+  h2{
+    color: black;
+  }
+  

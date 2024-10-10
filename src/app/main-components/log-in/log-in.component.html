@@ -1,1 +1,43 @@
-<p>log-in works!</p>
+<div class="login-container">
+    <div class="form-box">
+      <div class="form-toggle">
+        <button (click)="toggleForm(true)" [class.active]="isLogin">Log In</button>
+        <button (click)="toggleForm(false)" [class.active]="!isLogin">Sign Up</button>
+      </div>
+  
+      <!-- Login Form -->
+      <div *ngIf="isLogin" class="form-content">
+        <h2>Login</h2>
+        <form>
+          <div class="input-box">
+            <input type="email" placeholder="Email" required name="email" [(ngModel)]="email" />
+          </div>
+          <div class="input-box">
+            <input type="password" placeholder="Password" required name="password" [(ngModel)]="password" />
+          </div>
+          <a href="#" class="forgot-password">Forgot password?</a>
+          <button type="submit" class="btn" (click)="logIn()">Log In</button>
+        </form>
+        <p>Don't have an account? <a (click)="toggleForm(false)">Sign Up</a></p>
+      </div>
+  
+      <!-- Sign-Up Form -->
+      <div *ngIf="!isLogin" class="form-content">
+        <h2>Sign Up</h2>
+        <form>
+          <div class="input-box">
+            <input type="text" placeholder="Username" name = "userName" [(ngModel)]="username"/>
+          </div>
+          <div class="input-box">
+            <input type="email" placeholder="Email" required name = "email" [(ngModel)]="email"/>
+          </div>
+          <div class="input-box">
+            <input type="password" placeholder="Password" required name = "password" [(ngModel)]="password" />
+          </div>
+          <button type="submit" class="btn" (click)="signUpUser()">Sign Up</button>
+        </form>
+        <p>Already have an account? <a (click)="toggleForm(true)">Log In</a></p>
+      </div>
+    </div>
+  </div>
+  

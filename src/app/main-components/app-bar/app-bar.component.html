@@ -1,1 +1,27 @@
-<p>app-bar works!</p>
+
+<mat-toolbar color="primary" class="app-bar">
+  <span class="logo">
+    <img src="/assets/logo.png" alt="Heda Sports Inc" />
+  </span>
+  <span class="spacer"></span>
+  <span class="spacer"></span>
+  <span class="spacer"></span>
+  <span class="spacer"></span>
+  <span class="nav-links">
+    <a mat-button routerLink="/markets">Markets</a>
+    <a mat-button routerLink="#">Services</a>
+    <a mat-button routerLink="#">News & Insights</a>
+    <a mat-button routerLink="#">About Us</a>
+  </span>
+
+  <span class="spacer"></span>
+
+  <button *ngIf="notAuthenticated" mat-raised-button color="accent" class="contact-button" routerLink="/auth">
+    Sign Up/ Log in
+  </button>
+  <button *ngIf="authenticated" mat-raised-button color="accent" class="contact-button" (click)="logOut()">
+    Log Out
+  </button>
+</mat-toolbar>
+
+

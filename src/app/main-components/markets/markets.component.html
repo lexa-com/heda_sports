@@ -1,1 +1,8 @@
-<p>markets works!</p>
+<div class="markets-container">
+    <div class="market-card" *ngFor="let market of bettingMarkets">
+      <h3 class="market-title">{{ market.name }}</h3>
+      <p class="market-description">{{ market.description }}</p>
+    </div>
+  </div>
+  <app-footer></app-footer>
+  

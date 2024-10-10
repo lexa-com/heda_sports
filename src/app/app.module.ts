@@ -36,15 +36,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import{AngularFireModule} from '@angular/fire/compat'
 import { FirestoreModule } from '@angular/fire/firestore';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
+import { PremiumHomeComponent } from './main-components/premium-home/premium-home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    
     AppBarComponent,
     SideBarComponent,
     FooterComponent,
@@ -62,11 +65,13 @@ import { environment } from '../environments/environment';
     NotificationComponent,
     TipstersViewComponent,
     TipstersDetailsComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    PremiumHomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     MatIconModule,
     MatListModule,
     MatSidenavModule,
