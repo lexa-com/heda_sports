@@ -1,0 +1,47 @@
+.sidenav-container {
+    height: 100%;
+  }
+  
+  .sidenav {
+    width: 250px;
+    background-color: #f4f4f4;
+    padding-top: 20px; /* Add top padding for spacing */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  mat-nav-list {
+    padding: 0 10px; /* Adjust padding for content */
+  }
+  
+  mat-list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px; /* Add margin between items */
+  }
+  
+  mat-list-item mat-icon {
+    margin-right: 10px;
+    font-size: 24px; 
+    color: black;/* Adjust icon size */
+  }
+  
+  h3 {
+    margin: 15px 0 5px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: black;
+  }
+  
+  a {
+    text-decoration: none;
+    color: black;
+    font-size: 13px;
+  }
+  
+  hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  
