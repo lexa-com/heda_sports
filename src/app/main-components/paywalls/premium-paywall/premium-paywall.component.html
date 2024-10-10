@@ -1,0 +1,37 @@
+<!-- checkout.component.html -->
+<div class="checkout-container">
+    <h4 class="checkout-title">{{product}}</h4>
+  
+    <div class="payment-info">
+      <h5 class="info-title">Payment Details</h5>
+      <p class="info-description">
+        Please review your payment information and confirm your order.
+      </p>
+  
+      <div class="order-summary">
+        <h6>Order Summary</h6>
+        <div class="summary-item">
+          <span>Product Name:</span>
+          <span>{{description}}</span>
+        </div>
+        <div class="summary-item">
+          <span>Quantity:</span>
+          <span>1</span>
+        </div>
+        <div class="summary-item total">
+          <span>Total: USD</span>
+          <span>{{amount | number:'1.2-2'}}</span>
+        </div>
+      </div>
+    </div>
+  
+    <div class="payment-section">
+      <h5 class="payment-title">Secure Payment</h5>
+      <div #paymentRef class="paypal-button-container"></div>
+    </div>
+  
+    <div class="footer">
+      <p class="footer-text">By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+    </div>
+  </div>
+  

@@ -1,1 +1,6 @@
-<p>premium-home works!</p>
+<div class="markets-container" *ngIf="displayUI">
+    <div class="market-card" *ngFor="let market of bettingMarkets" (click)="openNavigation(market.description)">
+      <h3 class="market-title">{{ market.name }}</h3>
+      
+    </div>
+  </div>

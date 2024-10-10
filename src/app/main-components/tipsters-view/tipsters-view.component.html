@@ -1,1 +1,160 @@
-<p>tipsters-view works!</p>
+<div class="tipster-cards">
+
+    <!-- Tipster 1 -->
+    <div class="tipster-card">
+      <div class="tipster-header">
+        <span class="flag">🏴</span>
+        <span class="tipster-name">Liam Reese</span>
+      </div>
+  
+      <div class="latest-results">
+        <h4>Latest Results</h4>
+        <div class="match-day">04.10.2024</div>
+        
+        <table class="results-table" *ngIf="tipsterOne">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Tip</th>
+              <th>Odd</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let match of tipsters[0].results">
+              <td>{{ match.team1 }} - {{ match.team2 }}</td>
+              <td>{{ match.tip }}</td>
+              <td>{{ match.odd }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div class="stats">
+        <div class="stat">
+          <p>Form</p>
+          <span>17/10</span>
+        </div>
+        <div class="stat">
+          <p>Success</p>
+          <span>71%</span>
+        </div>
+        <div class="stat">
+          <p>Avg Odd</p>
+          <span>1.73</span>
+        </div>
+      </div>
+  
+      <div class="subscription">
+        <p>1 Week - GBP 119.00</p>
+        <p>2 Weeks - GBP 179.00</p>
+        <button class="subscribe-btn" (click)="openDialog('Liam Reese', '179.00', 'tipster1')">Subscribe</button> <br>
+        <button class="view-results-btn" routerLink="/tipsters/details">View Results</button>
+      </div>
+    </div>
+  
+    <!-- Tipster 2 -->
+    <div class="tipster-card">
+      <div class="tipster-header">
+        <span class="flag">🚩</span>
+        <span class="tipster-name">Andrew Wilson</span>
+      </div>
+  
+      <div class="latest-results">
+        <h4>Latest Results</h4>
+        <div class="match-day">04.10.2024</div>
+        
+        <table class="results-table" *ngIf="tipsterTwo">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Tip</th>
+              <th>Odd</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let match of tipsters[1].results">
+              <td>{{ match.team1 }} - {{ match.team2 }}</td>
+              <td>{{ match.tip }}</td>
+              <td>{{ match.odd }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div class="stats">
+        <div class="stat">
+          <p>Form</p>
+          <span>16/10</span>
+        </div>
+        <div class="stat">
+          <p>Success</p>
+          <span>70%</span>
+        </div>
+        <div class="stat">
+          <p>Avg Odd</p>
+          <span>1.79</span>
+        </div>
+      </div>
+  
+      <div class="subscription">
+        <p>1 Week - GBP 119.00</p>
+        <p>2 Weeks - GBP 179.00</p>
+        <button class="subscribe-btn" (click)="openDialog('Andrew Wilson', '179.00', 'tipster2')">Subscribe</button> <br>
+        <button class="view-results-btn" routerLink="/tipsters/details">View Results</button>
+      </div>
+    </div>
+  
+    <!-- Tipster 3 -->
+    <!-- <div class="tipster-card">
+      <div class="tipster-header">
+        <span class="flag">🏴</span>
+        <span class="tipster-name">Charlie Cook</span>
+      </div>
+  
+      <div class="latest-results">
+        <h4>Latest Results</h4>
+        <div class="match-day">04.10.2024</div>
+        
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Tip</th>
+              <th>Odd</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let match of tipsters[2].results">
+              <td>{{ match.team1 }} - {{ match.team2 }}</td>
+              <td>{{ match.tip }}</td>
+              <td>{{ match.odd }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div class="stats">
+        <div class="stat">
+          <p>Form</p>
+          <span>23/10</span>
+        </div>
+        <div class="stat">
+          <p>Success</p>
+          <span>75%</span>
+        </div>
+        <div class="stat">
+          <p>Avg Odd</p>
+          <span>1.78</span>
+        </div>
+      </div>
+  
+      <div class="subscription">
+        <p>1 Week - GBP 119.00</p>
+        <p>2 Weeks - GBP 179.00</p>
+        <button class="subscribe-btn" (click)="openDialog('Charlie Cook', '179.00', 'tipster3')">Subscribe</button> <br>
+        <button class="view-results-btn" routerLink="/tipsters/details">View Results</button>
+      </div>
+    </div> -->
+  
+  </div>
+  

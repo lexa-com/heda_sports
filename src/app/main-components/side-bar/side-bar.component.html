@@ -27,7 +27,7 @@
         <h3>Tipsters</h3>
         <mat-list-item>
           
-          <a matLine routerLink="/tipsters">Premium Tipsters</a>
+          <a matLine routerLink="/tipsters" [skipLocationChange]="true">Premium Tipsters</a>
         </mat-list-item>
   
         <h3>Premium Tips</h3>
@@ -47,7 +47,7 @@
   
         <mat-list-item>
          
-          <a matLine routerLink="/premium/vvip">VVIP Premium selections</a>
+          <a matLine routerLink="/premium/vvip" skipLocationChange="true">VVIP Premium selections</a>
         </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>

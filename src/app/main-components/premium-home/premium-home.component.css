@@ -1,0 +1,33 @@
+.markets-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .market-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s;
+  }
+  
+  .market-card:hover {
+    transform: translateY(-5px);
+    background-color: #f3b5ce;
+  }
+  
+  .market-title {
+    font-size: 13px;
+    color: #343a40;
+    margin-bottom: 10px;
+  }
+  
+  .market-description {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  

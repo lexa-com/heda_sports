@@ -43,6 +43,8 @@ import { FirestoreModule } from '@angular/fire/firestore';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
 import { PremiumHomeComponent } from './main-components/premium-home/premium-home.component';
+import { PremiumPaywallComponent } from './main-components/paywalls/premium-paywall/premium-paywall.component';
+import { TipsterPaywallComponent } from './main-components/paywalls/tipster-paywall/tipster-paywall.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { PremiumHomeComponent } from './main-components/premium-home/premium-hom
     TipstersViewComponent,
     TipstersDetailsComponent,
     LandingPageComponent,
-    PremiumHomeComponent
+    PremiumHomeComponent,
+    PremiumPaywallComponent,
+    TipsterPaywallComponent
   ],
   imports: [
     BrowserModule,

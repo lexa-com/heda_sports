@@ -1,1 +1,35 @@
-<p>tipsters-details works!</p>
+<div class="table-container">
+    <!-- Table Header with Date -->
+    <div *ngFor="let matchDay of matchDays" class="match-day">
+      <div class="date-header">{{ matchDay.date | date: 'dd.MM.yyyy' }}</div>
+  
+      <!-- Match List for the Day -->
+      <table class="matches-table">
+        <thead>
+          <tr>
+            <th>Game</th>
+            <th>Tip</th>
+            <th>Odd</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let match of matchDay.matches">
+            <td>{{ match.team1 }} - {{ match.team2 }}</td>
+            <td [ngClass]="{'win-tip': match.tipWin, 'lose-tip': !match.tipWin}">
+              {{ match.tip }}
+            </td>
+            <td>{{ match.odds }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+    <button class="back" routerLink="/tipsters">Back</button>
+  </div>
+  

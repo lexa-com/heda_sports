@@ -1,1 +1,63 @@
-<p>premium-ten works!</p>
+<div class="title"> <h2>10+ Odds Combo Tips</h2> </div>
+
+
+<mat-card class="rate-card" *ngIf="authenticated">
+    <mat-card-title>Subscription Rate</mat-card-title>
+    <mat-card-content>
+      <div class="button-group">
+        <button mat-raised-button color="primary" (click)="openDialog('week')">1 week- 10 usd</button>
+        <button mat-raised-button color="primary" (click)="openDialog('2weeks')">2 weeks- 16 usd</button>
+        <button mat-raised-button color="primary" (click)="openDialog('month')">Monthly- 32 usd</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
+<div class="date" *ngIf="authenticated">
+  <label for="dateofbirth">Date</label>
+  <input type="date" name="dateofbirth" id="dateofbirth" (change)="onDateChange($event)">
+</div>
+
+
+<div class="pick">
+  <h3> {{pickedDate}} </h3>
+</div>
+
+<table class="football-fixtures">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>League</th>
+        <th>Match</th>
+        <th>Pick</th>
+        <th>Odds</th>
+        <th>Results</th>
+        <th>Outcome</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fixture of fixtures">
+        <td>{{ fixture.ko }}</td>
+        <td>{{fixture.league}}</td>
+        <td>{{ fixture.games }}</td>
+        <td>{{ fixture.predict }}</td>
+        <td>{{ fixture.odds }}</td>
+        <td>{{ fixture.result }}</td>
+        <td>{{ getVerdictEmoji(fixture.verdict) }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <br>
+  <br>
+
+  
+  <app-footer></app-footer>
