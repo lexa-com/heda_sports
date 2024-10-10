@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GamesService } from '../../Services/games.service';
 import { SharedService } from '../../Services/shared.service';
 import { PremiumPaywallComponent } from '../paywalls/premium-paywall/premium-paywall.component';
+import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-premium-five',
@@ -29,11 +30,11 @@ export class PremiumFiveComponent implements OnInit {
     ) { }
   
   ngOnInit(): void {
-    this.checkAuth()
+    //this.checkSubscription()
     this.setTodayDate()
     this.fetchGames()
     this.dialogConfig = new MatDialogConfig();
-    
+    this.checkAuth()
   }
   
   
@@ -84,12 +85,22 @@ export class PremiumFiveComponent implements OnInit {
     }
   }
 
-  checkAuth(){
+  checkSubscription(){
     this.sharedService.userArray.subscribe((res)=>{
       const subscrib = res[0].five.split('+')[0]
       if (subscrib =='Yes'){
         this.authenticated = false
       }
+    })
+  }
+
+  checkAuth(){
+    this.sharedService.currentAuthStatus.subscribe((res)=>{
+       if (res.length == 0){
+            console.log('not authenticated')
+       } else {
+        this.checkSubscription()
+       }
     })
   }
 

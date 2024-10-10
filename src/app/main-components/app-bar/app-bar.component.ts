@@ -47,6 +47,12 @@ export class AppBarComponent implements OnInit {
   this.shared.authCheck(['null','null'])
   
     }
+
+    navigate(link:string){
+      console.log('clicked')
+     this.router.navigate([`${link}`])
+  
+    }
   
   }
   

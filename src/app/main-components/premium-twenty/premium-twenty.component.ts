@@ -84,12 +84,22 @@ export class PremiumTwentyComponent implements OnInit {
     }
   }
 
-  checkAuth(){
+  checkSubscription(){
     this.sharedService.userArray.subscribe((res)=>{
-      const subscrib = res[0].twenty.split('+')[0]
+      const subscrib = res[0].five.split('+')[0]
       if (subscrib =='Yes'){
         this.authenticated = false
       }
+    })
+  }
+
+  checkAuth(){
+    this.sharedService.currentAuthStatus.subscribe((res)=>{
+       if (res.length == 0){
+            console.log('not authenticated')
+       } else {
+        this.checkSubscription()
+       }
     })
   }
 

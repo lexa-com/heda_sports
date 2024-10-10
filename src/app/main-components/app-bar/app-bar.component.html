@@ -9,9 +9,9 @@
   <span class="spacer"></span>
   <span class="nav-links">
     <a mat-button routerLink="/markets">Markets</a>
-    <a mat-button routerLink="#">Services</a>
-    <a mat-button routerLink="#">News & Insights</a>
-    <a mat-button routerLink="#">About Us</a>
+    <a mat-button (click)="navigate('over')">Services</a>
+    <a mat-button (click)="navigate('tipsters')">News & Insights</a>
+    <a mat-button (click)="navigate('/premium/ten')">About Us</a>
   </span>
 
   <span class="spacer"></span>

@@ -48,8 +48,14 @@ sendUserArray(userArray:any) {
 
 getUserInfo(){
 this.sharedService.currentAuthStatus.subscribe((res)=>{
-  const email = res[1]
-  this.readUserData(email)
+
+  if (res.length == 0){
+     console.log('not authenticated')
+  } else {
+    const email = res[1]
+    this.readUserData(email)
+  }
+  
 })
 
 }

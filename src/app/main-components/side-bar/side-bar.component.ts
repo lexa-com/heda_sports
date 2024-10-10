@@ -10,44 +10,74 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
   styleUrl: './side-bar.component.css'
 })
 export class SideBarComponent implements OnInit{
-
-  dialogConfig: MatDialogConfig<any> | undefined;
-
-  constructor(private router: Router,
-    private shared : SharedService,
-    private dialog: MatDialog,
-   ){
-
+authenticated: boolean = false;
+tenOdds: boolean = false;
+twentyOdds: boolean = false;
+fiveOdds: boolean = false;
+email: any;
+vvipOdds: boolean = false;
+liamOdds: boolean = false;
+andrewOdds: boolean = false;
+  constructor(private router:Router,
+    private sharedService:SharedService
+  ){
 
   }
+
   ngOnInit(): void {
-    this.dialogConfig = new MatDialogConfig();
+   this.checkAuth()
   }
 
-  navigatePremiumFive(){
-    this.checkAuthStatus()
+  checkSubscription(){
+    this.sharedService.userArray.subscribe((res)=>{
+      //console.log(res)
+      const subscrib = res[0].five.split('+')[0]
+      const subscribten = res[0].ten.split('+')[0]
+      const subscribtwenty = res[0].twenty.split('+')[0]
+      const subscribvvip = res[0].vvip.split('+')[0]
+      const subscribtip1 = res[0].tipster1.split('+')[0]
+      const subscribtip2 = res[0].tipster2.split('+')[0]
+      
+      if (subscrib =='Yes'){
+        this.fiveOdds = true
+        console.log('sawa')
+      }
+      if (subscribten =='Yes'){
+        this.tenOdds = true
+      }
+      if (subscribtwenty =='Yes'){
+        this.twentyOdds = true
+      }
+      if (subscribvvip =='Yes'){
+        this.vvipOdds = true
+      }
+      if (subscribtip1 =='Yes'){
+        this.liamOdds = true
+      }
+      if (subscribtip2 =='Yes'){
+        this.andrewOdds = true
+      }
+      this.email = res[0].email
+    })
   }
 
-  checkAuthStatus(){
-    const message = 'Kindly log in to view premium games'
-    this.shared.currentAuthStatus.subscribe((res)=>{
-    if (res[0] == 'authenticated'){
-    this.router.navigate(['/premium/five'])
-  } else{
-    this.openDialog(message)
-  }
-  
-})
-
-  }
-
-  openDialog(message:string){
-    
-    const dialogRef = this.dialog.open(NotificationComponent, {
-      width: '440px',
-      data:message
-  
-    });
+  checkAuth(){
+    this.sharedService.currentAuthStatus.subscribe((res)=>{
+       if (res.length == 0){
+            console.log('not authenticated')
+       } else {
+        this.authenticated = true
+        this.checkSubscription()
+       }
+       if (res[0]=="null"){
+        this.authenticated = false
+       }
+    })
   }
 
+  navigate(link:string){
+    console.log('clicked')
+   this.router.navigate([`${link}`])
+
+  }
 }

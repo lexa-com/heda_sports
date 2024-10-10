@@ -12,6 +12,8 @@ import { TipstersDetailsComponent } from './main-components/tipsters-details/tip
 import { PremiumHomeComponent } from './main-components/premium-home/premium-home.component';
 import { PremiumFiveComponent } from './main-components/premium-five/premium-five.component';
 import { SpecialTipsComponent } from './main-components/special-tips/special-tips.component';
+import { HomeWinsComponent } from './main-components/home-wins/home-wins.component';
+import { AwayWinsComponent } from './main-components/away-wins/away-wins.component';
 
 const routes: Routes = [
   {
@@ -20,74 +22,65 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: OverUnderComponent,
+        redirectTo: 'over', // Redirect to 'over' if the path is empty
         pathMatch: 'full',
-       
       },
       {
         path: 'over',
         component: OverUnderComponent,
-        pathMatch: 'full',
-       
       },
       {
-        path: 'combo',
+        path: 'special',
         component: SpecialTipsComponent,
-        pathMatch: 'full',
-       
+      },
+      {
+        path: 'home',
+        component: HomeWinsComponent,
+      },
+      {
+        path: 'high',
+        component: AwayWinsComponent,
       },
       {
         path: 'markets',
         component: MarketsComponent,
-        pathMatch: 'full',
-       
       },
       {
         path: 'auth',
         component: LogInComponent,
-        pathMatch: 'full',
-       
       },
       {
         path: 'tipsters',
         component: TipstersViewComponent,
-        pathMatch: 'full',
-       
       },
       {
         path: 'tipsters/details',
         component: TipstersDetailsComponent,
-        pathMatch: 'full',
       },
       {
         path: 'premium/home',
         component: PremiumHomeComponent,
-        pathMatch: 'full',
       },
       {
         path: 'premium/five',
         component: PremiumFiveComponent,
-        pathMatch: 'full',
       },
       {
         path: 'premium/ten',
         component: PremiumTenComponent,
-        pathMatch: 'full',
       },
       {
         path: 'premium/twenty',
         component: PremiumTwentyComponent,
-        pathMatch: 'full',
       },
       {
         path: 'premium/vvip',
         component: PremiumVvipComponent,
-        pathMatch: 'full',
       },
-
     ]
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

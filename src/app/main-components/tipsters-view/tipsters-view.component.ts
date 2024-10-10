@@ -82,7 +82,7 @@ tipsterTwo: boolean = false;
 
   ngOnInit(): void {
     this.dialogConfig = new MatDialogConfig();
-    this.checkSubscription()
+    this.checkAuth()
   }
 
   openDialog(name:string,price:string,id:string){
@@ -106,6 +106,15 @@ tipsterTwo: boolean = false;
 
     })
        
+  }
+  checkAuth(){
+    this.sharedService.currentAuthStatus.subscribe((res)=>{
+       if (res.length == 0){
+            console.log('not authenticated')
+       } else {
+        this.checkSubscription()
+       }
+    })
   }
 
   checkSubscription(){

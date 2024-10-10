@@ -1,59 +1,99 @@
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav mode="side" opened class="sidenav">
-      <mat-nav-list>
-        <h3>Free Markets</h3>
-        <mat-list-item>
-          
-          <a matLine routerLink="over" skipLocationChange="true">Over/Under Goals</a>
-        </mat-list-item>
-  
-        <mat-list-item>
-          
-          <a matLine routerLink="#">Home wins</a>
-        </mat-list-item>
-  
-        <mat-list-item>
-          
-          <a matLine routerLink="#">Away wins</a>
-        </mat-list-item>
-  
-        <mat-list-item>
-          
-          <a matLine routerLink="#">Special Events</a>
-        </mat-list-item>
-  
-        <hr>
-  
-        <h3>Tipsters</h3>
-        <mat-list-item>
-          
-          <a matLine routerLink="/tipsters" [skipLocationChange]="true">Premium Tipsters</a>
-        </mat-list-item>
-  
-        <h3>Premium Tips</h3>
-        <mat-list-item>
-          
-          <a matLine routerLink="/premium/five">5+ Odds</a>
-        </mat-list-item>
-  
-        <mat-list-item>
-          <a matLine routerLink="/premium/ten">10+ Odds Roll-Over</a>
-        </mat-list-item>
-  
-        <mat-list-item>
-          
-          <a matLine routerLink="/premium/twenty">20+ Odds Weekend</a>
-        </mat-list-item>
-  
-        <mat-list-item>
-         
-          <a matLine routerLink="/premium/vvip" skipLocationChange="true">VVIP Premium selections</a>
-        </mat-list-item>
-      </mat-nav-list>
-    </mat-sidenav>
-  
-    <mat-sidenav-content>
-      <!-- Your main content goes here -->
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  
+<div class="sidebar">
+  <nav>
+    <div class="profile" *ngIf="authenticated">
+      <mat-card>
+        <h5>{{email}}</h5>
+        <mat-card class="Package">
+          <h6 *ngIf="fiveOdds">5+ Odds Package</h6>
+          <h6 *ngIf="tenOdds">10+ Odds Package</h6>
+          <h6 *ngIf="twentyOdds">20+ Odds Package</h6>
+          <h6 *ngIf="vvipOdds">VVIP Package</h6>
+          <h6 *ngIf="liamOdds">
+            Liam Reese Package</h6>
+          <h6 *ngIf="andrewOdds">Andrew Wilson Package</h6>
+        </mat-card>
+
+
+      </mat-card>
+    </div>
+    <br>
+    <br>
+    <mat-card>
+      <ul>
+      
+        <li>
+          <a (click)="navigate('over')">
+            <i class="icon">⚽</i>
+            Over- Under
+          </a>
+        </li>
+        <li>
+          <a (click)="navigate('home')">
+            <i class="icon">⚽</i>
+            Direct Wins
+          </a>
+        </li>
+        <li>
+          <a (click)="navigate('special')">
+            <i class="icon">⚽</i>
+            Special Selections
+          </a>
+        </li>
+        <li>
+          <a (click)="navigate('high')">
+            <i class="icon">⚽</i>
+            High Odds Tips
+          </a>
+        </li>
+        
+      </ul>
+    </mat-card>
+<br>
+<br>
+    <mat-card>
+      <ul>
+      
+        <li>
+          <a (click)="navigate('tipsters')">
+            <i class="icon">🤴</i>
+            Tipsters Selections
+          </a>
+        </li>
+        
+      </ul>
+    </mat-card>
+    <br>
+    <br>
+    <mat-card>
+      <ul>
+      
+        <li>
+          <a (click)="navigate('premium/five')">
+            <i class="icon">👑</i>
+            5+ Odds Daily Tips 
+          </a>
+        </li>
+        <li>
+          <a (click)="navigate('premium/ten')">
+            <i class="icon">👑</i>
+            10+ Odds Daily Tips
+          </a>
+        </li>
+        <li>
+          <a (click)="navigate('premium/twenty')">
+            <i class="icon">👑</i>
+            20+ Odds Daily Tips
+          </a>
+        </li>
+        <li>
+          <a (click)="navigate('premium/vvip')">
+            <i class="icon">👑</i>
+            VVIP Daily Tips
+          </a>
+        </li>
+       
+      </ul>
+    </mat-card>
+    
+  </nav>
+</div>

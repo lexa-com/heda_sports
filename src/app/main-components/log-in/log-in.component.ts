@@ -71,10 +71,17 @@ export class LogInComponent {
       await this.auth.signUp(this.email, this.password);
   
       // Save the user's email directly to Firestore
-      const userDoc = this.firestore.collection('users').doc(this.email); // Using email as the document ID
+      const userDoc = this.firestore.collection('users').doc(this.email);
+
       await userDoc.set({
         email: this.email,  // Only saving the provided email
-        createdAt: new Date(), // Optional: track creation time
+        createdAt: new Date(),
+        ten:`No+${new Date}`,
+        five:`No+${new Date}`,
+        twenty:`No+${new Date}`,
+        vvip:`No+${new Date}`,
+        tipster1:`No+${new Date}`,
+        tipster2:`No+${new Date}`,
       });
       console.log('Email saved in Firestore');
   
