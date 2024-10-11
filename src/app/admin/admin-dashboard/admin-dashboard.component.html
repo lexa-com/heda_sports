@@ -7,9 +7,17 @@
         <span class="card-label">{{totalUsers}}</span>
       </div>
     </div>
-    <div class="card">
+    <div class="card" (click)="navigate()">
         <div class="card-header">
           <span class="card-title">Games</span>
+        </div>
+        <div class="card-body">
+          <span class="card-label"></span>
+        </div>
+      </div>
+    <div class="card" (click)="addGame()">
+        <div class="card-header">
+          <span class="card-title">Add Game</span>
         </div>
         <div class="card-body">
           <span class="card-label"></span>

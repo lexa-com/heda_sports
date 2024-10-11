@@ -1,0 +1,51 @@
+.container-fluid {
+  max-width: 100%;
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.form-item {
+  display: flex;
+  align-items: center;
+  width: 48%;
+}
+
+label {
+  width: 40%; /* Adjust as needed */
+  margin-right: 8px;
+  font-size: 13px;
+}
+
+input.form-control {
+  width: 60%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 8px;
+  font-size: 12px;
+}
+
+button {
+  margin: 10px;
+  width: max-content;
+  align-self: flex-end;
+  font-size: 12px;
+  
+}
+
+.mat-icon {
+  cursor: pointer;
+}
+mat-card{
+  align-items: center;
+}

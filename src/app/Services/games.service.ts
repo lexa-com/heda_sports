@@ -22,5 +22,17 @@ export class GamesService {
       );
   }
 
+  postGame(gameData: any): Observable<any> {
+        
+    return this.http
+      .post<any>(`${this.Url}add/games`, gameData)
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error posting game data:', error);
+          return throwError('Error posting game data');
+        })
+      );
+  }
+
 
 }

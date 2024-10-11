@@ -40,6 +40,7 @@ export class PremiumTwentyComponent implements OnInit {
   fetchGames(){
   this.sharedService.currentArray.subscribe((res)=>{
     this.data = res
+    console.log(res)
   this.overGames = res.filter(item => item.category === "8" && item.date == this.pickedDate)
   this.fixtures = this.overGames
   console.log(this.overGames)

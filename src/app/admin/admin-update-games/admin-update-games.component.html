@@ -1,1 +1,43 @@
-<p>admin-update-games works!</p>
+<br>
+<br>
+
+
+<div class="date">
+<label for="dateofbirth">Date</label>
+<input type="date" name="dateofbirth" id="dateofbirth" (change)="onDateChange($event)">
+</div>
+
+
+<div class="pick">
+<h3> {{pickedDate}} </h3>
+</div>
+
+<table class="football-fixtures">
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>League</th>
+      <th>Match</th>
+      <th>Pick</th>
+      <th>Odds</th>
+      <th>Results</th>
+      <th>Outcome</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let fixture of fixtures">
+      <td (click)="gameDetail(fixture)">{{ fixture.ko }}</td>
+      <td (click)="gameDetail(fixture)">{{fixture.league}}</td>
+      <td (click)="gameDetail(fixture)">{{ fixture.games }}</td>
+      <td (click)="gameDetail(fixture)">{{ fixture.predict }}</td>
+      <td (click)="gameDetail(fixture)">{{ fixture.odds }}</td>
+      <td (click)="gameDetail(fixture)">{{ fixture.result }}</td>
+      <td (click)="gameDetail(fixture)">{{ getVerdictEmoji(fixture.verdict) }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+<br>

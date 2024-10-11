@@ -11,6 +11,7 @@ import { doc, getDoc } from 'firebase/firestore';
 })
 export class AdminDashboardComponent implements OnInit {
 
+
 totalUsers: any;
 userData: any[] = [];
 allUsers: any[] = [];
@@ -42,4 +43,13 @@ userDetails(user: any) {
   this.router.navigate(['user/details'], 
     { queryParams: { userData: user} });
   }
+
+  navigate() {
+    this.router.navigate(['update/games'])
+    }
+
+    addGame(){
+      this.router.navigate(['game/details'], 
+        { queryParams: { category:"add"} });
+    }
 }

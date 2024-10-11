@@ -37,6 +37,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import{AngularFireModule} from '@angular/fire/compat'
 import { FirestoreModule } from '@angular/fire/firestore';
@@ -49,6 +50,7 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminUpdateGamesComponent } from './admin/admin-update-games/admin-update-games.component';
 import { UserProfileComponent } from './main-components/user-profile/user-profile.component';
+import { GameDetailsComponent } from './admin/admin-update-games/game-details/game-details.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,8 @@ import { UserProfileComponent } from './main-components/user-profile/user-profil
     AdminDashboardComponent,
     AdminUsersComponent,
     AdminUpdateGamesComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    GameDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +104,7 @@ import { UserProfileComponent } from './main-components/user-profile/user-profil
     FirestoreModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
+    ReactiveFormsModule
     
 
     

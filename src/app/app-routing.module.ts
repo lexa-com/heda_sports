@@ -17,6 +17,8 @@ import { AwayWinsComponent } from './main-components/away-wins/away-wins.compone
 import { UserProfileComponent } from './main-components/user-profile/user-profile.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AdminUpdateGamesComponent } from './admin/admin-update-games/admin-update-games.component';
+import { GameDetailsComponent } from './admin/admin-update-games/game-details/game-details.component';
 
 const routes: Routes = [
   {
@@ -91,6 +93,14 @@ const routes: Routes = [
       {
         path: 'user/details',
         component: AdminUsersComponent,
+      },
+      {
+        path: 'update/games',
+        component: AdminUpdateGamesComponent,
+      },
+      {
+        path: 'game/details',
+        component: GameDetailsComponent,
       },
     ]
   }
