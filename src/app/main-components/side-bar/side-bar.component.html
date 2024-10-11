@@ -1,7 +1,7 @@
 <div class="sidebar">
   <nav>
     <div class="profile" *ngIf="authenticated">
-      <mat-card>
+      <mat-card (click)="navigate('user/profile')">
         <h5>{{email}}</h5>
         <mat-card class="Package">
           <h6 *ngIf="fiveOdds">5+ Odds Package</h6>

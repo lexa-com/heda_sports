@@ -5,7 +5,8 @@
 }
 mat-drawer {
   background:  rgba(84, 2, 83, 1);
-  width: 250px !important;
+  max-width: 250px !important;
+  width: 20vw;
   overflow: auto !important;
 }
 

@@ -1,0 +1,100 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+}
+
+.profile-card {
+  align-self: center;
+  justify-self: center;
+  background-color: #f0f6f5;
+  border-radius: 10px;
+  padding: 20px;
+  width: 600px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+
+  
+  .profile-info h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .profile-info p {
+    margin: 0;
+    font-size: 12px;
+    color: #888;
+  }
+  
+  .skills h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .skill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+  
+  .progress-bar {
+    width: 60%;
+    background-color: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    
+  }
+  
+  .progress {
+    height: 100%;
+  }
+  
+  .progress.html {
+    width: 100%;
+    background-color: #ff5722;
+  }
+  
+  .progress.css {
+    width: 100%;
+    background-color: #03a9f4;
+  }
+  
+  .progress.javascript {
+    width: 80%;
+    background-color: #ffeb3b;
+  }
+  
+  .tags {
+    margin-top: 8px;
+  }
+  
+  .tags span {
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+  .subs{
+    display: inline-block;
+  }
+  

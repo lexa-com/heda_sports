@@ -1,0 +1,144 @@
+<!-- registration.component.html -->
+<div class="container">
+    <div class="registration-form">
+      <h2>Registration Form</h2>
+      <form (ngSubmit)="onSubmit()">
+  
+        <!-- 5+ Tips Row -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fiveLabel">5+ Tips</label>
+            <input type="text" id="fiveLabel" name="fiveLabel" [(ngModel)]="user.fiveLabel" required>
+          </div>
+          <div class="form-group">
+            <label for="five">Days</label>
+            <input type="text" id="five" name="five" [(ngModel)]="user.five" required>
+          </div>
+          <div class="form-group">
+            <label for="five">Package</label>
+            <select id="five" name="fivePackage" [(ngModel)]="user.fivePackage" required>
+                <option [ngValue]="null" disabled>Select Package</option>
+                <option [ngValue]="8">1 Week</option>
+                <option [ngValue]="15">2 Weeks</option>
+                <option [ngValue]="32">1 Month</option>
+            </select>
+          </div>
+          <button class="form-group" type="button" (click)="logRow('five')">update</button>
+        </div>
+  
+        <!-- 10+ Tips Row -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tenLabel">10+ Tips</label>
+            <input type="text" id="tenLabel" name="tenLabel" [(ngModel)]="user.tenLabel" required>
+          </div>
+          <div class="form-group">
+            <label for="ten">Days</label>
+            <input type="text" id="ten" name="ten" [(ngModel)]="user.ten" required>
+          </div>
+          <div class="form-group">
+            <label for="ten">Package</label>
+            <select id="ten" name="tenPackage" [(ngModel)]="user.tenPackage" required>
+                <option [ngValue]="null" disabled>Select Package</option>
+                <option [ngValue]="8">1 Week</option>
+                <option [ngValue]="15">2 Weeks</option>
+                <option [ngValue]="32">1 Month</option>
+            </select>
+          </div>
+          
+            <button class="form-group" type="button" (click)="logRow('ten')">update</button>
+          
+          
+        </div>
+  
+        <!-- 20+ Tips Row -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="twentyLabel">20+ Tips</label>
+            <input type="text" id="twentyLabel" name="twentyLabel" [(ngModel)]="user.twentyLabel" required>
+          </div>
+          <div class="form-group">
+            <label for="twenty">Days</label>
+            <input type="text" id="twenty" name="twenty" [(ngModel)]="user.twenty" required>
+          </div>
+          <div class="form-group">
+            <label for="twenty">Package</label>
+            <select id="twenty" name="twentyPackage" [(ngModel)]="user.twentyPackage" required>
+                <option [ngValue]="null" disabled>Select Package</option>
+                <option [ngValue]="8">1 Week</option>
+                <option [ngValue]="15">2 Weeks</option>
+                <option [ngValue]="32">1 Month</option>
+              </select>
+              
+          </div>
+          <button class="form-group" type="button" (click)="logRow('twenty')">update</button>
+        </div>
+  
+        <!-- VVIP Tips Row -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="vvipLabel">VVIP Tips</label>
+            <input type="text" id="vvipLabel" name="vvipLabel" [(ngModel)]="user.vvipLabel" required>
+          </div>
+          <div class="form-group">
+            <label for="vvip">Days</label>
+            <input type="text" id="vvip" name="vvip" [(ngModel)]="user.vvip" required>
+          </div>
+          <div class="form-group">
+            <label for="vvip">Package</label>
+            <select id="vvip" name="vvipPackage" [(ngModel)]="user.vvipPackage" required>
+                <option [ngValue]="null" disabled>Select Package</option>
+                <option [ngValue]="8">1 Week</option>
+                <option [ngValue]="15">2 Weeks</option>
+                <option [ngValue]="32">1 Month</option>
+            </select>
+          </div>
+          <button class="form-group" type="button" (click)="logRow('vvip')"> update</button>
+        </div>
+  
+        <!-- Liam Tips Row -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tipster1Label">Liam Tips</label>
+            <input type="text" id="tipster1Label" name="tipster1Label" [(ngModel)]="user.tipster1Label" required>
+          </div>
+          <div class="form-group">
+            <label for="tipster1">Days</label>
+            <input type="text" id="tipster1" name="tipster1" [(ngModel)]="user.tipster1" required>
+          </div>
+          <div class="form-group">
+            <label for="tipster1">Package</label>
+            <select id="tipster1" name="tipster1Package" [(ngModel)]="user.tipster1Package" required>
+                <option [ngValue]="null" disabled>Select Package</option>
+                <option [ngValue]="15">2 Weeks</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+          <button class="form-group" type="button" (click)="logRow('tipster1')">update</button>
+        </div>
+  
+        <!-- Andrew Tips Row -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tipster2Label">Andrew Tips</label>
+            <input type="text" id="tipster2Label" name="tipster2Label" [(ngModel)]="user.tipster2Label" required>
+          </div>
+          <div class="form-group">
+            <label for="tipster2">Days</label>
+            <input type="text" id="tipster2" name="tipster2" [(ngModel)]="user.tipster2" required>
+          </div>
+          <div class="form-group">
+            <label for="tipster2">Package</label>
+            <select id="tipster2" name="tipster2Package" [(ngModel)]="user.tipster2Package" required>
+                <option [ngValue]="null" disabled>Select Package</option>
+                <option [ngValue]="15">2 Weeks</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+          <button class="form-group" type="button" (click)="logRow('tipster2')">update</button>
+        </div>
+  
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,34 @@
+<div class="card-container">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Users</span>
+      </div>
+      <div class="card-body">
+        <span class="card-label">{{totalUsers}}</span>
+      </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+          <span class="card-title">Games</span>
+        </div>
+        <div class="card-body">
+          <span class="card-label"></span>
+        </div>
+      </div>
+    
+  </div>
+
+  <table class="football-fixtures">
+    <thead>
+      <tr>
+        <th>Email</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of allUsers">
+        <td (click)="userDetails(user)">{{ user.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+  

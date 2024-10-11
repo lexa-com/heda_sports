@@ -24,4 +24,11 @@
   .contact-button {
     text-transform: none; /* To keep the text as it is, without uppercasing */
   }
-  
+  .admin{
+    background-color: yellowgreen;
+    padding: 4px;
+  }
+  mat-icon{
+    color: black;
+    font-weight: 100;
+  }

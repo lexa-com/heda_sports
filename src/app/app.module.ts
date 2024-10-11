@@ -45,6 +45,10 @@ import { environment } from '../environments/environment';
 import { PremiumHomeComponent } from './main-components/premium-home/premium-home.component';
 import { PremiumPaywallComponent } from './main-components/paywalls/premium-paywall/premium-paywall.component';
 import { TipsterPaywallComponent } from './main-components/paywalls/tipster-paywall/tipster-paywall.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AdminUpdateGamesComponent } from './admin/admin-update-games/admin-update-games.component';
+import { UserProfileComponent } from './main-components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +74,11 @@ import { TipsterPaywallComponent } from './main-components/paywalls/tipster-payw
     LandingPageComponent,
     PremiumHomeComponent,
     PremiumPaywallComponent,
-    TipsterPaywallComponent
+    TipsterPaywallComponent,
+    AdminDashboardComponent,
+    AdminUsersComponent,
+    AdminUpdateGamesComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

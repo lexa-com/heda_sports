@@ -86,7 +86,7 @@ export class PremiumTenComponent implements OnInit {
 
   checkSubscription(){
     this.sharedService.userArray.subscribe((res)=>{
-      const subscrib = res[0].five.split('+')[0]
+      const subscrib = res[0].ten.split('+')[0]
       if (subscrib =='Yes'){
         this.authenticated = false
       }

@@ -14,6 +14,9 @@ import { PremiumFiveComponent } from './main-components/premium-five/premium-fiv
 import { SpecialTipsComponent } from './main-components/special-tips/special-tips.component';
 import { HomeWinsComponent } from './main-components/home-wins/home-wins.component';
 import { AwayWinsComponent } from './main-components/away-wins/away-wins.component';
+import { UserProfileComponent } from './main-components/user-profile/user-profile.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 
 const routes: Routes = [
   {
@@ -76,6 +79,18 @@ const routes: Routes = [
       {
         path: 'premium/vvip',
         component: PremiumVvipComponent,
+      },
+      {
+        path: 'user/profile',
+        component: UserProfileComponent,
+      },
+      {
+        path: 'malenge',
+        component: AdminDashboardComponent,
+      },
+      {
+        path: 'user/details',
+        component: AdminUsersComponent,
       },
     ]
   }
