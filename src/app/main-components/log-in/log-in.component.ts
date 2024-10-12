@@ -64,6 +64,7 @@ fiveDays: any;
     // Call the auth service and handle the returned Promise
     this.auth.logIn(this.email, this.password)
       .then(() => {
+        console.log(this.email)
         this.sendAuthStatus(['authenticated',this.email])
         this.email = '';
         this.password = '';

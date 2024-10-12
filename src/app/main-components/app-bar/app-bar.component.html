@@ -14,7 +14,7 @@
     <a mat-button (click)="navigate('/premium/ten')">About Us</a>
   </span>
   <span class="spacer"></span>
-  <mat-card class="admin" (click)="navigate('malenge')">
+  <mat-card *ngIf="admin" class="admin" (click)="navigate('malenge')">
     <span><mat-icon>settings</mat-icon> </span>
   </mat-card>
 

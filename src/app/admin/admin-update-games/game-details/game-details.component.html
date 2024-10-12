@@ -77,9 +77,12 @@
         <button (click)="submitGame()" *ngIf="addGame" mat-raised-button type="submit" class="bg-primary text-white">
           Add
         </button>
-        <button *ngIf="modifyGame" mat-raised-button type="button" class="bg-secondary text-white">
+        <button (click)="updateGame()" *ngIf="modifyGame" mat-raised-button type="button" class="bg-secondary text-white">
           Modify
         </button>
+        <button (click)="openDialog()" *ngIf="modifyGame" mat-raised-button type="button" class="bg-secondary text-white">
+            Delete
+          </button>
       
     </form>
   </div>

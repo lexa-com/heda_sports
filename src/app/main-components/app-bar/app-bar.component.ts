@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class AppBarComponent implements OnInit {
   authenticated: any = false;
   notAuthenticated: any = true;
+  admin: any = false;
   
     constructor(private auth : AuthService,
       private shared : SharedService,
@@ -24,7 +25,11 @@ export class AppBarComponent implements OnInit {
   
     checkAuth(){
    this.shared.currentAuthStatus.subscribe((res)=>{
-    console.log(res)
+    console.log(res[1])
+    if (res[1]=="heda.admin@gmail.com"){
+      this.admin = true
+    }
+    
     if (res[0] == null){
       this.authenticated = false
       this.notAuthenticated = true
@@ -36,7 +41,7 @@ export class AppBarComponent implements OnInit {
     } else if (res[0] == 'null'){
       this.authenticated = false
       this.notAuthenticated = true
-    }
+    } 
   })
   
     }

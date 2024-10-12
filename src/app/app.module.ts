@@ -51,6 +51,7 @@ import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminUpdateGamesComponent } from './admin/admin-update-games/admin-update-games.component';
 import { UserProfileComponent } from './main-components/user-profile/user-profile.component';
 import { GameDetailsComponent } from './admin/admin-update-games/game-details/game-details.component';
+import { AdminNotifComponent } from './admin/admin-notif/admin-notif.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { GameDetailsComponent } from './admin/admin-update-games/game-details/ga
     AdminUsersComponent,
     AdminUpdateGamesComponent,
     UserProfileComponent,
-    GameDetailsComponent
+    GameDetailsComponent,
+    AdminNotifComponent
   ],
   imports: [
     BrowserModule,

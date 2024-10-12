@@ -34,5 +34,27 @@ export class GamesService {
       );
   }
 
+  updateGame(gameId: string, updatedGameData: any): Observable<any> {
+    return this.http
+      .put<any>(`${this.Url}modify?id=${gameId}`, updatedGameData)
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error updating game:', error);
+          return throwError('Error updating game');
+        })
+      );
+  }
+  
+  deleteGame(gameId: string): Observable<any> {
+    return this.http
+      .delete<any>(`${this.Url}delete/game?id=${gameId}`)
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error deleting game:', error);
+          return throwError('Error deleting game');
+        })
+      );
+  }
+  
 
 }
