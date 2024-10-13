@@ -1,32 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { GamesService } from '../../Services/games.service';
 
 @Component({
   selector: 'app-tipsters-details',
   templateUrl: './tipsters-details.component.html',
-  styleUrl: './tipsters-details.component.css'
+  styleUrls: ['./tipsters-details.component.css']
 })
-export class TipstersDetailsComponent {
+export class TipstersDetailsComponent implements OnInit {
 
-  matchDays = [
-    {
-      date: new Date('2024-10-04'),
-      matches: [
-        { team1: 'Jong AZ Alkmaar', team2: 'FC Eindhoven', tip: '-2.5', odds: 2.20, tipWin: true },
-        { team1: 'Jong Utrecht', team2: 'Telstar', tip: 'BTS', odds: 1.65, tipWin: true },
-        { team1: 'Helmond Sport', team2: 'Jong Ajax', tip: 'BTS', odds: 1.75, tipWin: false },
-        { team1: 'Dordrecht', team2: 'Jong PSV', tip: '+2.5', odds: 1.35, tipWin: true },
-        { team1: 'Vitesse', team2: 'Volendam', tip: '-2.5', odds: 2.40, tipWin: false }
-      ]
-    },
-    {
-      date: new Date('2024-10-03'),
-      matches: [
-        { team1: 'Slavia Prague', team2: 'Ajax', tip: 'BTS', odds: 1.90, tipWin: true },
-        { team1: 'Omonia Nicosia', team2: 'Vikingur Reykjavik', tip: '+2.5', odds: 1.69, tipWin: true },
-        { team1: 'Hoffenheim', team2: 'Dynamo Kiev', tip: '-2.5', odds: 2.29, tipWin: false },
-        { team1: 'Shamrock Rovers', team2: 'APOEL Nicosia', tip: 'BTS', odds: 1.90, tipWin: true },
-        { team1: 'Union Saint-Gilloise', team2: 'Bodo/Glimt', tip: '-2.5', odds: 2.22, tipWin: false }
-      ]
+  matchDays: any[] = [];
+
+  constructor(private gamesService: GamesService) {}
+
+    ngOnInit(): void {
+      const category = 'tipster2'; // Replace with your actual category
+  
+      this.gamesService.getAllMatchDays(category).subscribe((matchDays: any[]) => {
+        // Get today's date for comparison
+        const today = new Date();
+        
+        // Format today's date to dd-mm-yyyy
+        const formattedToday = this.formatDateToDDMMYYYY(today);
+        
+        // Filter out matchDays where the date is today or in the future
+        this.matchDays = matchDays
+          .filter(day => day.date == formattedToday) // Remove today and beyond
+          .reverse();  // Optionally reverse the array order
+  
+        console.log('Filtered matchDays:', this.matchDays);  // Check the structure
+      });
     }
-  ];
-}
+  
+    // Helper method to format date to dd-mm-yyyy
+    formatDateToDDMMYYYY(date: Date): string {
+      const day = String(date.getDate()).padStart(2, '0'); // Get day and pad with leading zero
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Get month (0-based, so add 1) and pad
+      const year = date.getFullYear(); // Get full year
+  
+      return `${day}-${month}-${year}`; // Return formatted string
+    }
+  }

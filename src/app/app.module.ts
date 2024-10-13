@@ -38,6 +38,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 import{AngularFireModule} from '@angular/fire/compat'
 import { FirestoreModule } from '@angular/fire/firestore';
@@ -52,6 +53,10 @@ import { AdminUpdateGamesComponent } from './admin/admin-update-games/admin-upda
 import { UserProfileComponent } from './main-components/user-profile/user-profile.component';
 import { GameDetailsComponent } from './admin/admin-update-games/game-details/game-details.component';
 import { AdminNotifComponent } from './admin/admin-notif/admin-notif.component';
+import { ContactsComponent } from './main-components/contacts/contacts.component';
+import { TipsterGamesComponent } from './admin/tipster-games/tipster-games.component';
+import { TipsterAddGamesComponent } from './admin/tipster-add-games/tipster-add-games.component';
+import { TipsterGameUpdateComponent } from './admin/tipster-games/tipster-game-update/tipster-game-update.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +88,11 @@ import { AdminNotifComponent } from './admin/admin-notif/admin-notif.component';
     AdminUpdateGamesComponent,
     UserProfileComponent,
     GameDetailsComponent,
-    AdminNotifComponent
+    AdminNotifComponent,
+    ContactsComponent,
+    TipsterGamesComponent,
+    TipsterAddGamesComponent,
+    TipsterGameUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +115,8 @@ import { AdminNotifComponent } from './admin/admin-notif/admin-notif.component';
     FirestoreModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule
     
 
     

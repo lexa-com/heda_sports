@@ -10,7 +10,7 @@ body {
 
 .sidebar {
   max-width: 250px;
-  height: 100vh;
+  
   background-color: #f8f9fa;
   padding: 20px;
   border-right: 1px solid #ddd;

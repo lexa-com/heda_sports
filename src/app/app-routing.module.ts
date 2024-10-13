@@ -19,6 +19,11 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminUpdateGamesComponent } from './admin/admin-update-games/admin-update-games.component';
 import { GameDetailsComponent } from './admin/admin-update-games/game-details/game-details.component';
+import { ServicesOfferedComponent } from './main-components/services-offered/services-offered.component';
+import { ContactsComponent } from './main-components/contacts/contacts.component';
+import { TipsterAddGamesComponent } from './admin/tipster-add-games/tipster-add-games.component';
+import { TipsterGamesComponent } from './admin/tipster-games/tipster-games.component';
+import { TipsterGameUpdateComponent } from './admin/tipster-games/tipster-game-update/tipster-game-update.component';
 
 const routes: Routes = [
   {
@@ -102,9 +107,30 @@ const routes: Routes = [
         path: 'game/details',
         component: GameDetailsComponent,
       },
+      {
+        path: 'services',
+        component: ServicesOfferedComponent,
+      },
+      {
+        path: 'contacts',
+        component: ContactsComponent,
+      },
+      {
+        path: 'update/tipster',
+        component: TipsterAddGamesComponent,
+      },
+      {
+        path: 'update/tipster/games',
+        component: TipsterGamesComponent,
+      },
+      {
+        path: 'tipster/game',
+        component: TipsterGameUpdateComponent,
+      },
     ]
   }
 ];
+
 
 
 @NgModule({

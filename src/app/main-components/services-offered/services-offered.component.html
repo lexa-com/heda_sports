@@ -1,1 +1,16 @@
-<p>services-offered works!</p>
+<div class="card-container">
+  <div class="card" *ngFor="let service of services" 
+       [ngClass]="{
+         'free-card': service.tier === 'Free',
+         'paid-card': service.tier === 'Paid Subscription',
+         'custom-card': service.tier === 'Custom Subscription'
+       }"
+       (click)="onCardClick(service)">
+    <h2>{{ service.name }}</h2>
+    <p class="tier">{{ service.tier }}</p>
+    <ul>
+      <li *ngFor="let feature of service.features">{{ feature }}</li>
+    </ul>
+    <p class="price">{{ service.price === 0 ? '$0/month' : service.price }}</p>
+  </div>
+</div>

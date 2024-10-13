@@ -1,0 +1,86 @@
+
+<mat-card><h5> ttt</h5></mat-card>
+
+
+<div class="container-fluid">
+    <form [formGroup]="formData" (ngSubmit)="onSubmit()" novalidate class="form">
+      <div class="form-row">
+        <!-- ATM GL -->
+        <div class="form-item">
+          <label for="" class="start">Date <span class="text-danger">*</span></label>
+          <input type="text" formControlName="date" class="form-control" />
+                  </div>
+  
+        <!-- Sol code -->
+        <div class="form-item">
+          <label for="" class="start">Kick Off <span class="text-danger">*</span></label>
+          <input type="text" formControlName="ko" class="form-control" />
+        </div>
+      </div>
+  
+      <div class="form-row">
+        <!-- Profile Name -->
+        <div class="form-item">
+          <label for="" class="start">League <span class="text-danger">*</span></label>
+          <input type="text" formControlName="league" class="form-control" />
+        </div>
+  
+        <!-- Location -->
+       
+      </div>
+  
+      <div class="form-row">
+        <!-- Tcp Port -->
+        <div class="form-item">
+          <label for="" class="start">Games</label>
+          <input type="text" formControlName="games" class="form-control" />
+        </div>
+  
+        <!-- IP Address -->
+        <div class="form-item">
+          <label for="" class="start">Prediction</label>
+          <input type="text" formControlName="predict" class="form-control" />
+        </div>
+      </div>
+  
+      <div class="form-row">
+        <!-- Terminal Master Key -->
+        <div class="form-item">
+          <label for="" class="start">Odds</label>
+          <input type="text" formControlName="odds" class="form-control" />
+        </div>
+  
+        <!-- Terminal Pin Key -->
+        <div class="form-item">
+          <label for="" class="start">Category</label>
+          <input type="text" formControlName="category" class="form-control" />
+        </div>
+      </div>
+  
+      <div class="form-row">
+        <!-- Vendor Name -->
+        <div class="form-item">
+          <label for="" class="start">Result</label>
+          <input type="text" formControlName="result" class="form-control" />
+        </div>
+        <div class="form-item">
+            <label for="" class="start">verdict</label>
+            <input type="text" formControlName="verdict" class="form-control" />
+          </div>
+      </div>
+      <br>
+      <br>
+      <br>
+  
+      <!-- Submit and Back Buttons -->
+      
+        <button (click)="updateGame()"  mat-raised-button type="button" class="bg-secondary text-white">
+          Modify
+        </button>
+        <button (click)="openDialog()"  mat-raised-button type="button" class="bg-secondary text-white">
+            Delete
+          </button>
+      
+    </form>
+  </div>
+  

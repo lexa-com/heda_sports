@@ -56,4 +56,6 @@ export class AuthService {
       this.snackBar.open(err.message, '', { duration: 3000 });  // Error notification
     });
   }
+
+  
 }

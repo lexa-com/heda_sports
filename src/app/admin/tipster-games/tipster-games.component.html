@@ -1,0 +1,51 @@
+<form [formGroup]="formCategory" (ngSubmit)="onCategorySubmit()" novalidate class="form">
+  <div class="form-item">
+    <label for="" class="start">Category</label>
+    <mat-form-field appearance="fill">
+      <mat-select formControlName="category">
+        <mat-option value="tipster1">Liam</mat-option>
+        <mat-option value="tipster2">Andrew</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+  </div>
+  <div class="form-item">
+    <label for="" class="start">Date</label>
+    <input type="text" formControlName="date" class="form-control" />
+  </div>
+  
+  <button mat-raised-button type="submit" class="bg-primary text-white">
+    Get Games
+  </button>
+</form>
+<br>
+<br>
+
+
+<table class="football-fixtures">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>League</th>
+        <th>Match</th>
+        <th>Pick</th>
+        <th>Odds</th>
+        <th>Results</th>
+        <th>Outcome</th>
+        <th>Edit</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fixture of fixtures">
+        <td>{{ fixture.ko }}</td>
+        <td>{{fixture.league}}</td>
+        <td>{{ fixture.games }}</td>
+        <td>{{ fixture.predict }}</td>
+        <td>{{ fixture.odds }}</td>
+        <td>{{ fixture.result }}</td>
+        <td>{{ fixture.verdict}}</td>
+        <td><span (click)="editGame(fixture)">Edit</span></td>
+      </tr>
+    </tbody>
+  </table>
