@@ -25,6 +25,7 @@ import { TipsterAddGamesComponent } from './admin/tipster-add-games/tipster-add-
 import { TipsterGamesComponent } from './admin/tipster-games/tipster-games.component';
 import { TipsterGameUpdateComponent } from './admin/tipster-games/tipster-game-update/tipster-game-update.component';
 import { AuthGuard } from './Auth/auth.guard';
+import { PrivacyPolicyComponent } from './admin/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {
@@ -119,6 +120,10 @@ const routes: Routes = [
       {
         path: 'contacts',
         component: ContactsComponent,
+      },
+      {
+        path: 'news',
+        component: PrivacyPolicyComponent,
       },
       {
         path: 'update/tipster',

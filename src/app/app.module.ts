@@ -57,6 +57,7 @@ import { ContactsComponent } from './main-components/contacts/contacts.component
 import { TipsterGamesComponent } from './admin/tipster-games/tipster-games.component';
 import { TipsterAddGamesComponent } from './admin/tipster-add-games/tipster-add-games.component';
 import { TipsterGameUpdateComponent } from './admin/tipster-games/tipster-game-update/tipster-game-update.component';
+import { PrivacyPolicyComponent } from './admin/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { TipsterGameUpdateComponent } from './admin/tipster-games/tipster-game-u
     ContactsComponent,
     TipsterGamesComponent,
     TipsterAddGamesComponent,
-    TipsterGameUpdateComponent
+    TipsterGameUpdateComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,
