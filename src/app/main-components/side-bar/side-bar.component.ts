@@ -39,7 +39,6 @@ andrewOdds: boolean = false;
       
       if (subscrib =='Yes'){
         this.fiveOdds = true
-        console.log('sawa')
       }
       if (subscribten =='Yes'){
         this.tenOdds = true
@@ -63,7 +62,7 @@ andrewOdds: boolean = false;
   checkAuth(){
     this.sharedService.currentAuthStatus.subscribe((res)=>{
        if (res.length == 0){
-            console.log('not authenticated')
+           
        } else {
         this.authenticated = true
         this.checkSubscription()
@@ -75,7 +74,6 @@ andrewOdds: boolean = false;
   }
 
   navigate(link:string){
-    console.log('clicked')
    this.router.navigate([`${link}`])
 
   }

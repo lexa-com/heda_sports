@@ -48,7 +48,6 @@ checkAuth(){
 
   getSupscriptions() {
     this.shared.userArray.subscribe((res)=>{
-      console.log(res)
       this.user = res[0]
       this.email = this.user.email
       this.fivestatus = this.user.five.split('+')[0]

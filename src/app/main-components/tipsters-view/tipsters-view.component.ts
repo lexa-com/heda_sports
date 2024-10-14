@@ -38,7 +38,7 @@ tipsterTwo: boolean = false;
   openDialog(name:string,price:string,id:string){
 
     this.sharedService.currentAuthStatus.subscribe((res)=>{
-      console.log(res)
+      
       if (res[0]=='authenticated') {
        const dialogRef = this.dialog.open(TipsterPaywallComponent, {
        width: '440px',

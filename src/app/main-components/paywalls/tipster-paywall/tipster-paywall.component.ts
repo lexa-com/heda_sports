@@ -31,8 +31,7 @@ userData: any;
 ngOnInit(): void {
   this.setUpPage()
   this.prepareReceipt()
-  console.log(this.Data.email)
-    
+      
   }
 
   cancelTransaction() {
@@ -96,7 +95,7 @@ ngOnInit(): void {
   
       // Update the document with the updated data
       await userDocRef.update(updatedData);  
-      console.log('User data updated successfully');
+      
       this.readUserData(email)
     } catch (error) {
       console.error('Error updating user data:', error);
@@ -110,7 +109,7 @@ ngOnInit(): void {
       if (userDocSnapshot.exists()) {
         this.userData = userDocSnapshot.data(); // Retrieve document data
         this.sendUserArray([this.userData])
-        console.log('User data retrieved:', this.userData);
+        
       } else {
         console.log('No user found with this email.');
       }

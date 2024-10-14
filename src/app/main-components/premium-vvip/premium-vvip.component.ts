@@ -53,7 +53,7 @@ export class PremiumVvipComponent implements OnInit {
     this.data = res
   this.overGames = res.filter(item => item.category === "14" && item.date == this.pickedDate)
   this.fixtures = this.overGames
-  console.log(this.overGames)
+  
   })
   
   }
@@ -65,7 +65,7 @@ export class PremiumVvipComponent implements OnInit {
     const formattedDate = this.formatDate(selectedDate);
     this.pickedDate = formattedDate
     this.fixtures = this.data.filter(item => item.date == formattedDate && item.category =="14")
-    console.log('Formatted date:', formattedDate);
+    
   }
   
   formatDate(date: Date): string {
@@ -79,7 +79,7 @@ export class PremiumVvipComponent implements OnInit {
   setTodayDate(): void {
     const today = new Date(); // Get today's date
     this.pickedDate = this.formatDate(today); // Format and set pickedDate
-    //console.log('Today\'s date formatted:', this.pickedDate); // Log today's date
+    
   }
   
   getVerdictEmoji(verdict: string): string {
@@ -137,7 +137,7 @@ export class PremiumVvipComponent implements OnInit {
   
         // Handle dialog close and trigger actions
         dialogRef.afterClosed().subscribe((result) => {
-          console.log('Dialog was closed');
+          
           this.ngOnInit(); // Call the method after dialog close
         });
   

@@ -22,7 +22,7 @@ export class AppBarComponent implements OnInit {
     }
     ngOnInit(): void {
       this.checkAuth()
-      this.checkUser()
+      
     }
     checkAuth(){
    this.shared.currentAuthStatus.subscribe((res)=>{
@@ -34,6 +34,7 @@ export class AppBarComponent implements OnInit {
     } else if (res[0] == 'authenticated'){
       this.authenticated = true
       this.notAuthenticated = false
+      this.checkUser()
   
     } else if (res[0] == 'null'){
       this.authenticated = false
@@ -45,7 +46,6 @@ export class AppBarComponent implements OnInit {
     checkUser(){
       this.shared.userArray.subscribe((res)=>{
         this.user = res
-        console.log(this.user)
         if (this.user[0].admin =='Yes'){
           this.admin = true
         }

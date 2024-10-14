@@ -48,7 +48,6 @@ this.sendArray(this.fixtures)
 getVipGames(){
   this.vipService.getGames().subscribe((res)=>{
     this.Vipfixtures = res
-    console.log(res,"vip")
     this.sendVipArray(this.Vipfixtures)
       
     })
@@ -69,7 +68,7 @@ getUserInfo(){
 this.sharedService.currentAuthStatus.subscribe((res)=>{
 
   if (res.length == 0){
-     console.log('not authenticated')
+     
   } else {
     const email = res[1]
     this.readUserData(email)
@@ -88,12 +87,12 @@ async readUserData(email: string) {
     if (userDocSnapshot.exists()) {
       this.userData = userDocSnapshot.data(); // Retrieve document data
       this.sendUserArray([this.userData])
-      console.log('User data retrieved:', this.userData);
+      
     } else {
       console.log('No user found with this email.');
     }
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    
   }
 }
 
@@ -104,11 +103,7 @@ getTip2(){
     this.matchDays2 = matchDays
       .reverse(); 
 
-      this.sendTip2Array(this.matchDays2)
-
-      console.log(this.matchDays2,'tip 2')
-
-    
+      this.sendTip2Array(this.matchDays2)    
   });
 
 }
@@ -119,9 +114,6 @@ getTip1(){
     this.matchDays = matchDays
       .reverse(); 
    this.sendTip1Array(this.matchDays)
-
-   console.log(this.matchDays,'tip 1')
-    
   });
 
 }

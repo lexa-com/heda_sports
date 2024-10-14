@@ -33,8 +33,7 @@ userData: any;
 ngOnInit(): void {
   this.setUpPage()
   this.prepareReceipt()
-  console.log(this.Data.email)
-    
+      
   }
 
   cancelTransaction() {
@@ -174,9 +173,9 @@ if (this.Data.message == 'month'&& this.Data.category == 'vvip'){
       // Update the document with the updated data
       await userDocRef.update(updatedData);  
       this.readUserData(email)
-      console.log('User data updated successfully');
+      
     } catch (error) {
-      console.error('Error updating user data:', error);
+      
     }
   }
   
@@ -188,7 +187,7 @@ if (this.Data.message == 'month'&& this.Data.category == 'vvip'){
       if (userDocSnapshot.exists()) {
         this.userData = userDocSnapshot.data(); // Retrieve document data
         this.sendUserArray([this.userData])
-        console.log('User data retrieved:', this.userData);
+        
       } else {
         console.log('No user found with this email.');
       }

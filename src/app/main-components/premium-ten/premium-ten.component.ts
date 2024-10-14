@@ -52,7 +52,7 @@ export class PremiumTenComponent implements OnInit {
     this.data = res
   this.overGames = res.filter(item => item.category === "12" && item.date == this.pickedDate)
   this.fixtures = this.overGames
-  console.log(this.overGames)
+  
   })
   
   }
@@ -64,7 +64,7 @@ export class PremiumTenComponent implements OnInit {
     const formattedDate = this.formatDate(selectedDate);
     this.pickedDate = formattedDate
     this.fixtures = this.data.filter(item => item.date == formattedDate && item.category =="12")
-    console.log('Formatted date:', formattedDate);
+    
   }
   
   formatDate(date: Date): string {
@@ -123,7 +123,7 @@ export class PremiumTenComponent implements OnInit {
 
   openDialog(message: string) {
     this.sharedService.currentAuthStatus.subscribe((res) => {
-      console.log(res);
+      
       if (res[0] === 'authenticated') {
         const dialogRef = this.dialog.open(PremiumPaywallComponent, {
           width: '440px',
@@ -137,7 +137,6 @@ export class PremiumTenComponent implements OnInit {
   
         // Handle dialog close and trigger actions
         dialogRef.afterClosed().subscribe((result) => {
-          console.log('Dialog was closed');
           this.ngOnInit(); // Call the method after dialog close
         });
   

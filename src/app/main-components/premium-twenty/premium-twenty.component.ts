@@ -53,7 +53,7 @@ export class PremiumTwentyComponent implements OnInit {
     this.data = res
   this.overGames = res.filter(item => item.category === "13" && item.date == this.pickedDate)
   this.fixtures = this.overGames
-  console.log(this.overGames)
+  
   })
   
   }
@@ -65,7 +65,7 @@ export class PremiumTwentyComponent implements OnInit {
     const formattedDate = this.formatDate(selectedDate);
     this.pickedDate = formattedDate
     this.fixtures = this.data.filter(item => item.date == formattedDate && item.category =="13")
-    console.log('Formatted date:', formattedDate);
+    
   }
   
   formatDate(date: Date): string {
@@ -137,7 +137,7 @@ export class PremiumTwentyComponent implements OnInit {
   
         // Handle dialog close and trigger actions
         dialogRef.afterClosed().subscribe((result) => {
-          console.log('Dialog was closed');
+          
           this.ngOnInit(); // Call the method after dialog close
         });
   
