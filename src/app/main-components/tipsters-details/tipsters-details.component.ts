@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from '../../Services/games.service';
+import { Router } from '@angular/router';
+import { SharedService } from '../../Services/shared.service';
 
 @Component({
   selector: 'app-tipsters-details',
@@ -9,26 +11,54 @@ import { GamesService } from '../../Services/games.service';
 export class TipstersDetailsComponent implements OnInit {
 
   matchDays: any[] = [];
+  gameData: any;
 
-  constructor(private gamesService: GamesService) {}
+  constructor(private gamesService: GamesService,
+    private router:Router,
+    private sharedService:SharedService
+  ) {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation && navigation.extras && navigation.extras.queryParams) {
+      this.gameData = navigation.extras.queryParams['tipster'];
+  
+    } else {
+      this.gameData = null;
+      
+    } 
+  }
+
+
+  getTip2(){
+    this.sharedService.tipster2Array.subscribe((matchDays: any[]) => {
+      const today = new Date();
+      const formattedToday = this.formatDateToDDMMYYYY(today);
+      this.matchDays = matchDays
+        .filter(day => day.date < formattedToday)
+        .reverse(); 
+    });
+
+  }
+  getTip1(){
+  
+    this.sharedService.tipster1Array.subscribe((matchDays: any[]) => {
+      const today = new Date();
+      const formattedToday = this.formatDateToDDMMYYYY(today);
+      this.matchDays = matchDays
+        .filter(day => day.date < formattedToday)
+        .reverse();
+    });
+
+  }
 
     ngOnInit(): void {
-      const category = 'tipster2'; // Replace with your actual category
-  
-      this.gamesService.getAllMatchDays(category).subscribe((matchDays: any[]) => {
-        // Get today's date for comparison
-        const today = new Date();
-        
-        // Format today's date to dd-mm-yyyy
-        const formattedToday = this.formatDateToDDMMYYYY(today);
-        
-        // Filter out matchDays where the date is today or in the future
-        this.matchDays = matchDays
-          .filter(day => day.date == formattedToday) // Remove today and beyond
-          .reverse();  // Optionally reverse the array order
-  
-        console.log('Filtered matchDays:', this.matchDays);  // Check the structure
-      });
+
+      if(this.gameData =='tip1'){
+        this.getTip1()
+      }
+      if (this.gameData=='tip2'){
+        this.getTip2()
+      }
+      
     }
   
     // Helper method to format date to dd-mm-yyyy

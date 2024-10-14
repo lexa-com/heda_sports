@@ -18,6 +18,8 @@ export class PremiumTwentyComponent implements OnInit {
     data: any[]=[];
     authenticated:boolean = true
     subscribed:boolean = true
+    subscription:boolean = true
+    hideDate:boolean = true
     loggedIn:string = ''
     dialogConfig: MatDialogConfig<any> | undefined;
   
@@ -29,19 +31,27 @@ export class PremiumTwentyComponent implements OnInit {
     ) { }
   
   ngOnInit(): void {
-    this.checkAuth()
+    //this.checkSubscription()
     this.setTodayDate()
-    this.fetchGames()
     this.dialogConfig = new MatDialogConfig();
+    this.checkAuth()
+  }
+
+  getOlderGames(){
     
+    this.sharedService.vipArray.subscribe((res)=>{
+      this.data = res
+    this.overGames = res.filter(item => item.category === "13" && item.date < this.pickedDate)
+    this.fixtures = this.overGames
+    
+    })
   }
   
   
   fetchGames(){
-  this.sharedService.currentArray.subscribe((res)=>{
+  this.sharedService.vipArray.subscribe((res)=>{
     this.data = res
-    console.log(res)
-  this.overGames = res.filter(item => item.category === "8" && item.date == this.pickedDate)
+  this.overGames = res.filter(item => item.category === "13" && item.date == this.pickedDate)
   this.fixtures = this.overGames
   console.log(this.overGames)
   })
@@ -54,7 +64,7 @@ export class PremiumTwentyComponent implements OnInit {
     
     const formattedDate = this.formatDate(selectedDate);
     this.pickedDate = formattedDate
-    this.fixtures = this.data.filter(item => item.date == formattedDate && item.category ==="8")
+    this.fixtures = this.data.filter(item => item.date == formattedDate && item.category =="13")
     console.log('Formatted date:', formattedDate);
   }
   
@@ -89,7 +99,13 @@ export class PremiumTwentyComponent implements OnInit {
     this.sharedService.userArray.subscribe((res)=>{
       const subscrib = res[0].twenty.split('+')[0]
       if (subscrib =='Yes'){
+        this.authenticated = true
+        this.subscription = false
+        this.fetchGames()
+      }else{
+        this.getOlderGames()
         this.authenticated = false
+        this.hideDate = false
       }
     })
   }
@@ -97,7 +113,9 @@ export class PremiumTwentyComponent implements OnInit {
   checkAuth(){
     this.sharedService.currentAuthStatus.subscribe((res)=>{
        if (res.length == 0){
-            console.log('not authenticated')
+        this.getOlderGames()
+        this.hideDate = false
+
        } else {
         this.checkSubscription()
        }
@@ -106,10 +124,10 @@ export class PremiumTwentyComponent implements OnInit {
 
   openDialog(message: string) {
     this.sharedService.currentAuthStatus.subscribe((res) => {
-      console.log(res);
       if (res[0] === 'authenticated') {
         const dialogRef = this.dialog.open(PremiumPaywallComponent, {
           width: '440px',
+          height:'1000px',
           data: {
             message: message, // category
             email: res[1],    // email

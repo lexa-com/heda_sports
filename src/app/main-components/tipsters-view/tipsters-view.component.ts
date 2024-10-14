@@ -18,68 +18,18 @@ tipsterTwo: boolean = false;
   subscription: any;
   subscriptionOne: any;
   subscriptionTwo: any;
+  matchDays: any[] = [];
+  matchDays2: any[] = [];
 
   constructor(
-    private dataService: GamesService,
+    private gamesService: GamesService,
     private router: Router,
     private sharedService: SharedService,
     private firestore: AngularFirestore,
     private dialog: MatDialog,
     ) { }
  
-  tipsters = [
-    {
-      countryFlag: '🏴', // Emoji flag for country
-      name: 'Liam Reese',
-      id:'tipster1',
-      date: new Date('2024-10-04'),
-      results: [
-        { team1: 'Dordrecht', team2: 'Jong PSV Eindhoven', tip: '-2.5', odd: 2.40 },
-        { team1: 'Vitesse', team2: 'Volendam', tip: '-2.5', odd: 2.40 },
-        { team1: 'Slavia Prague', team2: 'Ajax', tip: 'BTS', odd: 1.90 },
-        { team1: 'Omonia Nicosia', team2: 'Vikingur Reykjavik', tip: '+2.5', odd: 1.69 }
-      ],
-      form: '17/10',
-      success: 71,
-      avgOdd: 1.73,
-      price1Week: 119.00,
-      price2Weeks: 179.00
-    },
-    {
-      countryFlag: '🚩',
-      name: 'Andrew Wilson',
-      id:'tipster2',
-      date: new Date('2024-10-04'),
-      results: [
-        { team1: 'Karlsruhe', team2: 'Darmstadt', tip: 'BTS', odd: 1.65 },
-        { team1: 'Jong Utrecht', team2: 'Telstar', tip: 'BTS', odd: 1.65 },
-        { team1: 'Etoile-Carouge', team2: 'Nyon', tip: '1', odd: 1.61 },
-        
-      ],
-      form: '16/10',
-      success: 70,
-      avgOdd: 1.79,
-      price1Week: 119.00,
-      price2Weeks: 179.00
-    },
-    {
-      countryFlag: '🏴',
-      name: 'Charlie Cook',
-      id:'tipster3',
-      date: new Date('2024-10-04'),
-      results: [
-        { team1: 'Neuchatel Xamax', team2: 'Sion', tip: 'BTS', odd: 1.65 },
-        { team1: 'Puskas Akademia', team2: 'Paks', tip: '1', odd: 1.68 },
-        { team1: 'Helmond Sport', team2: 'Jong Ajax', tip: '-2.5', odd: 2.55 }
-      ],
-      form: '23/10',
-      success: 75,
-      avgOdd: 1.78,
-      price1Week: 119.00,
-      price2Weeks: 179.00
-    }
-  ];
-
+  
   ngOnInit(): void {
     this.dialogConfig = new MatDialogConfig();
     this.checkAuth()
@@ -92,6 +42,7 @@ tipsterTwo: boolean = false;
       if (res[0]=='authenticated') {
        const dialogRef = this.dialog.open(TipsterPaywallComponent, {
        width: '440px',
+       height:'1000px',
        data: {
         message: name,  // category
         email: res[1],  // email
@@ -122,15 +73,48 @@ tipsterTwo: boolean = false;
       this.subscriptionOne = res[0].tipster1.split('+')[0]
       this.subscriptionTwo = res[0].tipster2.split('+')[0] || ''
 
-      console.log(this.subscriptionOne)
       if (this.subscriptionOne == "Yes"){
-        console.log('subscribed')
            this.tipsterOne = true
+           this.getTip1()
       }
       if (this.subscriptionTwo == "Yes"){
         this.tipsterTwo = true
+        this.getTip2()
    }
     })
+  }
+
+  getTip2(){
+    this.sharedService.tipster2Array.subscribe((matchDays: any[]) => {
+      const today = new Date();
+      const formattedToday = this.formatDateToDDMMYYYY(today);
+      this.matchDays2 = matchDays
+        .filter(day => day.date == formattedToday)
+        .reverse(); 
+    });
+
+  }
+  getTip1(){
+  
+    this.sharedService.tipster1Array.subscribe((matchDays: any[]) => {
+      const today = new Date();
+      const formattedToday = this.formatDateToDDMMYYYY(today);
+      this.matchDays = matchDays
+        .filter(day => day.date == formattedToday)
+        .reverse();
+    });
+
+  }
+
+  formatDateToDDMMYYYY(date: Date): string {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear(); 
+    return `${day}-${month}-${year}`; 
+  }
+
+  viewResults(tip:string){
+    this.router.navigate(['tipsters/details'],{queryParams:{tipster:tip}})
   }
   
 }

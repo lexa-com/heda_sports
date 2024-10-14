@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SharedService } from './Services/shared.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { doc, getDoc } from 'firebase/firestore';
+import { VvipService } from './Services/vip.service/vvip.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,13 @@ export class AppComponent {
 
  fixtures: any = [];
  userData: any;
+  Vipfixtures: any;
+  matchDays: any[] = [];
+  matchDays2: any[] = [];
 
 constructor(
   private dataService: GamesService,
+  private vipService:VvipService,
   private router: Router,
   private sharedService: SharedService,
   private firestore: AngularFirestore
@@ -27,6 +32,9 @@ constructor(
 ngOnInit(): void {
   this.fetchGames()
   this.getUserInfo()
+  this.getVipGames()
+  this.getTip1()
+  this.getTip2()
 }
 
 fetchGames(){
@@ -37,9 +45,20 @@ this.sendArray(this.fixtures)
 })
 
 }
+getVipGames(){
+  this.vipService.getGames().subscribe((res)=>{
+    this.Vipfixtures = res
+    console.log(res,"vip")
+    this.sendVipArray(this.Vipfixtures)
+      
+    })
+}
 
 sendArray(gamesArray:any) {
   this.sharedService.changeArray(gamesArray);
+}
+sendVipArray(gamesArray:any) {
+  this.sharedService.changeVipArray(gamesArray);
 }
 
 sendUserArray(userArray:any) {
@@ -76,6 +95,41 @@ async readUserData(email: string) {
   } catch (error) {
     console.error('Error fetching user data:', error);
   }
+}
+
+getTip2(){
+  const category = 'tipster2'; // Replace with your actual category
+
+  this.dataService.getAllMatchDays(category).subscribe((matchDays: any[]) => {
+    this.matchDays2 = matchDays
+      .reverse(); 
+
+      this.sendTip2Array(this.matchDays2)
+
+      console.log(this.matchDays2,'tip 2')
+
+    
+  });
+
+}
+getTip1(){
+  const category = 'tipster1'; // Replace with your actual category
+
+  this.dataService.getAllMatchDays(category).subscribe((matchDays: any[]) => {
+    this.matchDays = matchDays
+      .reverse(); 
+   this.sendTip1Array(this.matchDays)
+
+   console.log(this.matchDays,'tip 1')
+    
+  });
+
+}
+sendTip1Array(gamesArray:any) {
+  this.sharedService.changeTip1Array(gamesArray);
+}
+sendTip2Array(gamesArray:any) {
+  this.sharedService.changeTip2Array(gamesArray);
 }
 
 }

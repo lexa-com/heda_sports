@@ -24,6 +24,7 @@ import { ContactsComponent } from './main-components/contacts/contacts.component
 import { TipsterAddGamesComponent } from './admin/tipster-add-games/tipster-add-games.component';
 import { TipsterGamesComponent } from './admin/tipster-games/tipster-games.component';
 import { TipsterGameUpdateComponent } from './admin/tipster-games/tipster-game-update/tipster-game-update.component';
+import { AuthGuard } from './Auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -94,18 +95,22 @@ const routes: Routes = [
       {
         path: 'malenge',
         component: AdminDashboardComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'user/details',
         component: AdminUsersComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'update/games',
         component: AdminUpdateGamesComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'game/details',
         component: GameDetailsComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'services',
@@ -118,14 +123,17 @@ const routes: Routes = [
       {
         path: 'update/tipster',
         component: TipsterAddGamesComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'update/tipster/games',
         component: TipsterGamesComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'tipster/game',
         component: TipsterGameUpdateComponent,
+        canActivate: [AuthGuard]
       },
     ]
   }

@@ -1,7 +1,7 @@
 <div class="title"> <h2>5+ Odds Combo Tips</h2> </div>
 
 
-<mat-card class="rate-card" *ngIf="authenticated">
+<mat-card class="rate-card" *ngIf="subscription">
     <mat-card-title>Subscription Rate</mat-card-title>
     <mat-card-content>
       <div class="button-group">
@@ -15,11 +15,8 @@
   <br>
   <br>
   <br>
-  <br>
-  <br>
 
-
-<div class="date" *ngIf="authenticated">
+<div class="date" *ngIf="hideDate">
   <label for="dateofbirth">Date</label>
   <input type="date" name="dateofbirth" id="dateofbirth" (change)="onDateChange($event)">
 </div>
@@ -32,6 +29,7 @@
 <table class="football-fixtures">
     <thead>
       <tr>
+        <th>Date</th>
         <th>Time</th>
         <th>League</th>
         <th>Match</th>
@@ -44,6 +42,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let fixture of fixtures">
+        <td>{{ fixture.date }}</td>
         <td>{{ fixture.ko }}</td>
         <td>{{fixture.league}}</td>
         <td>{{ fixture.games }}</td>

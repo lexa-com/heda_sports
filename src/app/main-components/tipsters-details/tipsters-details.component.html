@@ -7,18 +7,25 @@
       <table class="matches-table">
         <thead>
           <tr>
+            <th>Time</th>
+            <th>League</th>
             <th>Game</th>
             <th>Tip</th>
             <th>Odd</th>
+            <th>Results</th>
+
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let match of matchDay.matches">
-            <td>{{ match.team1 }} - {{ match.team2 }}</td>
+            <td>{{match.ko}}</td>
+            <td>{{match.league}}</td>
+            <td>{{match.games}}</td>
             <td [ngClass]="{'win-tip': match.tipWin, 'lose-tip': !match.tipWin}">
-              {{ match.tip }}
+              {{ match.predict }}
             </td>
             <td>{{ match.odds }}</td>
+            <td>{{ match.results }}</td>
           </tr>
         </tbody>
       </table>

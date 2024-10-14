@@ -12,6 +12,7 @@ export class AppBarComponent implements OnInit {
   authenticated: any = false;
   notAuthenticated: any = true;
   admin: any = false;
+  user: any;
   
     constructor(private auth : AuthService,
       private shared : SharedService,
@@ -21,15 +22,11 @@ export class AppBarComponent implements OnInit {
     }
     ngOnInit(): void {
       this.checkAuth()
+      this.checkUser()
     }
-  
     checkAuth(){
    this.shared.currentAuthStatus.subscribe((res)=>{
-    console.log(res[1])
-    if (res[1]=="heda.admin@gmail.com"){
-      this.admin = true
-    }
-    
+        
     if (res[0] == null){
       this.authenticated = false
       this.notAuthenticated = true
@@ -45,16 +42,22 @@ export class AppBarComponent implements OnInit {
   })
   
     }
-  
+    checkUser(){
+      this.shared.userArray.subscribe((res)=>{
+        this.user = res
+        console.log(this.user)
+        if (this.user[0].admin =='Yes'){
+          this.admin = true
+        }
+      })
+    }
   
     logOut(){
   this.auth.logOut()
   this.shared.authCheck(['null','null'])
   
     }
-
     navigate(link:string){
-      console.log('clicked')
      this.router.navigate([`${link}`])
   
     }

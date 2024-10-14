@@ -69,7 +69,7 @@ fiveDays: any;
         this.email = '';
         this.password = '';
         this.router.navigate(['/premium/home'])
-        this.getSupscriptions()
+        
       })
       .catch(err => {
         this.snackBar.open(err, '', { duration: 3000 }); // Display error message
@@ -99,6 +99,7 @@ fiveDays: any;
       await userDoc.set({
         email: this.email,  // Only saving the provided email
         createdAt: date,
+        admin:`No`,
         ten:`No+${date }+0`,
         five:`No+${date}+0`,
         twenty:`No+${date}+0`,
@@ -118,7 +119,6 @@ fiveDays: any;
       
 
   sendAuthStatus(auth:any) {
-    console.log(auth)
     this.sharedService.authCheck(auth);
   }
 
@@ -181,7 +181,6 @@ fiveDays: any;
       // Update the document with the updated data
       await userDocRef.update(updatedData);  
       this.readUserData(email)
-      console.log('User data updated successfully');
     } catch (error) {
       console.error('Error updating user data:', error);
     }
@@ -195,12 +194,13 @@ fiveDays: any;
       if (userDocSnapshot.exists()) {
         this.userData = userDocSnapshot.data(); // Retrieve document data
         this.sendUserArray([this.userData])
-        console.log('User data retrieved:', this.userData);
+       // console.log('User data retrieved:', this.userData);
+        this.getSupscriptions()
       } else {
-        console.log('No user found with this email.');
+       // console.log('No user found with this email.');
       }
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      //console.error('Error fetching user data:', error);
     }
   }
 

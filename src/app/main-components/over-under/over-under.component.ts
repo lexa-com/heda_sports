@@ -30,7 +30,7 @@ export class OverUnderComponent implements OnInit {
   fetchGames(){
   this.sharedService.currentArray.subscribe((res)=>{
     this.data = res
-  this.overGames = res.filter(item => item.category === "3" && item.date == this.pickedDate)
+  this.overGames = res.filter(item => item.category === "1" && item.date == this.pickedDate)
   this.fixtures = this.overGames
   console.log(this.overGames)
   })
@@ -43,7 +43,7 @@ export class OverUnderComponent implements OnInit {
     
     const formattedDate = this.formatDate(selectedDate);
     this.pickedDate = formattedDate
-    this.fixtures = this.data.filter(item => item.date == formattedDate && item.category ==="3")
+    this.fixtures = this.data.filter(item => item.date == formattedDate && item.category ==="1")
     console.log('Formatted date:', formattedDate);
   }
   

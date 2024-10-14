@@ -1,5 +1,23 @@
 
-<mat-card><h5> {{title}}</h5></mat-card>
+<h5> {{category}}</h5>
+<br>
+<br>
+
+<form *ngIf="categorySelect"[formGroup]="formCategory" (ngSubmit)="onCategorySubmit()" novalidate class="form">
+  <div class="form-item">
+    <label for="category" class="start">Category</label>
+    <select formControlName="category" id="category" class="custom-select">
+      <option value="free">free</option>
+      <option value="vvip">vvip</option>
+    </select>
+  </div>
+
+  <button type="submit" class="bg-primary text-white">
+    Submit Category and Date
+  </button>
+</form>
+
+<br>
 
 
 <div class="container-fluid">
@@ -70,11 +88,49 @@
       </div>
       <br>
       <br>
+
+      <button *ngIf="hideTable" mat-raised-button type="submit" class="bg-primary text-white">
+        Add Game
+      </button>
+      <br>
+  
+      <table *ngIf="hideTable" class="football-fixtures">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>League</th>
+            <th>Match</th>
+            <th>Pick</th>
+            <th>Odds</th>
+            <th>Results</th>
+            <th>Outcome</th>
+            <th>Cat</th>
+            <th>Action</th> <!-- New column header -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fixture of gamesArray; let i = index">
+            <td>{{ fixture.ko }}</td>
+            <td>{{ fixture.league }}</td>
+            <td>{{ fixture.games }}</td>
+            <td>{{ fixture.predict }}</td>
+            <td>{{ fixture.odds }}</td>
+            <td>{{ fixture.result }}</td>
+            <td>{{ fixture.verdict }}</td>
+            <td>{{ fixture.category }}</td>
+            <td>
+              <span mat-icon-button (click)="removeGame(i)">
+                remove
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <br>
   
       <!-- Submit and Back Buttons -->
       
-        <button (click)="submitGame()" *ngIf="addGame" mat-raised-button type="submit" class="bg-primary text-white">
+        <button (click)="submitGame()" *ngIf="addGame" mat-raised-button class="bg-primary text-white">
           Add
         </button>
         <button (click)="updateGame()" *ngIf="modifyGame" mat-raised-button type="button" class="bg-secondary text-white">

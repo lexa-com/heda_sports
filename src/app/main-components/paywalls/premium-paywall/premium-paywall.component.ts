@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SharedService } from '../../../Services/shared.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { doc, getDoc } from 'firebase/firestore';
+import { AppComponent } from '../../../app.component';
 
 @Component({
   selector: 'app-premium-paywall',
@@ -25,7 +26,8 @@ userData: any;
     @Inject(MAT_DIALOG_DATA) public Data: any,
     private router: Router,
     private sharedService: SharedService,
-  private firestore: AngularFirestore
+  private firestore: AngularFirestore,
+  
   ) {}
 
 ngOnInit(): void {
@@ -57,6 +59,7 @@ ngOnInit(): void {
       onApprove: (data: any, actions: any) => {
         return actions.order.capture().then((details: any) => {
           this.updateUserData(this.Data.email,data)
+          
           
         });
       },
