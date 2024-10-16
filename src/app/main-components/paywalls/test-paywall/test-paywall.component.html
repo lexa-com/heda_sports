@@ -1,0 +1,62 @@
+<!-- <div id="paypal-button-container-P-7E262720SK561453FM4G7YLQ"></div> -->
+
+<div id="paypal-button-container-P-0GN592111Y592943EM4G772Y"></div>
+<div class="order-summary-container">
+    <h3>Order Summary</h3>
+  
+    <div class="summary-item">
+      <span>1 x Tresor Collection - Emerald Unshape & Diamond Necklace in 18K Yellow Gold</span>
+      <div class="price-section">
+        <span class="original-price">$2,250.00</span>
+        <span class="discounted-price">$2,025.00</span>
+      </div>
+    </div>
+  
+    <div class="summary-totals">
+      <div class="subtotal">
+        <span>Subtotal</span>
+        <span>$2,025.00</span>
+      </div>
+      <div class="shipping">
+        <span>Shipping</span>
+        <span>--</span>
+      </div>
+      <div class="taxes">
+        <span>Taxes</span>
+        <span>--</span>
+      </div>
+      <div class="promo">
+        <span>Promo/Gift Certificate</span>
+        <span>$0.00</span>
+      </div>
+    </div>
+  
+    <div class="total">
+      <span>Total (USD)</span>
+      <span class="total-price">$2,025.00</span>
+    </div>
+  </div>
+
+
+  <div id="paypal-button-container-P-74174117DW546953KM4HFWQQ"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AYLpTYnE2OxbtxgX28xMaOjXdK6ngvOm8WcjqP9d7X7FDswJUuY4rCUENu0pDqA93S6tLu9xW7fOChTW&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'blue',
+          layout: 'vertical',
+          label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-74174117DW546953KM4HFWQQ'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+      }
+  }).render('#paypal-button-container-P-74174117DW546953KM4HFWQQ'); // Renders the PayPal button
+</script>
+  

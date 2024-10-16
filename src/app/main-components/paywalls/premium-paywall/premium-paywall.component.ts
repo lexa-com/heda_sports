@@ -31,7 +31,6 @@ userData: any;
   ) {}
 
 ngOnInit(): void {
-  this.setUpPage()
   this.prepareReceipt()
       
   }
@@ -40,33 +39,7 @@ ngOnInit(): void {
     this.dialogRef.close();
   }
 
-  setUpPage() {
-    
-    window.paypal.Buttons({
-      createOrder: (data: any, actions: any) => {
-        return actions.order.create({
-          purchase_units: [
-            {
-              amount: {
-                value: this.amount,
-                currency_code: 'USD'  // 'currency' should be 'currency_code'
-              }
-            }
-          ]
-        });
-      },
-      onApprove: (data: any, actions: any) => {
-        return actions.order.capture().then((details: any) => {
-          this.updateUserData(this.Data.email,data)
-          
-          
-        });
-      },
-      onError: (err: any) => {
-        console.error('PayPal Button Error: ', err);
-      }
-    }).render(this.paymentRef.nativeElement);  // Render the PayPal button in the specified element
-  }
+  
 
   prepareReceipt(){
     const five = '5+ ODDS TIPS DAILY'
@@ -74,82 +47,90 @@ ngOnInit(): void {
     const twenty = '20+ ODDS TIPS DAILY'
     const vvip = 'DAILY VVIP TIPS'
     if (this.Data.message == 'week' && this.Data.category == 'five'){
-      this.amount = '10'
+      this.amount = '7'
       this.duration = 7
       this.product = five
       this.description = 'One week subscription'
+      this.processPayments('P-74174117DW546953KM4HFWQQ','blue')
     }
     if (this.Data.message == '2weeks'&& this.Data.category == 'five'){
-       this.amount = '16'
+       this.amount = '13'
        this.product = five
        this.duration = 14
        this.description = 'Two week subscription'
+       this.processPayments('P-3CP48134RH121484CM4HC4WA','white')
     }
     if (this.Data.message == 'month'&& this.Data.category == 'five'){
-      this.amount = '36'
+      this.amount = '25'
       this.product = five
       this.duration = 31
       this.description = 'One month subscription'
+      this.processPayments('P-2AS11892JV8103921M4HC5CY','gold')
     }
     if (this.Data.message == 'week' && this.Data.category == 'ten'){
-      this.amount = '15'
+      this.amount = '12'
       this.duration = 7
       this.product = ten
       this.description = 'One week subscription'
+      this.processPayments('P-5SP53530MU705144HM4HCXGA','silver')
     }
     if (this.Data.message == '2weeks'&& this.Data.category == 'ten'){
-      this.amount = '28'
+      this.amount = '22'
       this.product = ten
       this.duration = 14
       this.description = 'Two week subscription'
+      this.processPayments('P-9AU84005W69947407M4HCX3Y','white')
    }
    if (this.Data.message == 'month'&& this.Data.category == 'ten'){
-     this.amount = '55'
+     this.amount = '42'
      this.product = ten
      this.duration = 31
      this.description = 'One month subscription'
+     this.processPayments('P-7VS30679FK185750KM4HCYRI','gold')
    }
    if (this.Data.message == 'week' && this.Data.category == 'twenty'){
     this.amount = '20'
     this.duration = 7
     this.product = twenty
     this.description = 'One week subscription'
+    this.processPayments('P-6TT21929LB203732WM4HCKOA','silver')
   }
   if (this.Data.message == '2weeks'&& this.Data.category == 'twenty'){
-    this.amount = '38'
+    this.amount = '36'
     this.product = twenty
     this.duration = 14
     this.description = 'Two week subscription'
+    this.processPayments('P-60N92440BG375173VM4HCNII','white')
  }
  if (this.Data.message == 'month'&& this.Data.category == 'twenty'){
-   this.amount = '75'
+   this.amount = '70'
    this.product = twenty
    this.duration = 31
    this.description = 'One month subscription'
+   this.processPayments('P-65N43845G1175240PM4HCOJA','gold')
  }
  if (this.Data.message == 'week' && this.Data.category == 'vvip'){
-  this.amount = '20'
+  this.amount = '15'
   this.duration = 7
   this.product = vvip
   this.description = 'One week subscription'
+  this.processPayments('P-3JD825585L955904AM4HC6JA','silver')
 }
 if (this.Data.message == '2weeks'&& this.Data.category == 'vvip'){
-  this.amount = '38'
+  this.amount = '28'
   this.product = vvip
   this.duration = 14
   this.description = 'Two week subscription'
+  this.processPayments('P-2NC20020FR899132SM4HC62A','white')
 }
 if (this.Data.message == 'month'&& this.Data.category == 'vvip'){
- this.amount = '75'
+ this.amount = '52'
  this.product = vvip
  this.duration = 31
  this.description = 'One month subscription'
+ this.processPayments('P-0VS571048H8536746M4HC7IY','gold')
 }
-
-    
   }
-
-
   async updateUserData(email: string, newData: any) {
     try {
       const userDocRef = this.firestore.collection('users').doc(email);
@@ -178,7 +159,6 @@ if (this.Data.message == 'month'&& this.Data.category == 'vvip'){
       
     }
   }
-  
   async readUserData(email: string) {
     try {
       const userDocRef = doc(this.firestore.firestore, 'users', email); // Reference to the user's document
@@ -195,11 +175,42 @@ if (this.Data.message == 'month'&& this.Data.category == 'vvip'){
       console.error('Error fetching user data:', error);
     }
   }
-
   sendUserArray(userArray:any) {
     this.sharedService.changeUserArray(userArray);
     this.dialogRef.close()
   }
+
+  processPayments(planId:any,color:any){
+    const script = document.createElement('script');
+    script.src = 'https://www.paypal.com/sdk/js?client-id=AYLpTYnE2OxbtxgX28xMaOjXdK6ngvOm8WcjqP9d7X7FDswJUuY4rCUENu0pDqA93S6tLu9xW7fOChTW&vault=true&intent=subscription';
+    script.setAttribute('data-sdk-integration-source', 'button-factory');
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: color,
+          layout: 'vertical',
+          label: 'subscribe'
+        },
+        createSubscription: function(data: any, actions: { subscription: { create: (arg0: { plan_id: string; }) => any; }; }) {
+          return actions.subscription.create({
+            plan_id: planId
+          });
+        },
+        onApprove: (data: { subscriptionID: any; }, actions: any) => {
+          this.updateUserData(this.Data.email, data.subscriptionID);
+          this.dialogRef.close()
+          alert(data.subscriptionID);
+        }
+        
+      }).render(`#paypal-button-container-${planId}`);
+    };
+
+  }
+
+
 
 }
 

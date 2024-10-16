@@ -1,37 +1,43 @@
-<!-- checkout.component.html -->
-<div class="checkout-container">
-    <h4 class="checkout-title">{{product}}</h4>
+
+<div class="order-summary-container">
+    <h3>Order Summary</h3>
   
-    <div class="payment-info">
-      <h5 class="info-title">Payment Details</h5>
-      <p class="info-description">
-        Please review your payment information and confirm your order.
-      </p>
+    <div class="summary-item">
+      <span>{{description}}</span>
+      <!-- <div class="price-section">
+        <span class="original-price">$2,250.00</span>
+        <span class="discounted-price">$2,025.00</span>
+      </div> -->
+    </div>
   
-      <div class="order-summary">
-        <h6>Order Summary</h6>
-        <div class="summary-item">
-          <span>Product Name:</span>
-          <span>{{description}}</span>
-        </div>
-        <div class="summary-item">
-          <span>Quantity:</span>
-          <span>1</span>
-        </div>
-        <div class="summary-item total">
-          <span>Total: USD</span>
-          <span>{{amount | number:'1.2-2'}}</span>
-        </div>
+    <div class="summary-totals">
+      <div class="subtotal">
+        <span>Subtotal</span>
+        <span>${{amount}}</span>
+      </div>
+      <div class="shipping">
+        <span>Shipping</span>
+        <span>--</span>
+      </div>
+      <div class="taxes">
+        <span>Taxes</span>
+        <span>--</span>
+      </div>
+      <div class="promo">
+        <span>Promo/Gift Certificate</span>
+        <span>$0.00</span>
       </div>
     </div>
   
-    <div class="payment-section">
-      <h5 class="payment-title">Secure Payment</h5>
-      <div #paymentRef class="paypal-button-container"></div>
-    </div>
-  
-    <div class="footer">
-      <p class="footer-text">By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+    <div class="total">
+      <span>Total (USD)</span>
+      <span class="total-price">${{amount}}</span>
     </div>
   </div>
+  <div class="paypalbtn">
+    <div id="paypal-button-container-P-9B849817EY6858127M4HDDQY"></div> 
+    <div id="paypal-button-container-P-7WW44478F59497749M4HDGRQ"></div>
+    <div id="paypal-button-container-P-74174117DW546953KM4HFWQQ"></div>
+  </div>
+
   

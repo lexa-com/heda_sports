@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { doc, getDoc } from 'firebase/firestore';
@@ -29,74 +29,42 @@ userData: any;
   ) {}
 
 ngOnInit(): void {
-  this.setUpPage()
   this.prepareReceipt()
-      
+  if(this.Data.id =="tipster1"){
+    this.tipster1()
+  }else if (this.Data.id =="tipster2"){
+    this.tipster2()
+  }   
   }
-
   cancelTransaction() {
     this.dialogRef.close();
-  }
-
-  setUpPage() {
-    
-    window.paypal.Buttons({
-      createOrder: (data: any, actions: any) => {
-        return actions.order.create({
-          purchase_units: [
-            {
-              amount: {
-                value: this.amount,
-                currency_code: 'USD'  // 'currency' should be 'currency_code'
-              }
-            }
-          ]
-        });
-      },
-      onApprove: (data: any, actions: any) => {
-        return actions.order.capture().then((details: any) => {
-          this.updateUserData(this.Data.email,data)
-          
-        });
-      },
-      onError: (err: any) => {
-        console.error('PayPal Button Error: ', err);
-      }
-    }).render(this.paymentRef.nativeElement);  // Render the PayPal button in the specified element
   }
   prepareReceipt(){
     this.product = `${this.Data.message} Daily Tips`
     this.amount = this.Data.category
     this.description = `Get ${this.Data.message}'s Curated tips for 2 weeks`
     this.duration = 15
-    
+     
     
   }
   async updateUserData(email: string, newData: any) {
     try {
       const userDocRef = this.firestore.collection('users').doc(email);
-  
-      // Get current date and time
       const today = new Date();
-      
-      // Get the date seven days in the future
       const sevenDaysLater = new Date();
       sevenDaysLater.setDate(today.getDate() + this.duration);
 
       const tipsterName = this.Data.id
       const expiry = tipsterName + 'Date'
-  
-      // Add the dates to your new data object
       const updatedData = {
         [tipsterName] : `Yes+${sevenDaysLater.toISOString()}`,
-        paymentId:newData.paymentID,  // Spread the existing data you want to upda          // Current date and time
+        paymentId:newData,  
           
       };
   
-      // Update the document with the updated data
       await userDocRef.update(updatedData);  
-      
       this.readUserData(email)
+      
     } catch (error) {
       console.error('Error updating user data:', error);
     }
@@ -109,6 +77,7 @@ ngOnInit(): void {
       if (userDocSnapshot.exists()) {
         this.userData = userDocSnapshot.data(); // Retrieve document data
         this.sendUserArray([this.userData])
+        this.dialogRef.close();
         
       } else {
         console.log('No user found with this email.');
@@ -121,4 +90,64 @@ ngOnInit(): void {
     this.sharedService.changeUserArray(userArray);
     this.dialogRef.close()
   }
+  tipster1(){
+    const script = document.createElement('script');
+    script.src = 'https://www.paypal.com/sdk/js?client-id=AYLpTYnE2OxbtxgX28xMaOjXdK6ngvOm8WcjqP9d7X7FDswJUuY4rCUENu0pDqA93S6tLu9xW7fOChTW&vault=true&intent=subscription';
+    script.setAttribute('data-sdk-integration-source', 'button-factory');
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      paypal.Buttons({
+        style: {
+          shape: 'pill',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'subscribe'
+        },
+        createSubscription: function(data: any, actions: { subscription: { create: (arg0: { plan_id: string; }) => any; }; }) {
+          return actions.subscription.create({
+            plan_id: 'P-9B849817EY6858127M4HDDQY'
+          });
+          
+        },
+        onApprove: (data: { subscriptionID: any; }, actions: any) => {
+          this.updateUserData(this.Data.email, data.subscriptionID);
+          alert(data.subscriptionID);
+        }
+        
+      }).render('#paypal-button-container-P-9B849817EY6858127M4HDDQY');
+    }; 
+    
+  }
+  tipster2(){
+    const script = document.createElement('script');
+    script.src = 'https://www.paypal.com/sdk/js?client-id=AYLpTYnE2OxbtxgX28xMaOjXdK6ngvOm8WcjqP9d7X7FDswJUuY4rCUENu0pDqA93S6tLu9xW7fOChTW&vault=true&intent=subscription';
+    script.setAttribute('data-sdk-integration-source', 'button-factory');
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'subscribe'
+        },
+        createSubscription: function(data: any, actions: { subscription: { create: (arg0: { plan_id: string; }) => any; }; }) {
+          return actions.subscription.create({
+            plan_id: 'P-7WW44478F59497749M4HDGRQ'
+          });
+        },
+        onApprove: (data: { subscriptionID: any; }, actions: any) => {
+          this.updateUserData(this.Data.email, data.subscriptionID);
+          alert(data.subscriptionID);
+        }
+        
+      }).render('#paypal-button-container-P-7WW44478F59497749M4HDGRQ');
+    };
+
+  }
 }
+
+
+

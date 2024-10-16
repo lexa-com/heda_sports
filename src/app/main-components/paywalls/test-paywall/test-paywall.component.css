@@ -1,0 +1,54 @@
+.order-summary-container {
+    width: 300px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .summary-item {
+    margin-bottom: 15px;
+  }
+  
+  .price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  .discounted-price {
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .summary-totals {
+    margin-top: 20px;
+  }
+  
+  .subtotal, .shipping, .taxes, .promo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .total-price {
+    color: #000;
+  }
+  

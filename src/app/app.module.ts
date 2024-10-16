@@ -58,6 +58,8 @@ import { TipsterGamesComponent } from './admin/tipster-games/tipster-games.compo
 import { TipsterAddGamesComponent } from './admin/tipster-add-games/tipster-add-games.component';
 import { TipsterGameUpdateComponent } from './admin/tipster-games/tipster-game-update/tipster-game-update.component';
 import { PrivacyPolicyComponent } from './admin/privacy-policy/privacy-policy.component';
+import { TestPaywallComponent } from './main-components/paywalls/test-paywall/test-paywall.component';
+import { GooglePayButtonModule } from '@google-pay/button-angular';
 
 @NgModule({
   declarations: [
@@ -94,7 +96,8 @@ import { PrivacyPolicyComponent } from './admin/privacy-policy/privacy-policy.co
     TipsterGamesComponent,
     TipsterAddGamesComponent,
     TipsterGameUpdateComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    TestPaywallComponent
   ],
   imports: [
     BrowserModule,
@@ -118,7 +121,8 @@ import { PrivacyPolicyComponent } from './admin/privacy-policy/privacy-policy.co
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    GooglePayButtonModule
     
 
     
