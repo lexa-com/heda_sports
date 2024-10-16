@@ -1,4 +1,8 @@
 <!-- checkout.component.html -->
+
+<div class="close" (click)="cancelTransaction()">
+  <mat-icon>cancel</mat-icon>
+</div>
 <div class="checkout-container">
     <h4 class="checkout-title">{{product}}</h4>
   
@@ -27,19 +31,9 @@
   
     <div class="payment-section">
      
-<div id="paypal-button-container-P-6TT21929LB203732WM4HCKOA"></div>
-<div id="paypal-button-container-P-60N92440BG375173VM4HCNII"></div>
-<div id="paypal-button-container-P-65N43845G1175240PM4HCOJA"></div>
-<div id="paypal-button-container-P-5SP53530MU705144HM4HCXGA"></div>
-<div id="paypal-button-container-P-9AU84005W69947407M4HCX3Y"></div>
-<div id="paypal-button-container-P-7VS30679FK185750KM4HCYRI"></div>
-<div id="paypal-button-container-P-5X997552GA590145CM4HC3XI"></div>
-<div id="paypal-button-container-P-3CP48134RH121484CM4HC4WA"></div>
-<div id="paypal-button-container-P-2AS11892JV8103921M4HC5CY"></div>
-<div id="paypal-button-container-P-3JD825585L955904AM4HC6JA"></div>
-<div id="paypal-button-container-P-2NC20020FR899132SM4HC62A"></div>
-<div id="paypal-button-container-P-0VS571048H8536746M4HC7IY"></div>
-<div id="paypal-button-container-P-74174117DW546953KM4HFWQQ"></div>
+      <google-pay-button environment="TEST" [buttonColor]="buttonColor" [buttonType]="buttonType"
+      [buttonSizeMode]="isCustomSize ? 'fill' : 'static'" [paymentRequest]="paymentRequest" [style.width.px]="buttonWidth"
+      [style.height.px]="buttonHeight" (loadpaymentdata)="onLoadPaymentData($event,'tipster1')"></google-pay-button>
 
     </div>
   

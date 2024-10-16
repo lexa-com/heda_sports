@@ -1,4 +1,6 @@
-
+<div class="close" (click)="cancelTransaction()">
+  <mat-icon>cancel</mat-icon>
+</div>
 <div class="order-summary-container">
     <h3>Order Summary</h3>
   
@@ -34,10 +36,10 @@
       <span class="total-price">${{amount}}</span>
     </div>
   </div>
-  <div class="paypalbtn">
-    <div id="paypal-button-container-P-9B849817EY6858127M4HDDQY"></div> 
-    <div id="paypal-button-container-P-7WW44478F59497749M4HDGRQ"></div>
-    <div id="paypal-button-container-P-74174117DW546953KM4HFWQQ"></div>
+  <div  class="payButtons">
+    <google-pay-button environment="TEST" [buttonColor]="buttonColor" [buttonType]="buttonType"
+      [buttonSizeMode]="isCustomSize ? 'fill' : 'static'" [paymentRequest]="paymentRequest" [style.width.px]="buttonWidth"
+      [style.height.px]="buttonHeight" (loadpaymentdata)="onLoadPaymentData($event,'tipster1')"></google-pay-button>
   </div>
 
   

@@ -68,4 +68,11 @@
     font-size: 12px;
     color: #777;
   }
+
+  .close{
+    align-self: flex-end;
+    margin: 6px;
+    color: gray;
+      
+  }
   

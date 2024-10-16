@@ -51,11 +51,7 @@
   
       <div class="subscription">
         <p>2 Weeks - USD 50.00</p>
-        <div *ngIf="tipsterOneSub" class="demo">
-          <google-pay-button environment="TEST" [buttonColor]="buttonColor" [buttonType]="buttonType"
-            [buttonSizeMode]="isCustomSize ? 'fill' : 'static'" [paymentRequest]="paymentRequest" [style.width.px]="buttonWidth"
-            [style.height.px]="buttonHeight" (loadpaymentdata)="onLoadPaymentData($event,'tipster1')"></google-pay-button>
-        </div> <br>
+        <button class="subscribe-btn" (click)="openDialog('Akpınar', '50.00', 'tipster1')">Subscribe</button> <br>
         <button class="view-results-btn" (click)="viewResults('tip1')">View Results</button>
       </div>
     </div>
@@ -113,7 +109,7 @@
       <div class="subscription">
         
         <p>2 Weeks - USD 65.00</p>
-        <button class="subscribe-btn" >Subscribe</button> <br>
+        <button class="subscribe-btn" (click)="openDialog('Petridis', '65.00', 'tipster2')">Subscribe</button> <br>
         <button class="view-results-btn" (click)="viewResults('tip2')" >View Results</button>
       </div>
     </div>

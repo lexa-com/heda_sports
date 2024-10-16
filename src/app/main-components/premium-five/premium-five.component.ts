@@ -122,16 +122,66 @@ export class PremiumFiveComponent implements OnInit {
     })
   }
 
+  getPaymentRequest(name: string) {
+    let totalPrice;
+    switch (name) {
+      case 'week':
+        totalPrice = '7.00';
+        break;
+      case '2weeks':
+        totalPrice = '13.00';
+        break;
+      case 'month':
+        totalPrice = '25.00';
+        break;
+      default:
+        totalPrice = '0.00'; // Default or fallback price
+    }
+  
+    return {
+      apiVersion: 2,
+      apiVersionMinor: 0,
+      allowedPaymentMethods: [
+        {
+          type: "CARD",
+          parameters: {
+            allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+            allowedCardNetworks: ["AMEX", "VISA", "MASTERCARD"]
+          },
+          tokenizationSpecification: {
+            type: "PAYMENT_GATEWAY",
+            parameters: {
+              gateway: "example",
+              gatewayMerchantId: "exampleGatewayMerchantId"
+            }
+          }
+        }
+      ],
+      merchantInfo: {
+        merchantId: "BCR2DN4T2OMJNFSG",
+        merchantName: "Heda Sports"
+      },
+      transactionInfo: {
+        totalPriceStatus: "FINAL",
+        totalPriceLabel: "Total",
+        totalPrice: totalPrice, // Dynamic price based on switch statement
+        currencyCode: "USD",
+        countryCode: "US"
+      }
+    };
+  }
+
   openDialog(message: string) {
+    const paymentRequest = this.getPaymentRequest(message);
     this.sharedService.currentAuthStatus.subscribe((res) => {
       if (res[0] === 'authenticated') {
         const dialogRef = this.dialog.open(PremiumPaywallComponent, {
           width: '440px',
-          height:'1000px',
           data: {
             message: message, // category
             email: res[1],    // email
-            category: 'five'
+            category: 'five',
+            req:paymentRequest
           }
         });
   

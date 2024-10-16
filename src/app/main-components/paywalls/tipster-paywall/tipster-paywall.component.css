@@ -1,7 +1,7 @@
 .order-summary-container {
   width: 300px;
   border: 2px solid #ddd;
-  padding: 20px;
+  padding: 12px;
   font-family: Arial, sans-serif;
   align-self: center;
   margin-top: 14px;
@@ -54,10 +54,16 @@ h3 {
   color: #000;
 }
 
-.paypalbtn{
+.payButtons{
   margin-top: 30px;
   width: 300px;
   padding: 20px;
   font-family: Arial, sans-serif;
   align-self: center;
+}
+.close{
+  align-self: flex-end;
+  margin: 6px;
+  color: gray;
+    
 }
