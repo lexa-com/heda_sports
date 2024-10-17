@@ -50,8 +50,8 @@
       </div>
   
       <div class="subscription">
-        <p>2 Weeks - USD 50.00</p>
-        <button class="subscribe-btn" (click)="openDialog('Akpınar', '50.00', 'tipster1')">Subscribe</button> <br>
+        <p>1 Month - USD 50.00</p>
+        <button *ngIf="hideSub1" class="subscribe-btn" (click)="openDialog('Akpınar', '50.00', 'tipster1')">Subscribe</button> <br>
         <button class="view-results-btn" (click)="viewResults('tip1')">View Results</button>
       </div>
     </div>
@@ -108,8 +108,8 @@
   
       <div class="subscription">
         
-        <p>2 Weeks - USD 65.00</p>
-        <button class="subscribe-btn" (click)="openDialog('Petridis', '65.00', 'tipster2')">Subscribe</button> <br>
+        <p>1 Month - USD 65.00</p>
+        <button *ngIf="hideSub2" class="subscribe-btn" (click)="openDialog('Petridis', '65.00', 'tipster2')">Subscribe</button> <br>
         <button class="view-results-btn" (click)="viewResults('tip2')" >View Results</button>
       </div>
     </div>

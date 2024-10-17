@@ -18,14 +18,7 @@ product: any;
 amount: any;
 description: any;
 duration: number = 0;
-userData: any;
-buttonColor:any = "black";
-  buttonType:any = "buy";
-  isCustomSize:any = false;
-  buttonWidth = 240;
-  buttonHeight = 40;
-  isTop = window === window.top;
- 
+userData: any; 
  authLive:any;
 
   constructor(
@@ -35,13 +28,6 @@ buttonColor:any = "black";
     private sharedService: SharedService,
   private firestore: AngularFirestore
   ) {}
-
-  paymentRequest:any = this.Data.req
-
-  onLoadPaymentData(event:any,tipster:any) {
-    console.log("load payment data", event.detail);
-    this.updateUserData(this.Data.email)
-  }
 
 ngOnInit(): void {
   this.prepareReceipt() 
@@ -54,8 +40,17 @@ ngOnInit(): void {
   prepareReceipt(){
     this.product = `${this.Data.message} Daily Tips`
     this.amount = this.Data.category
-    this.description = `Get ${this.Data.message}'s Curated tips for 2 weeks`
+    this.description = `Get ${this.Data.message}'s Curated tips for 1 month`
     this.duration = 15
+
+    if (this.Data.id =='tipster1'){
+      const planId = 'P-7T444693D0849280BM4IRB7Q'
+       this.makeSubscription(planId)
+
+    }else if (this.Data.id =='tipster2'){
+      const planId = 'P-9WK507662N944883LM4IRBPA'
+      this.makeSubscription(planId)
+    }
      
     
   }
@@ -102,6 +97,34 @@ ngOnInit(): void {
     this.sharedService.changeUserArray(userArray);
     this.dialogRef.close()
   }
+
+  makeSubscription(planId:any){
+
+    const script = document.createElement('script');
+    script.src = 'https://www.paypal.com/sdk/js?client-id=AaGlpQzv2w40QpZ1bb2UcezSwjUCT1VHYjzW_KIY5ULxfnfPMYycVakHl0rVABwbvDT8lGpFWhMNFmQ7&vault=true&intent=subscription';
+    script.setAttribute('data-sdk-integration-source', 'button-factory');
+    document.body.appendChild(script);
+  
+    script.onload = () => {
+      paypal.Buttons({
+        style: {
+          shape: 'pill',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'subscribe'
+        },
+        createSubscription: function (data: any, actions: { subscription: { create: (arg0: { plan_id: string }) => any } }) {
+          return actions.subscription.create({
+            plan_id: planId
+          });
+        },
+        onApprove: (data: { subscriptionID: any }, actions: any) => {
+          this.updateUserData(this.Data.email);
+        }
+      }).render(`#paypal-button-container-${planId}`);
+    };
+  }
+  
 
 }
 

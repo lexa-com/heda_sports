@@ -177,6 +177,7 @@ export class PremiumFiveComponent implements OnInit {
       if (res[0] === 'authenticated') {
         const dialogRef = this.dialog.open(PremiumPaywallComponent, {
           width: '440px',
+          height:'1000px',
           data: {
             message: message, // category
             email: res[1],    // email
@@ -184,10 +185,8 @@ export class PremiumFiveComponent implements OnInit {
             req:paymentRequest
           }
         });
-  
-        // Handle dialog close and trigger actions
         dialogRef.afterClosed().subscribe((result) => {
-                    this.ngOnInit(); // Call the method after dialog close
+            this.ngOnInit(); 
         });
   
       } else {

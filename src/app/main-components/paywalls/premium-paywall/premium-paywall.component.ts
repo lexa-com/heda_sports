@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SharedService } from '../../../Services/shared.service';
@@ -27,25 +27,20 @@ buttonColor:any = "black";
   buttonHeight = 40;
   isTop = window === window.top;
 
-  paymentRequest:any = this.Data.req
-
   constructor(
     public dialogRef: MatDialogRef<PremiumPaywallComponent>,
     @Inject(MAT_DIALOG_DATA) public Data: any,
     private router: Router,
     private sharedService: SharedService,
   private firestore: AngularFirestore,
+  private renderer: Renderer2
   
   ) {}
 
-onLoadPaymentData(event:any,tipster:any) {
-    console.log("load payment data", event.detail);
-    this.updateUserData(this.Data.email)
-  }
 
 ngOnInit(): void {
   this.prepareReceipt()
-      
+        
   }
 
   cancelTransaction() {
@@ -62,6 +57,10 @@ ngOnInit(): void {
       this.duration = 7
       this.product = five
       this.description = 'One week subscription'
+     // const planId = 'P-082474874C560743BM4IK7CI'
+     const planId = 'P-99317956WH774545JM4IQ4HY'
+      const color = 'blue'
+      this.subscribeTips(planId,color)
       
     }
     if (this.Data.message == '2weeks'&& this.Data.category == 'five'){
@@ -69,6 +68,9 @@ ngOnInit(): void {
        this.product = five
        this.duration = 14
        this.description = 'Two week subscription'
+       const planId = 'P-1WB310650S661874XM4IQ43Y'
+       const color = 'silver'
+       this.subscribeTips(planId,color)
        
     }
     if (this.Data.message == 'month'&& this.Data.category == 'five'){
@@ -76,6 +78,9 @@ ngOnInit(): void {
       this.product = five
       this.duration = 31
       this.description = 'One month subscription'
+      const planId = 'P-6M0852982T140182UM4IQ5KY'
+      const color = 'gold'
+      this.subscribeTips(planId,color)
       
     }
     if (this.Data.message == 'week' && this.Data.category == 'ten'){
@@ -83,6 +88,9 @@ ngOnInit(): void {
       this.duration = 7
       this.product = ten
       this.description = 'One week subscription'
+      const planId = 'P-4WK97370N64494356M4IQYHA'
+      const color = 'blue'
+      this.subscribeTips(planId,color)
      
     }
     if (this.Data.message == '2weeks'&& this.Data.category == 'ten'){
@@ -90,6 +98,9 @@ ngOnInit(): void {
       this.product = ten
       this.duration = 14
       this.description = 'Two week subscription'
+      const planId = 'P-0LB42947YM084253VM4IQYUQ'
+      const color = 'silver'
+      this.subscribeTips(planId,color)
       
    }
    if (this.Data.message == 'month'&& this.Data.category == 'ten'){
@@ -97,6 +108,9 @@ ngOnInit(): void {
      this.product = ten
      this.duration = 31
      this.description = 'One month subscription'
+     const planId = 'P-5B589880X08477549M4IQZBA'
+     const color = 'silver'
+     this.subscribeTips(planId,color)
      
    }
    if (this.Data.message == 'week' && this.Data.category == 'twenty'){
@@ -104,6 +118,9 @@ ngOnInit(): void {
     this.duration = 7
     this.product = twenty
     this.description = 'One week subscription'
+    const planId = 'P-4HT719118M860840GM4IQNVA'
+    const color = 'blue'
+    this.subscribeTips(planId,color)
     
   }
   if (this.Data.message == '2weeks'&& this.Data.category == 'twenty'){
@@ -111,6 +128,9 @@ ngOnInit(): void {
     this.product = twenty
     this.duration = 14
     this.description = 'Two week subscription'
+    const planId = 'P-3KS505893K8322058M4IQOIA'
+    const color = 'silver'
+    this.subscribeTips(planId,color)
     
  }
  if (this.Data.message == 'month'&& this.Data.category == 'twenty'){
@@ -118,6 +138,9 @@ ngOnInit(): void {
    this.product = twenty
    this.duration = 31
    this.description = 'One month subscription'
+   const planId = 'P-8KU26542JC327674KM4IQO7A'
+   const color = 'gold'
+   this.subscribeTips(planId,color)
    
  }
  if (this.Data.message == 'week' && this.Data.category == 'vvip'){
@@ -125,6 +148,9 @@ ngOnInit(): void {
   this.duration = 7
   this.product = vvip
   this.description = 'One week subscription'
+  const planId = 'P-8S112507V69435831M4IQD6Q'
+  const color = 'blue'
+  this.subscribeTips(planId,color)
   
 }
 if (this.Data.message == '2weeks'&& this.Data.category == 'vvip'){
@@ -132,6 +158,9 @@ if (this.Data.message == '2weeks'&& this.Data.category == 'vvip'){
   this.product = vvip
   this.duration = 14
   this.description = 'Two week subscription'
+  const planId = 'P-6J047594JN182810WM4IQI4Q'
+  const color = 'silver'
+  this.subscribeTips(planId,color)
  
 }
 if (this.Data.message == 'month'&& this.Data.category == 'vvip'){
@@ -139,6 +168,9 @@ if (this.Data.message == 'month'&& this.Data.category == 'vvip'){
  this.product = vvip
  this.duration = 31
  this.description = 'One month subscription'
+ const planId = 'P-4U474313E60665733M4IQKCQ'
+  const color = 'gold'
+  this.subscribeTips(planId,color)
 
 }
   }
@@ -159,7 +191,7 @@ if (this.Data.message == 'month'&& this.Data.category == 'vvip'){
       // Add the dates to your new data object
       const updatedData = {
         [category]: status,
-        paymentId:'google payments',  // Spread the existing data you want to update
+        paymentId:'paypal payments',  // Spread the existing data you want to update
       };
   
       // Update the document with the updated data
@@ -172,12 +204,13 @@ if (this.Data.message == 'month'&& this.Data.category == 'vvip'){
   }
   async readUserData(email: string) {
     try {
-      const userDocRef = doc(this.firestore.firestore, 'users', email); // Reference to the user's document
-      const userDocSnapshot = await getDoc(userDocRef); // Fetch the document
+      const userDocRef = doc(this.firestore.firestore, 'users', email);
+      const userDocSnapshot = await getDoc(userDocRef);
   
       if (userDocSnapshot.exists()) {
-        this.userData = userDocSnapshot.data(); // Retrieve document data
+        this.userData = userDocSnapshot.data(); 
         this.sendUserArray([this.userData])
+        this.cancelTransaction()
         
       } else {
         console.log('No user found with this email.');
@@ -190,10 +223,32 @@ if (this.Data.message == 'month'&& this.Data.category == 'vvip'){
     this.sharedService.changeUserArray(userArray);
     this.dialogRef.close()
   }
-
+  subscribeTips(planId:any,btnColor:any) {
+    const script = document.createElement('script');
+    script.src = 'https://www.paypal.com/sdk/js?client-id=AaGlpQzv2w40QpZ1bb2UcezSwjUCT1VHYjzW_KIY5ULxfnfPMYycVakHl0rVABwbvDT8lGpFWhMNFmQ7&vault=true&intent=subscription';
+    script.setAttribute('data-sdk-integration-source', 'button-factory');
+    document.body.appendChild(script);
   
-
-
+    script.onload = () => {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: btnColor,
+          layout: 'vertical',
+          label: 'subscribe'
+        },
+        createSubscription: function (data: any, actions: { subscription: { create: (arg0: { plan_id: string }) => any } }) {
+          return actions.subscription.create({
+            plan_id: planId
+          });
+        },
+        onApprove: (data: { subscriptionID: any }, actions: any) => {
+          this.updateUserData(this.Data.email);
+        }
+      }).render(`#paypal-button-container-${planId}`);
+    };
+  }
+  
 
 }
 

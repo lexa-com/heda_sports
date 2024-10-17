@@ -16,6 +16,8 @@ export class TipstersViewComponent implements OnInit {
   dialogConfig: MatDialogConfig<any> | undefined;
 tipsterOne: boolean = false;
 tipsterTwo: boolean = false;
+hideSub1:boolean = true
+hideSub2:boolean = true
   subscription: any;
   subscriptionOne: any;
   subscriptionTwo: any;
@@ -122,10 +124,12 @@ tipsterTwo: boolean = false;
       if (this.subscriptionOne == "Yes"){
            this.tipsterOne = true
            this.getTip1()
+           this.hideSub1 = false
       }
       if (this.subscriptionTwo == "Yes"){
         this.tipsterTwo = true
         this.getTip2()
+        this.hideSub2 = false
    }
     })
   }
