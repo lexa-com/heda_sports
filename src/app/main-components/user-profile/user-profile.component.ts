@@ -24,7 +24,7 @@ fiveDays: any;
   vvipDays: any;
   tip1Days: any;
   tip2Days: any;
-  
+  showCard:boolean = true
 
 constructor(private shared: SharedService){
 
@@ -42,6 +42,10 @@ checkAuth(){
     this.getSupscriptions()
 
     }
+    if (res[0]=='null' || res[0]==''){
+      this.showCard = false
+  
+      }
 
   })
 }
