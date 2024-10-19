@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { doc } from '@angular/fire/firestore';
@@ -34,15 +34,24 @@ export class GamesService {
   constructor(private http: HttpClient,private firestore: AngularFirestore) { }
  
   getGames(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+      // Add any additional headers here (e.g., Authorization)
+    });
+  
     return this.http
-      .get<any>(`${this.Url}get/games`)
+      .get<any>(`${this.Url}get/games`, { headers })
       .pipe(
         catchError((error: any) => {
-          console.error('Error fetching ATM reversals:', error);
-          return throwError('Error fetching ATM reversals');
+          console.error('Error fetching games:', error); // Updated error message
+          return throwError('Error fetching games');
         })
       );
   }
+  
 
   postGame(gameData: any): Observable<any> {
         

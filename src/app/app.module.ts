@@ -131,7 +131,7 @@ import { NoCacheInterceptor } from './Services/no-cache.interceptor';
     
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: NoCacheInterceptor, multi: true },
+  
     provideClientHydration()
   ],
   bootstrap: [AppComponent]
