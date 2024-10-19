@@ -40,6 +40,7 @@ ngOnInit(): void {
 fetchGames(){
 this.dataService.getGames().subscribe((res)=>{
 this.fixtures = res
+console.log(res)
 this.sendArray(this.fixtures)
   
 })

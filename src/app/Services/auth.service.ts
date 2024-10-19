@@ -38,6 +38,8 @@ export class AuthService {
   }
   
 
+  
+
   logOut() {
     this.fireAuth.signOut().then(() => {
       localStorage.removeItem('token');
@@ -49,13 +51,37 @@ export class AuthService {
   }
 
   signUp(email: string, password: string) {
-    this.fireAuth.createUserWithEmailAndPassword(email, password).then(() => {
-      this.snackBar.open('Account created successfully!', '', { duration: 3000 });  // Account creation feedback
-      this.router.navigate(['/dashboard']);  // Redirect after successful signup
+    this.fireAuth.createUserWithEmailAndPassword(email, password).then((userCredential) => {
+      const user = userCredential.user;
+      
+      if (user) {
+        user.sendEmailVerification().then(() => {
+          this.snackBar.open('Account created! Please verify your email.', '', { duration: 5000 });  // Email verification notification
+          this.router.navigate(['/login']);  // Redirect to login or verification page
+        }).catch(err => {
+          this.snackBar.open('Error sending verification email: ' + err.message, '', { duration: 3000 });
+        });
+      }
+      
     }).catch(err => {
       this.snackBar.open(err.message, '', { duration: 3000 });  // Error notification
     });
   }
 
+  resetPassword(email: string) {
+    if (!email) {
+      this.snackBar.open('Please enter your email address', '', { duration: 3000 });
+      return Promise.reject('Email is required');
+    }
+  
+    return this.fireAuth.sendPasswordResetEmail(email)
+      .then(() => {
+        this.snackBar.open('Password reset email sent! Please check your inbox.', '', { duration: 5000 });
+      })
+      .catch((err) => {
+        this.snackBar.open('Error: ' + err.message, '', { duration: 3000 });
+        return Promise.reject(err);
+      });
+  }
   
 }

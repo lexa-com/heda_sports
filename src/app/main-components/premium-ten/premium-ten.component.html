@@ -36,7 +36,7 @@
         <th>Pick</th>
         <th>Odds</th>
         <th>Results</th>
-        <th>Outcome</th>
+        
 
       </tr>
     </thead>
@@ -47,9 +47,15 @@
         <td>{{fixture.league}}</td>
         <td>{{ fixture.games }}</td>
         <td>{{ fixture.predict }}</td>
-        <td>{{ fixture.odds }}</td>
+        <td><span [ngClass]="{
+          'won': fixture.verdict === 'win',
+          'lost': fixture.verdict === 'lost',
+          'pending': fixture.verdict === 'pending'
+        }">
+        {{ fixture.odds }}
+      </span></td>
         <td>{{ fixture.result }}</td>
-        <td>{{ getVerdictEmoji(fixture.verdict) }}</td>
+        
       </tr>
     </tbody>
   </table>

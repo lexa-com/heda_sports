@@ -7,7 +7,7 @@
   }
   
   .date-header {
-    background-color: #c2185b;
+    background-color: #8a7e83;
     color: white;
     text-align: center;
     padding: 10px;
@@ -65,3 +65,21 @@ background-color: #c2185b;
 color: #f2f2f2;
 
   }
+  .won {
+    background-color: lightgreen;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .lost {
+    background-color: lightcoral;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .pending {
+    background-color: lightyellow;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  

@@ -42,7 +42,7 @@ export class PremiumTwentyComponent implements OnInit {
     this.sharedService.vipArray.subscribe((res)=>{
       this.data = res
     this.overGames = res.filter(item => item.category === "13" && item.date < this.pickedDate)
-    this.fixtures = this.overGames
+    this.fixtures = this.overGames.reverse()
     
     })
   }

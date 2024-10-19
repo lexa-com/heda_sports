@@ -34,7 +34,7 @@ export class TipstersDetailsComponent implements OnInit {
       const formattedToday = this.formatDateToDDMMYYYY(today);
       this.matchDays = matchDays
         .filter(day => day.date < formattedToday)
-        .reverse(); 
+        
     });
 
   }
@@ -45,7 +45,7 @@ export class TipstersDetailsComponent implements OnInit {
       const formattedToday = this.formatDateToDDMMYYYY(today);
       this.matchDays = matchDays
         .filter(day => day.date < formattedToday)
-        .reverse();
+        
     });
 
   }

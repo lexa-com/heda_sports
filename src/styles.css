@@ -11,3 +11,22 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.won {
+  background-color: lightgreen;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.lost {
+  background-color: lightcoral;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.pending {
+  background-color: lightyellow;
+  padding: 5px;
+  border-radius: 5px;
+}
+

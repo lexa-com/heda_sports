@@ -27,9 +27,10 @@ export class AppBarComponent implements OnInit {
     checkAuth(){
    this.shared.currentAuthStatus.subscribe((res)=>{
         
-    if (res[0] == null){
+    if (res[0] == ''){
       this.authenticated = false
       this.notAuthenticated = true
+      this.admin = false
   
     } else if (res[0] == 'authenticated'){
       this.authenticated = true
@@ -39,6 +40,7 @@ export class AppBarComponent implements OnInit {
     } else if (res[0] == 'null'){
       this.authenticated = false
       this.notAuthenticated = true
+      this.admin = false
     } 
   })
   
