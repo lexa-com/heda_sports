@@ -60,6 +60,8 @@ import { TipsterGameUpdateComponent } from './admin/tipster-games/tipster-game-u
 import { PrivacyPolicyComponent } from './admin/privacy-policy/privacy-policy.component';
 import { TestPaywallComponent } from './main-components/paywalls/test-paywall/test-paywall.component';
 import { GooglePayButtonModule } from '@google-pay/button-angular';
+import { NoCacheInterceptor } from './Services/no-cache.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -129,6 +131,7 @@ import { GooglePayButtonModule } from '@google-pay/button-angular';
     
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: NoCacheInterceptor, multi: true },
     provideClientHydration()
   ],
   bootstrap: [AppComponent]
