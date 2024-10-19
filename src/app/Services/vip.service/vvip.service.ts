@@ -35,7 +35,7 @@ export class VvipService {
       .pipe(
         catchError((error: any) => {
           console.error('Error posting game data:', error);
-          return throwError('Error posting game data');
+          return throwError('Error posting gae data');
         })
       );
   }
