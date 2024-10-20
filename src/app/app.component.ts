@@ -34,6 +34,8 @@ constructor(
 ngOnInit(): void {
   
   this.getUserInfo()
+  this.getTip1()
+  this.getTip2()
 }
 
 
@@ -63,15 +65,6 @@ async readUserData(email: string) {
 
     if (userDocSnapshot.exists()) {
       this.userData = userDocSnapshot.data();
-      
-      if (this.userData.admin=='Yes'){
-        this.getTip1()
-        this.getTip2()
-      } else if (this.userData.tipster1.split('+')[0]=='Yes'){
-        this.getTip1()
-      }else if (this.userData.tipster2.split('+')[0]=='Yes'){
-        this.getTip2()
-      }
       this.sendUserArray([this.userData])
       
     } else {
