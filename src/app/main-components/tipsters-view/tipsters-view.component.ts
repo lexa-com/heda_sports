@@ -24,6 +24,7 @@ hideSub2:boolean = true
   matchDays: any[] = [];
   matchDays2: any[] = [];
   paymentRequest: any;
+  admin: any;
 
   constructor(
     private gamesService: GamesService,
@@ -118,15 +119,16 @@ hideSub2:boolean = true
 
   checkSubscription(){
     this.sharedService.userArray.subscribe((res)=>{
+      this.admin = res[0].admin
       this.subscriptionOne = res[0].tipster1.split('+')[0]
-      this.subscriptionTwo = res[0].tipster2.split('+')[0] || ''
+      this.subscriptionTwo = res[0].tipster2.split('+')[0]
 
-      if (this.subscriptionOne == "Yes"){
+      if (this.subscriptionOne == "Yes"|| this.admin =='Yes'){
            this.tipsterOne = true
            this.getTip1()
            this.hideSub1 = false
       }
-      if (this.subscriptionTwo == "Yes"){
+      if (this.subscriptionTwo == "Yes" || this.admin =='Yes'){
         this.tipsterTwo = true
         this.getTip2()
         this.hideSub2 = false
