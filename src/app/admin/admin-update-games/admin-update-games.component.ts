@@ -38,6 +38,7 @@ ngOnInit(): void {
       //this.checkSubscription()
       this.setTodayDate()
       this.dialogConfig = new MatDialogConfig();
+      this.fetchGames()
       
     }
 fetchVipGames(){

@@ -33,25 +33,7 @@ export class GamesService {
 
   constructor(private http: HttpClient,private firestore: AngularFirestore) { }
  
-  getGames(): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-cache',
-      'Pragma': 'no-cache',
-      'Expires': '0',
-      // Add any additional headers here (e.g., Authorization)
-    });
-  
-    return this.http
-      .get<any>(`${this.Url}get/games`, { headers })
-      .pipe(
-        catchError((error: any) => {
-          console.error('Error fetching games:', error); // Updated error message
-          return throwError('Error fetching games');
-        })
-      );
-  }
-  
+ 
 
   postGame(gameData: any): Observable<any> {
         
@@ -65,6 +47,27 @@ export class GamesService {
       );
   }
 
+  createGamesCollection(gamesArray: any[]): Promise<void> {
+    const docRef = this.firestore.collection('games').doc('matches'); // Document name is the same as the collection
+  
+    // Add unique IDs to each game
+    const gamesWithIds = gamesArray.map(game => ({
+      id: uuidv4(),  // Generate a unique ID for each game
+      ...game
+    }));
+  
+    // Set the document with the games array
+    return docRef.update({
+      games: firebase.firestore.FieldValue.arrayUnion(...gamesWithIds)
+    }).catch((error) => {
+      // If the document doesn't exist yet, create it with the games array
+      return docRef.set({
+        games: gamesWithIds
+      });
+    });
+  }
+  
+
   updateGame(gameId: string, updatedGameData: any): Observable<any> {
     return this.http
       .put<any>(`${this.Url}modify?id=${gameId}`, updatedGameData)
@@ -75,19 +78,88 @@ export class GamesService {
         })
       );
   }
+
+  async modifyGame(gameId: string, updatedGameData: Partial<Game>): Promise<void> {
+    const docRef = this.firestore.collection('games').doc('matches'); // Points to the 'games' collection and 'matches' document
+    
+    try {
+      // Retrieve the document snapshot
+      const docSnapshot = await firstValueFrom(docRef.get());
   
-  deleteGame(gameId: string): Observable<any> {
-    return this.http
-      .delete<any>(`${this.Url}delete/game?id=${gameId}`)
-      .pipe(
-        catchError((error: any) => {
-          console.error('Error deleting game:', error);
-          return throwError('Error deleting game');
-        })
-      );
+      if (docSnapshot.exists) {
+        // Extract the current games array from the document
+        const docData = docSnapshot.data() as DocumentData;  // Typecast to DocumentData
+        const gamesArray = docData.games || [];
+  
+        // Find the game with the matching 'id'
+        const gameIndex = gamesArray.findIndex((game: Game) => game.id === gameId);
+  
+        if (gameIndex !== -1) {
+          // Update the specific game's fields with the new data
+          gamesArray[gameIndex] = { ...gamesArray[gameIndex], ...updatedGameData };
+  
+          // Update the Firestore document with the modified games array
+          await docRef.update({
+            games: gamesArray
+          });
+          console.log('Game successfully updated!');
+        } else {
+          console.error('Game not found in the array');
+        }
+      } else {
+        console.error('Document does not exist');
+      }
+    } catch (error) {
+      console.error('Error updating game in Firestore: ', error);
+      throw error;  // Re-throw the error if necessary
+    }
   }
-
-
+  
+  // deleteGame(gameId: string): Observable<any> {
+  //   return this.http
+  //     .delete<any>(`${this.Url}delete/game?id=${gameId}`)
+  //     .pipe(
+  //       catchError((error: any) => {
+  //         console.error('Error deleting game:', error);
+  //         return throwError('Error deleting game');
+  //       })
+  //     );
+  // }
+  async deleteGame(gameId: string): Promise<void> {
+    const docRef = this.firestore.collection('games').doc('matches'); // Points to the 'games' collection and 'matches' document
+  
+    try {
+      // Step 1: Retrieve the document snapshot
+      const docSnapshot = await firstValueFrom(docRef.get());
+  
+      // Step 2: Check if the document exists
+      if (!docSnapshot || !docSnapshot.exists) {
+        throw new Error('Document does not exist');
+      }
+  
+      const data = docSnapshot.data() as DocumentData; // Type assertion
+      const gamesArray = data?.games || []; // Safely access the games array
+  
+      // Step 3: Filter out the game with the matching id
+      const updatedGamesArray = gamesArray.filter((game: Game) => game.id !== gameId);
+  
+      // Step 4: Check if the game was found and removed
+      if (gamesArray.length === updatedGamesArray.length) {
+        throw new Error('Game not found');
+      }
+  
+      // Step 5: Update the document with the new games array
+      await docRef.update({
+        games: updatedGamesArray
+      });
+  
+      console.log('Game successfully deleted!');
+    } catch (error) {
+      console.error('Error deleting game:', error);
+      throw error;  // Re-throw to propagate the error
+    }
+  }
+  
 pushGamesToDB(category: string, gameDate: string, gamesArray: any[]): Promise<void> {
   const docRef = this.firestore.collection(category).doc(gameDate);
 
@@ -118,8 +190,7 @@ pushGamesToDB(category: string, gameDate: string, gamesArray: any[]): Promise<vo
       }))
     );
   }
-    
-  
+     
   async updateGameInArrayById(category: string, gameDate: string, gameId: string, updatedGameData: Partial<Game>): Promise<void> {
     const docRef = this.firestore.collection(category).doc(gameDate);
   
@@ -195,6 +266,30 @@ getAllMatchDays(category: string): Observable<any[]> {
   );
 }
 
+async getGames(): Promise<Game[]> {
+  const docRef = this.firestore.collection('games').doc('matches'); // Hardcoded collection and document
+
+  try {
+    // Step 1: Retrieve the document snapshot
+    const docSnapshot = await firstValueFrom(docRef.get());
+
+    // Step 2: Check if the document exists
+    if (!docSnapshot.exists) {
+      throw new Error('Document does not exist');
+    }
+
+    // Step 3: Extract the games array from the document data
+    const data = docSnapshot.data() as DocumentData; // Type assertion
+    const gamesArray = data?.games || [];  // Safely access the games array
+
+    // Step 4: Return the games array
+    return gamesArray as Game[];  // Typecast to Game[] if needed
+
+  } catch (error) {
+    console.error('Error fetching games:', error);
+    throw error;  // Re-throw the error for further handling
+  }
+}
 
 }
 

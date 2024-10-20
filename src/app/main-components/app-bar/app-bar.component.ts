@@ -26,18 +26,23 @@ export class AppBarComponent implements OnInit {
     }
     checkAuth(){
    this.shared.currentAuthStatus.subscribe((res)=>{
+
+    console.log(res[0],"auth")
         
     if (res[0] == ''){
       this.authenticated = false
       this.notAuthenticated = true
       this.admin = false
   
-    } else if (res[0] == 'authenticated'){
+    } 
+     if (res[0] == 'authenticated'){
+      console.log('called')
       this.authenticated = true
       this.notAuthenticated = false
       this.checkUser()
   
-    } else if (res[0] == 'null'){
+    } 
+    if (res[0] == 'null'){
       this.authenticated = false
       this.notAuthenticated = true
       this.admin = false

@@ -98,7 +98,7 @@ export class PremiumTwentyComponent implements OnInit {
   checkSubscription(){
     this.sharedService.userArray.subscribe((res)=>{
       const subscrib = res[0].twenty.split('+')[0]
-      if (subscrib =='Yes'){
+      if (subscrib =='Yes' || res[0].admin=='Yes'){
         this.authenticated = true
         this.subscription = false
         this.fetchGames()

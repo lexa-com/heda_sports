@@ -76,7 +76,7 @@ export class GameDetailsComponent implements OnInit {
       this.snackBar.open('Game data added to array!', 'Close', {
         duration: 3000
       });
-      this.formData.reset();
+     // this.formData.reset();
     } else {
       this.snackBar.open('Please fill out all required fields.', 'Close', {
         duration: 3000
@@ -137,104 +137,71 @@ if (this.gamesArray.length == 0){
   this.snackBar.open('Please add the game:', '', { duration: 3000 });
 }
 else{
-if (this.category == 'free'){
-  this.gamesService.postGame(this.gamesArray).subscribe(
-    response => {
-      console.log('Game posted successfully:', response);
-      this.snackBar.open('Game posted successfully:', '', { duration: 3000 });
-    },
-    error => {
-      console.error('Error posting game:', error);
-      this.snackBar.open('Error posting game:', '', { duration: 3000 });
-    }
-  );
+
+  if (this.gamesArray.length > 0) {
+    this.gamesService.createGamesCollection(this.gamesArray)
+      .then(() => {
+        this.snackBar.open('Games successfully pushed to Firestore!', 'Close', {
+          duration: 3000
+        });
+        this.gamesArray = []; // Clear the array after successful push
+        this.formData.reset(); // Reset the form
+      })
+      .catch((error) => {
+        console.error('Error pushing games to Firestore: ', error);
+        this.snackBar.open('Failed to push games to Firestore. Please try again.', 'Close', {
+          duration: 3000
+        });
+      });
+  } else {
+    this.snackBar.open('Please enter a valid date and add games to the list.', 'Close', {
+      duration: 3000
+    });
+  }
 }
-if (this.category =='vvip'){
-
-  this.vvipService.postGame(this.gamesArray).subscribe(
-    response => {
-      console.log('Vip Game posted successfully:', response);
-      this.snackBar.open('Game posted successfully:', '', { duration: 3000 });
-    },
-    error => {
-      console.error('Error posting game:', error);
-      this.snackBar.open('Error posting game:', '', { duration: 3000 });
-    }
-  );
-
-}
-
-}
-
-  
+ 
 }
 
 updateGame() {
 
-  if (this.gameData.category == '11' ||this.gameData.category == '12'||this.gameData.category == '13'||
-    this.gameData.category == '14'
-   ){
-    console.log("vvvip")
+  const gameId = this.gameData.id; // Assuming the game ID is available in this.gameData
+  const category = this.category;
 
-    this.vvipService.updateGame(this.gameData._id,this.formData.value).subscribe(
-      response => {
-        console.log('Game updated successfully:', response);
-        this.snackBar.open('Game updated successfully:', '', { duration: 3000 });
-        this.router.navigate(['update/games'])
-      },
-      error => {
-        console.error('Error updating game:', error);
-        this.snackBar.open('Error updating game:', '', { duration: 3000 });
-      }
-    );
-   } else {
+  // Get updated data from form controls
+  const updatedGameData = {
+    games: this.formData.value.games,
+    result: this.formData.value.result,
+    verdict: this.formData.value.verdict,
+    predict: this.formData.value.predict,
+    ko: this.formData.value.ko,
+    league: this.formData.value.league,
+    odds: this.formData.value.odds,
+    
+  };
 
-    this.gamesService.updateGame(this.gameData._id,this.formData.value).subscribe(
-      response => {
-        console.log('Game updated successfully:', response);
-        this.snackBar.open('Game updated successfully:', '', { duration: 3000 });
-        this.router.navigate(['update/games'])
-      },
-      error => {
-        console.error('Error updating game:', error);
-        this.snackBar.open('Error updating game:', '', { duration: 3000 });
-      }
-    );
-   }
+  // Call the service to update the game in Firestore
+  this.gamesService.modifyGame(gameId, updatedGameData)
+    .then(() => {
+      this.snackBar.open('Game updated successfully!', '', { duration: 3000 });
+    })
+    .catch((error) => {
+      console.error('Error updating game:', error);
+      this.snackBar.open('Error updating game.', '', { duration: 3000 });
+    });
 }
 
 deleteGame() {
-
-  if (this.gameData.category == '11' ||this.gameData.category == '12'||this.gameData.category == '13'||
-    this.gameData.category == '14'
-   ){
-
-    this.vvipService.deleteGame(this.gameData._id).subscribe(
-      response => {
-        console.log('Game deleted successfully:', response);
-        this.snackBar.open('Game deleted successfully:', '', { duration: 3000 });
-        this.router.navigate(['update/games'])
-      },
-      error => {
-        console.error('Error deleting game:', error);
-        this.snackBar.open('Error deleting game:', '', { duration: 3000 });
-      }
-    );
-
-  } else {
-
-  this.gamesService.deleteGame(this.gameData._id).subscribe(
-    response => {
-      console.log('Game deleted successfully:', response);
-      this.snackBar.open('Game deleted successfully:', '', { duration: 3000 });
-      this.router.navigate(['update/games'])
-    },
-    error => {
-      console.error('Error deleting game:', error);
-      this.snackBar.open('Error deleting game:', '', { duration: 3000 });
-    }
-  );
-}
+  const gameId = this.gameData.id;
+  this.gamesService.deleteGame(gameId)
+  .then(() => {
+    this.snackBar.open('Game deleted successfully!', '', { duration: 3000 });
+    //this.getAllGames(); // Refresh the game list
+  })
+  .catch((error) => {
+    console.error('Error deleting game:', error);
+    this.snackBar.open('Error deleting game', '', { duration: 3000 });
+  });
+ 
 }
 
 openDialog() {

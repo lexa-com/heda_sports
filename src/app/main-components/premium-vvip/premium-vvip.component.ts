@@ -81,24 +81,11 @@ export class PremiumVvipComponent implements OnInit {
     this.pickedDate = this.formatDate(today); // Format and set pickedDate
     
   }
-  
-  getVerdictEmoji(verdict: string): string {
-    switch (verdict) {
-      case 'win':
-        return '✅✅✅'; // Trophy emoji
-      case 'lost':
-        return '❌'; // Cross mark emoji
-      case 'post':
-        return 'postponed'; // Handshake emoji
-      default:
-        return '-'; // Scales emoji for unknown verdict
-    }
-  }
 
   checkSubscription(){
     this.sharedService.userArray.subscribe((res)=>{
       const subscrib = res[0].vvip.split('+')[0]
-      if (subscrib =='Yes'){
+      if (subscrib =='Yes' || res[0].admin=='Yes'){
         this.authenticated = true
         this.subscription = false
         this.fetchGames()

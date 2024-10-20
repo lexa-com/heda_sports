@@ -6,6 +6,21 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { doc, getDoc } from 'firebase/firestore';
 import { VvipService } from './Services/vip.service/vvip.service';
 
+interface Game {
+  id: string;
+  games: string;
+  ko: string;
+  league: string;
+  odds: string;
+  predict: string;
+  result: string;
+  verdict: string;
+}
+
+interface DocumentData {
+  games: Game[];  // Array of games
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -32,26 +47,28 @@ constructor(
 ngOnInit(): void {
   this.fetchGames()
   this.getUserInfo()
-  this.getVipGames()
-  this.getTip1()
-  this.getTip2()
 }
 
-fetchGames(){
-this.dataService.getGames().subscribe((res)=>{
-this.fixtures = res
-console.log(res)
-this.sendArray(this.fixtures)
-  
-})
+fetchGames(): Promise<Game[]> {
+  const docRef = this.firestore.collection('games').doc('matches'); // Hardcoded collection and document
 
-}
-getVipGames(){
-  this.vipService.getGames().subscribe((res)=>{
-    this.Vipfixtures = res
-    this.sendVipArray(this.Vipfixtures)
-      
-    })
+  return docRef.get().toPromise().then((docSnapshot) => {
+    // Check if the document exists
+    if (!docSnapshot || !docSnapshot.exists) {
+      throw new Error('Document does not exist');
+    }
+
+    // Extract the games array from the document data
+    const data = docSnapshot.data() as DocumentData;
+    const gamesArray = data?.games || [];
+    this.sendArray(gamesArray)
+    this.sendVipArray(gamesArray)
+
+    return gamesArray as Game[];
+  }).catch((error) => {
+    console.error('Error fetching games:', error);
+    throw error;
+  });
 }
 
 sendArray(gamesArray:any) {
@@ -79,14 +96,22 @@ this.sharedService.currentAuthStatus.subscribe((res)=>{
 
 }
 
-
 async readUserData(email: string) {
   try {
     const userDocRef = doc(this.firestore.firestore, 'users', email); // Reference to the user's document
     const userDocSnapshot = await getDoc(userDocRef); // Fetch the document
 
     if (userDocSnapshot.exists()) {
-      this.userData = userDocSnapshot.data(); // Retrieve document data
+      this.userData = userDocSnapshot.data();
+      
+      if (this.userData.admin=='Yes'){
+        this.getTip1()
+        this.getTip2()
+      } else if (this.userData.tipster1.split('+')[0]=='Yes'){
+        this.getTip1()
+      }else if (this.userData.tipster2.split('+')[0]=='Yes'){
+        this.getTip2()
+      }
       this.sendUserArray([this.userData])
       
     } else {
