@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, from, Observable, throwError } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { doc } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
@@ -266,29 +266,29 @@ getAllMatchDays(category: string): Observable<any[]> {
   );
 }
 
-async getGames(): Promise<Game[]> {
-  const docRef = this.firestore.collection('games').doc('matches'); // Hardcoded collection and document
+getGames(): Observable<any[]> {
+  const collectionName = 'games'; // Hardcoded collection name
+  const docId = 'matches'; // Hardcoded document ID
+  const docRef = this.firestore.collection(collectionName).doc(docId);
 
-  try {
-    // Step 1: Retrieve the document snapshot
-    const docSnapshot = await firstValueFrom(docRef.get());
+  return from(docRef.get()).pipe(
+    map(docSnapshot => {
+      // Check if the document exists
+      if (!docSnapshot.exists) {
+        throw new Error('Document does not exist');
+      }
 
-    // Step 2: Check if the document exists
-    if (!docSnapshot.exists) {
-      throw new Error('Document does not exist');
-    }
+      // Extract the games array from the document data
+      const data = docSnapshot.data() as DocumentData; // Type assertion
+      const gamesArray = Array.isArray(data?.games) ? data.games : [];  // Ensure it's an array
 
-    // Step 3: Extract the games array from the document data
-    const data = docSnapshot.data() as DocumentData; // Type assertion
-    const gamesArray = data?.games || [];  // Safely access the games array
-
-    // Step 4: Return the games array
-    return gamesArray as Game[];  // Typecast to Game[] if needed
-
-  } catch (error) {
-    console.error('Error fetching games:', error);
-    throw error;  // Re-throw the error for further handling
-  }
+      return gamesArray as Game[];  // Typecast to Game[] if needed
+    }),
+    catchError(error => {
+      console.error('Error fetching games:', error);
+      throw error;  // Re-throw the error for further handling
+    })
+  );
 }
 
 }

@@ -1,32 +1,18 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { GamesService } from './Services/games.service';
 import { Router } from '@angular/router';
 import { SharedService } from './Services/shared.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { doc, getDoc } from 'firebase/firestore';
 import { VvipService } from './Services/vip.service/vvip.service';
-
-interface Game {
-  id: string;
-  games: string;
-  ko: string;
-  league: string;
-  odds: string;
-  predict: string;
-  result: string;
-  verdict: string;
-}
-
-interface DocumentData {
-  games: Game[];  // Array of games
-}
+import { collection, getDocs } from 'firebase/firestore';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Heda_sports';
   sideBarOpen= true;
 
@@ -35,6 +21,7 @@ export class AppComponent {
   Vipfixtures: any;
   matchDays: any[] = [];
   matchDays2: any[] = [];
+ 
 
 constructor(
   private dataService: GamesService,
@@ -45,38 +32,11 @@ constructor(
   ) { }
 
 ngOnInit(): void {
-  this.fetchGames()
+  
   this.getUserInfo()
 }
 
-fetchGames(): Promise<Game[]> {
-  const docRef = this.firestore.collection('games').doc('matches'); // Hardcoded collection and document
 
-  return docRef.get().toPromise().then((docSnapshot) => {
-    // Check if the document exists
-    if (!docSnapshot || !docSnapshot.exists) {
-      throw new Error('Document does not exist');
-    }
-
-    // Extract the games array from the document data
-    const data = docSnapshot.data() as DocumentData;
-    const gamesArray = data?.games || [];
-    this.sendArray(gamesArray)
-    this.sendVipArray(gamesArray)
-
-    return gamesArray as Game[];
-  }).catch((error) => {
-    console.error('Error fetching games:', error);
-    throw error;
-  });
-}
-
-sendArray(gamesArray:any) {
-  this.sharedService.changeArray(gamesArray);
-}
-sendVipArray(gamesArray:any) {
-  this.sharedService.changeVipArray(gamesArray);
-}
 
 sendUserArray(userArray:any) {
   this.sharedService.changeUserArray(userArray);
