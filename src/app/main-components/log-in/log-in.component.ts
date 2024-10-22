@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../Services/auth.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../../Services/shared.service';
@@ -6,13 +6,16 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { differenceInDays } from 'date-fns';
 import { doc, getDoc } from 'firebase/firestore';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css']  // Fixed typo in styleUrls
 })
-export class LogInComponent {
+export class LogInComponent implements OnInit {
+  dialogConfig: MatDialogConfig<any> | undefined;
 
   isLogin: boolean = true;
   isResetPassword: boolean = false;  // Added for toggling password reset form
@@ -42,8 +45,12 @@ export class LogInComponent {
     private router: Router,
     private sharedService: SharedService,
     private firestore: AngularFirestore,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) {}
+  ngOnInit(): void {
+    this.dialogConfig = new MatDialogConfig();
+  }
 
   // Toggle between login and sign-up forms
   toggleForm(isLogin: boolean) {
@@ -112,20 +119,7 @@ export class LogInComponent {
   }
 
   // Handle password reset
-  resetPassword() {
-    if (this.email.trim() === '') {
-      this.snackBar.open('Please enter your email to reset password', '', { duration: 3000 });
-      return;
-    }
-    this.auth.resetPassword(this.email)
-      .then(() => {
-        this.snackBar.open('Password reset link sent to your email', '', { duration: 3000 });
-        this.toggleResetPassword();  // Hide the reset password form
-      })
-      .catch(error => {
-        this.snackBar.open(error.message || 'Error sending password reset link', '', { duration: 3000 });
-      });
-  }
+ 
 
   sendAuthStatus(auth: any) {
     this.sharedService.authCheck(auth);
@@ -205,5 +199,13 @@ export class LogInComponent {
   // Update the shared user array
   sendUserArray(userArray: any) {
     this.sharedService.changeUserArray(userArray);
+  }
+
+  openDialog() {
+
+    const dialogRef = this.dialog.open(PasswordResetComponent, {
+      width: '600px',
+      height:'400px'
+    });
   }
 }

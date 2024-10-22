@@ -1,12 +1,12 @@
 <div class="contact-page">
     <div class="contact-info">
-      <div class="info-box">
+      <div class="info-box" (click)="openDialog()">
         <div class="icon">
           <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Icon" width="24px" />
         </div>
         <h3>TELEGRAM</h3>
         <p>
-          <a href="https://t.me/your-telegram-handle" target="_blank">yourtelegramhandle</a>
+          
         </p>
       </div>
       <div class="info-box">
@@ -15,24 +15,33 @@
         </div>
         <h3>INSTAGRAM</h3>
         <p>
-          <a href="https://www.instagram.com/your-instagram-handle" target="_blank">yourinstagramhandle</a>
+          <a href="https://www.instagram.com/heda_sports/" target="_blank">{{inst}}</a>
         </p>
       </div>
-      <div class="info-box">
+      <div class="info-box" (click)="openEmail()">
         <div class="icon">📧</div>
         <h3>EMAIL</h3>
-        <p>hello.gmail.com</p>
-      </div>
+        <p>{{email}}</p>
+    </div>
     </div>
   
     <div class="contact-form">
       <h2>Contact Us</h2>
       <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
-        <input type="text" name="name" ngModel placeholder="Enter your Name" required />
-        <input type="email" name="email" ngModel placeholder="Enter a valid email address" required />
-        <textarea name="message" ngModel rows="5" placeholder="Enter your message" required></textarea>
-        <button type="submit" [disabled]="!contactForm.valid">Submit</button>
+          <input type="text" name="name" ngModel placeholder="Enter your Name" required />
+          <input type="email" name="email" ngModel placeholder="Enter a valid email address" required />
+          <textarea name="message" ngModel rows="5" placeholder="Enter your message" required></textarea>
+          
+          <!-- Hidden field for today's date -->
+          <input type="hidden" name="date" ngModel [value]="today" />
+  
+          <!-- Displayed date field (disabled) -->
+          <input type="date" name="dateDisplay" [value]="today" disabled />
+  
+          <button type="submit" [disabled]="!contactForm.valid">Submit</button>
       </form>
-    </div>
+  </div>
+  
+  
   </div>
   

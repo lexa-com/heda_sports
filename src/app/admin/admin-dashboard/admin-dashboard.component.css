@@ -1,62 +1,75 @@
 .card-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-  }
-  
-  .card {
-    background-color: #2b2b3d;
-    border-radius: 10px;
-    width: 150px;
-    padding: 20px;
-    color: white;
-    text-align: center;
-  }
-  
-  .card-header {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .card-body {
-    font-size: 14px;
-    margin-top: 10px;
-  }
-  
-  .card-title {
-    display: block;
-    color: #00FFFF;
-  }
-  
-  .card-label {
-    display: block;
-    margin-top: 5px;
-    color: #00FFFF;
-    font-family: 'Courier New', Courier, monospace;
-  }
-
-  .football-fixtures {
-    border-collapse: collapse;
-    width: 40%;
-    margin-bottom: 400px;
-  }
-  
-  th, td {
-    border: 1px solid #c2185b;
-    background-color: #f2f2f2;
-    padding: 8px;
-    text-align: left;
-    font-size: 12px;
-    color: black;
-  }
-  
-  th {
-    background-color: #ded6d6;
-    color: black;
-  }
-
-  .title, .pick {
-    text-align: center; /* Center the title */
-    margin-bottom: 20px; /* Add some space below the title */
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
 }
-  
+
+.card {
+  background-color: #2b2b3d;
+  border-radius: 10px;
+  width: 150px;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.card-header {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card-body {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.card-title {
+  display: block;
+  color: #00FFFF;
+}
+
+.card-label {
+  display: block;
+  margin-top: 5px;
+  color: #00FFFF;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Flexbox container for tables */
+.tables-container {
+  display: flex;
+  justify-content: space-between; /* Ensures tables are spaced out */
+  gap: 20px; /* Adds space between the two tables */
+  margin-top: 20px; /* Adds some space above the tables */
+}
+
+/* Table styling */
+.football-fixtures {
+  border-collapse: collapse;
+  width: 40%; /* Adjust width to ensure both tables fit */
+  margin-bottom: 50px; /* Adjust margin-bottom to fit content */
+}
+
+th, td {
+  border: 1px solid #c2185b;
+  background-color: #f2f2f2;
+  padding: 8px;
+  text-align: left;
+  font-size: 12px;
+  color: black;
+}
+
+th {
+  background-color: #ded6d6;
+  color: black;
+}
+
+/* Center align titles */
+.title, .pick {
+  text-align: center;
+  margin-bottom: 20px;
+}
+td i {
+  margin-right: 5px; /* Adjust spacing between the icon and text */
+  vertical-align: middle; /* Align icon with text */
+}

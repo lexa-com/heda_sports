@@ -61,6 +61,9 @@ import { PrivacyPolicyComponent } from './admin/privacy-policy/privacy-policy.co
 import { TestPaywallComponent } from './main-components/paywalls/test-paywall/test-paywall.component';
 import { GooglePayButtonModule } from '@google-pay/button-angular';
 import { NoCacheInterceptor } from './Services/no-cache.interceptor';
+import { PasswordResetComponent } from './main-components/log-in/password-reset/password-reset.component';
+import { TelegramComponent } from './main-components/contacts/telegram/telegram.component';
+import { MessagesComponent } from './main-components/contacts/messages/messages.component';
 
 
 @NgModule({
@@ -99,7 +102,10 @@ import { NoCacheInterceptor } from './Services/no-cache.interceptor';
     TipsterAddGamesComponent,
     TipsterGameUpdateComponent,
     PrivacyPolicyComponent,
-    TestPaywallComponent
+    TestPaywallComponent,
+    PasswordResetComponent,
+    TelegramComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

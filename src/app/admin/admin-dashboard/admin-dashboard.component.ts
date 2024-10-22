@@ -3,6 +3,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection, getDocs } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { doc, getDoc } from 'firebase/firestore';
+import { VvipService } from '../../Services/vip.service/vvip.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MessagesComponent } from '../../main-components/contacts/messages/messages.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -10,22 +13,36 @@ import { doc, getDoc } from 'firebase/firestore';
   styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent implements OnInit {
-
-
-
+  dialogConfig: MatDialogConfig<any> | undefined;
 
 totalUsers: any;
 userData: any[] = [];
 allUsers: any[] = [];
+messages: any[] = [];
+totalMessages: any;
 
 constructor(private firestore: AngularFirestore,
-  private router: Router
+  private router: Router,
+  private messagesService:VvipService,
+  private dialog: MatDialog,
 ){
 
 }
 
   ngOnInit(): void {
     this.getAllUsers()
+    this.getMessages()
+    this.dialogConfig = new MatDialogConfig();
+  }
+
+  getMessages(){
+this.messagesService.getMessage().subscribe((res=>{
+  console.log(res)
+   this.totalMessages = res.length
+   this.messages = res
+
+}))
+
   }
 
 async getAllUsers() {
@@ -44,6 +61,15 @@ async getAllUsers() {
 userDetails(user: any) {
   this.router.navigate(['user/details'], 
     { queryParams: { userData: user} });
+  }
+
+  userMessage(message:any){
+    const dialogRef = this.dialog.open(MessagesComponent, {
+      width: '400px',
+      height:'520px',
+      data:message
+    });
+
   }
 
   navigate() {

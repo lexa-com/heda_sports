@@ -15,7 +15,7 @@
           <div class="input-box">
             <input type="password" placeholder="Password" required name="password" [(ngModel)]="password" />
           </div>
-          <a href="#" class="forgot-password">Forgot password?</a>
+          <a (click)="openDialog()" class="forgot-password">Forgot password?</a>
           <button type="submit" class="btn" (click)="logIn()">Log In</button>
         </form>
         <p>Don't have an account? <a (click)="toggleForm(false)">Sign Up</a></p>
