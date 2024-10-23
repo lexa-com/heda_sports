@@ -41,7 +41,7 @@ inst: string = '@heda_sports';
   }
 
   onSubmit(form: any) {
-    console.log(form.value)
+    
     if (form.valid) {
       this.messageService.sendMessage([form.value]).subscribe((res)=>{
         alert('Thank you for contacting us! We will get back to you soon.');

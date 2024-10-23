@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { GamesService } from '../../../Services/games.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { AdminNotifComponent } from '../../admin-notif/admin-notif.component';
 import { VvipService } from '../../../Services/vip.service/vvip.service';
 
@@ -32,15 +32,10 @@ export class GameDetailsComponent implements OnInit {
     private gamesService: GamesService,
     private vvipService: VvipService,
     private dialog: MatDialog,
-  ) { const navigation = this.router.getCurrentNavigation();
-    if (navigation && navigation.extras && navigation.extras.queryParams) {
-      this.gameData = navigation.extras.queryParams['gameData'];
-      this.category = navigation.extras.queryParams['category'];
-    } else {
-      this.snackBar.open('No user data found in query params.', '', { duration: 3000 });
-      this.gameData = null;
-      this.category = null;
-    } 
+    public dialogRef: MatDialogRef<GameDetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public Data: any,
+  ) { 
+   
 
     this.formCategory = this.fb.group({ // Initialize the new form
       category: [''],
@@ -55,8 +50,9 @@ export class GameDetailsComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    console.log(this.category)
-    if (this.category == "update"){
+    this.gameData = this.Data.match
+    
+    if (this.Data.category == "update"){
       this.fillForm()
       this.modifyGame = true
       this.hideTable = false
@@ -164,10 +160,8 @@ else{
 
 updateGame() {
 
-  const gameId = this.gameData.id; // Assuming the game ID is available in this.gameData
-  const category = this.category;
+  const gameId = this.Data.match.id; // Assuming the game ID is available in this.gameData
 
-  // Get updated data from form controls
   const updatedGameData = {
     games: this.formData.value.games,
     result: this.formData.value.result,
@@ -183,6 +177,7 @@ updateGame() {
   this.gamesService.modifyGame(gameId, updatedGameData)
     .then(() => {
       this.snackBar.open('Game updated successfully!', '', { duration: 3000 });
+      this.dialogRef.close()
     })
     .catch((error) => {
       console.error('Error updating game:', error);

@@ -5,6 +5,7 @@ import { GamesService } from '../../Services/games.service';
 import { SharedService } from '../../Services/shared.service';
 import { PremiumPaywallComponent } from '../paywalls/premium-paywall/premium-paywall.component';
 import { isEmpty } from 'rxjs';
+import { GameDetailsComponent } from '../../admin/admin-update-games/game-details/game-details.component';
 
 @Component({
   selector: 'app-premium-five',
@@ -23,6 +24,7 @@ export class PremiumFiveComponent implements OnInit {
     hideDate:boolean = true
     loggedIn:string = ''
     dialogConfig: MatDialogConfig<any> | undefined;
+  authorize: boolean = false;
   
   constructor(
     private dataService: GamesService,
@@ -95,6 +97,10 @@ export class PremiumFiveComponent implements OnInit {
         this.authenticated = false
         this.hideDate = false
       }
+      if (res[0].admin=='Yes'){
+        this.authorize = true
+
+      }
     })
   }
 
@@ -107,6 +113,7 @@ export class PremiumFiveComponent implements OnInit {
        } else {
         this.checkSubscription()
        }
+      
     })
   }
 
@@ -182,8 +189,19 @@ export class PremiumFiveComponent implements OnInit {
       }
     });
   }
-  
-  
+
+  modifyGame(game:any){
+    const dialogRef = this.dialog.open(GameDetailsComponent, {
+      width: '520px',
+      height:'520px',
+      data:{
+        match:game,
+        category:"update"
+      }
+    });
+
+  }
+ 
   }
   
 

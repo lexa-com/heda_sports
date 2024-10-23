@@ -91,7 +91,7 @@ getVerdictEmoji(verdict: string): string {
       }
     }
 gameDetail(game: any) {
-      console.log(game)
+      
 
       this.router.navigate(['game/details'], 
         { queryParams: { gameData: game,category:"update"} });

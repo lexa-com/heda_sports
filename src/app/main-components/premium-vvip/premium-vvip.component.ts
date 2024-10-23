@@ -4,6 +4,7 @@ import { GamesService } from '../../Services/games.service';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { SharedService } from '../../Services/shared.service';
 import { PremiumPaywallComponent } from '../paywalls/premium-paywall/premium-paywall.component';
+import { GameDetailsComponent } from '../../admin/admin-update-games/game-details/game-details.component';
 
 @Component({
   selector: 'app-premium-vvip',
@@ -22,6 +23,7 @@ export class PremiumVvipComponent implements OnInit {
     hideDate:boolean = true
     loggedIn:string = ''
     dialogConfig: MatDialogConfig<any> | undefined;
+  authorize: boolean =false;
   
   constructor(
     private dataService: GamesService,
@@ -95,6 +97,10 @@ export class PremiumVvipComponent implements OnInit {
         this.hideDate = false
         //t
       }
+      if (res[0].admin=='Yes'){
+        this.authorize = true
+
+      }
     })
   }
 
@@ -107,6 +113,7 @@ export class PremiumVvipComponent implements OnInit {
        } else {
         this.checkSubscription()
        }
+ 
     })
   }
   getPaymentRequest(name: string) {
@@ -183,6 +190,18 @@ export class PremiumVvipComponent implements OnInit {
         window.alert('Please Log in to continue');
       }
     });
+  }
+
+  modifyGame(game:any){
+    const dialogRef = this.dialog.open(GameDetailsComponent, {
+      width: '520px',
+      height:'520px',
+      data:{
+        match:game,
+        category:"update"
+      }
+    });
+
   }
   
   

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GamesService } from '../../Services/games.service';
 import { SharedService } from '../../Services/shared.service';
 import { PremiumPaywallComponent } from '../paywalls/premium-paywall/premium-paywall.component';
+import { GameDetailsComponent } from '../../admin/admin-update-games/game-details/game-details.component';
 
 @Component({
   selector: 'app-premium-ten',
@@ -21,6 +22,7 @@ export class PremiumTenComponent implements OnInit {
     hideDate:boolean = true
     loggedIn:string = ''
     dialogConfig: MatDialogConfig<any> | undefined;
+  authorize: boolean =false;
   
   constructor(
     private dataService: GamesService,
@@ -76,9 +78,9 @@ export class PremiumTenComponent implements OnInit {
   }
   
   setTodayDate(): void {
-    const today = new Date(); // Get today's date
-    this.pickedDate = this.formatDate(today); // Format and set pickedDate
-    //console.log('Today\'s date formatted:', this.pickedDate); // Log today's date
+    const today = new Date();   
+    this.pickedDate = this.formatDate(today); 
+    
   }
   
   getVerdictEmoji(verdict: string): string {
@@ -106,6 +108,10 @@ export class PremiumTenComponent implements OnInit {
         this.authenticated = false
         this.hideDate = false
       }
+      if (res[0].admin=='Yes'){
+        this.authorize = true
+
+      }
     })
   }
 
@@ -117,8 +123,7 @@ export class PremiumTenComponent implements OnInit {
 
        } else {
         this.checkSubscription()
-       }
-    })
+       }})
   }
   getPaymentRequest(name: string) {
     let totalPrice;
@@ -194,6 +199,18 @@ export class PremiumTenComponent implements OnInit {
         window.alert('Please Log in to continue');
       }
     });
+  }
+
+  modifyGame(game:any){
+    const dialogRef = this.dialog.open(GameDetailsComponent, {
+      width: '520px',
+      height:'520px',
+      data:{
+        match:game,
+        category:"update"
+      }
+    });
+
   }
   
   

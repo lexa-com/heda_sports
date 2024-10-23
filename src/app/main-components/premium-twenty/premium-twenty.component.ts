@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GamesService } from '../../Services/games.service';
 import { SharedService } from '../../Services/shared.service';
 import { PremiumPaywallComponent } from '../paywalls/premium-paywall/premium-paywall.component';
+import { GameDetailsComponent } from '../../admin/admin-update-games/game-details/game-details.component';
 
 @Component({
   selector: 'app-premium-twenty',
@@ -22,6 +23,7 @@ export class PremiumTwentyComponent implements OnInit {
     hideDate:boolean = true
     loggedIn:string = ''
     dialogConfig: MatDialogConfig<any> | undefined;
+  authorize: boolean =false;
   
   constructor(
     private dataService: GamesService,
@@ -79,7 +81,7 @@ export class PremiumTwentyComponent implements OnInit {
   setTodayDate(): void {
     const today = new Date(); // Get today's date
     this.pickedDate = this.formatDate(today); // Format and set pickedDate
-    //console.log('Today\'s date formatted:', this.pickedDate); // Log today's date
+    
   }
   
   getVerdictEmoji(verdict: string): string {
@@ -106,6 +108,10 @@ export class PremiumTwentyComponent implements OnInit {
         this.getOlderGames()
         this.authenticated = false
         this.hideDate = false
+      }
+      if (res[0].admin=='Yes'){
+        this.authorize = true
+
       }
     })
   }
@@ -195,6 +201,17 @@ export class PremiumTwentyComponent implements OnInit {
         window.alert('Please Log in to continue');
       }
     });
+  }
+  modifyGame(game:any){
+    const dialogRef = this.dialog.open(GameDetailsComponent, {
+      width: '520px',
+      height:'520px',
+      data:{
+        match:game,
+        category:"update"
+      }
+    });
+
   }
   
   

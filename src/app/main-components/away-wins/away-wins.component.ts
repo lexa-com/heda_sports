@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GamesService } from '../../Services/games.service';
 import { SharedService } from '../../Services/shared.service';
+import { MatDialog } from '@angular/material/dialog';
+import { GameDetailsComponent } from '../../admin/admin-update-games/game-details/game-details.component';
 
 @Component({
   selector: 'app-away-wins',
@@ -14,15 +16,18 @@ export class AwayWinsComponent implements OnInit {
   pickedDate: any;
     overGames: any[] = [];
     data: any[]=[];
+  authorize: boolean = false;
   
   constructor(
     private dataService: GamesService,
     private router: Router,
+    private dialog: MatDialog,
     private sharedService: SharedService
     ) { }
   
   ngOnInit(): void {
     this.setTodayDate()
+    this.fetchGames()
     this.fetchGames()
   }
   
@@ -72,6 +77,26 @@ export class AwayWinsComponent implements OnInit {
       default:
         return '-'; // Scales emoji for unknown verdict
     }
+  }
+
+  modifyGame(game:any){
+    const dialogRef = this.dialog.open(GameDetailsComponent, {
+      width: '520px',
+      height:'520px',
+      data:{
+        match:game,
+        category:"update"
+      }
+    });
+
+  }
+  checkAuth(){
+    this.sharedService.userArray.subscribe((res)=>{
+      if (res[0].admin=='Yes'){
+        this.authorize = true
+
+      }
+    })
   }
   
   }

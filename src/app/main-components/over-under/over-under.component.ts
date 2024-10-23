@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GamesService } from '../../Services/games.service';
 import { SharedService } from '../../Services/shared.service';
+import { GameDetailsComponent } from '../../admin/admin-update-games/game-details/game-details.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-over-under',
@@ -9,21 +11,26 @@ import { SharedService } from '../../Services/shared.service';
   styleUrl: './over-under.component.css'
 })
 export class OverUnderComponent implements OnInit {
+  dialogConfig: MatDialogConfig<any> | undefined;
 
   fixtures: any = [];
   pickedDate: any;
     overGames: any[] = [];
     data: any[]=[];
+  authorize: boolean = false;
   
   constructor(
     private dataService: GamesService,
     private router: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private dialog: MatDialog,
     ) { }
   
   ngOnInit(): void {
     this.setTodayDate()
     this.fetchGames()
+    this.dialogConfig = new MatDialogConfig();
+    this.checkAuth()
   }
   
   
@@ -59,17 +66,32 @@ export class OverUnderComponent implements OnInit {
     this.pickedDate = this.formatDate(today); // Format and set pickedDate
   }
   
-  getVerdictEmoji(verdict: string): string {
-    switch (verdict) {
-      case 'win':
-        return '✅✅✅'; // Trophy emoji
-      case 'lost':
-        return '❌'; // Cross mark emoji
-      case 'post':
-        return 'postponed'; // Handshake emoji
-      default:
-        return '-'; // Scales emoji for unknown verdict
+   modifyGame(game:any){
+    const dialogRef = this.dialog.open(GameDetailsComponent, {
+      width: '520px',
+      height:'520px',
+      data:{
+        match:game,
+        category:"update"
+      }
+    });
+
+  }
+  checkAuth(){
+this.sharedService.currentAuthStatus.subscribe((res)=>{
+
+if (res[0]=='authenticated'){
+  this.sharedService.userArray.subscribe((res)=>{
+    if (res[0].admin=='Yes'){
+      this.authorize = true
+
     }
+  })
+}
+
+})
+
+   
   }
   
   }

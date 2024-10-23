@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GamesService } from '../../Services/games.service';
 import { SharedService } from '../../Services/shared.service';
+import { GameDetailsComponent } from '../../admin/admin-update-games/game-details/game-details.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home-wins',
@@ -14,16 +16,19 @@ export class HomeWinsComponent implements OnInit {
   pickedDate: any;
     overGames: any[] = [];
     data: any[]=[];
+  authorize: boolean =false;
   
   constructor(
     private dataService: GamesService,
     private router: Router,
+    private dialog: MatDialog,
     private sharedService: SharedService
     ) { }
   
   ngOnInit(): void {
     this.setTodayDate()
     this.fetchGames()
+    this.checkAuth()
   }
   
   
@@ -32,7 +37,7 @@ export class HomeWinsComponent implements OnInit {
     this.data = res
   this.overGames = res.filter(item => item.category === "2" && item.date == this.pickedDate)
   this.fixtures = this.overGames
-  console.log(this.overGames)
+  
   })
   
   }
@@ -44,7 +49,7 @@ export class HomeWinsComponent implements OnInit {
     const formattedDate = this.formatDate(selectedDate);
     this.pickedDate = formattedDate
     this.fixtures = this.data.filter(item => item.date == formattedDate && item.category ==="2")
-    console.log('Formatted date:', formattedDate);
+    
   }
   
   formatDate(date: Date): string {
@@ -58,21 +63,34 @@ export class HomeWinsComponent implements OnInit {
   setTodayDate(): void {
     const today = new Date(); // Get today's date
     this.pickedDate = this.formatDate(today); // Format and set pickedDate
-    console.log('Today\'s date formatted:', this.pickedDate); // Log today's date
+   
   }
   
-  getVerdictEmoji(verdict: string): string {
-    switch (verdict) {
-      case 'win':
-        return '✅✅✅'; // Trophy emoji
-      case 'lost':
-        return '❌'; // Cross mark emoji
-      case 'post':
-        return 'postponed'; // Handshake emoji
-      default:
-        return '-'; // Scales emoji for unknown verdict
-    }
+
+
+  modifyGame(game:any){
+    const dialogRef = this.dialog.open(GameDetailsComponent, {
+      width: '520px',
+      height:'520px',
+      data:{
+        match:game,
+        category:"update"
+      }
+    });
+
   }
+  checkAuth(){
+    this.sharedService.currentAuthStatus.subscribe((res)=>{
+    if (res[0]=='authenticated'){
+      this.sharedService.userArray.subscribe((res)=>{
+        if (res[0].admin=='Yes'){
+          this.authorize = true
+    
+        }
+      })
+    }
+    })  
+      }
   
   }
   

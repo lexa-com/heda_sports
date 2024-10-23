@@ -41,7 +41,7 @@ export class SharedService {
 
   authCheck(newItem: any[]) {
     this.itemSource.next(newItem);
-    console.log(newItem)
+    
   }
 
   changeUserArray(newArray: any[]) {

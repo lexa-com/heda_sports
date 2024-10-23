@@ -40,7 +40,7 @@ export class LandingPageComponent implements OnInit {
   
       if (userDocSnapshot.exists()) {
         this.userData = userDocSnapshot.data();
-        console.log(this.userData);
+        
         this.sendArray(this.userData.games);
         this.sendVipArray(this.userData.games);
       } else {

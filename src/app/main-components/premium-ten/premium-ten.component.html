@@ -27,38 +27,42 @@
 </div>
 
 <table class="football-fixtures">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>League</th>
-        <th>Match</th>
-        <th>Pick</th>
-        <th>Odds</th>
-        <th>Results</th>
-        
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th>League</th>
+      <th>Match</th>
+      <th>Pick</th>
+      <th>Odds</th>
+      <th>Results</th>
+      <th *ngIf="authorize">Modify</th>
+      
 
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let fixture of fixtures">
-        <td>{{ fixture.date }}</td>
-        <td>{{ fixture.ko }}</td>
-        <td>{{fixture.league}}</td>
-        <td>{{ fixture.games }}</td>
-        <td>{{ fixture.predict }}</td>
-        <td><span [ngClass]="{
-          'won': fixture.verdict === 'win',
-          'lost': fixture.verdict === 'lost',
-          'pending': fixture.verdict === 'pending'
-        }">
-        {{ fixture.odds }}
-      </span></td>
-        <td>{{ fixture.result }}</td>
-        
-      </tr>
-    </tbody>
-  </table>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let fixture of fixtures">
+      <td>{{ fixture.date }}</td>
+      <td>{{ fixture.ko }}</td>
+      <td>{{fixture.league}}</td>
+      <td>{{ fixture.games }}</td>
+      <td>{{ fixture.predict }}</td>
+      <td><span [ngClass]="{
+        'won': fixture.verdict === 'win',
+        'lost': fixture.verdict === 'lost',
+        'pending': fixture.verdict === 'pending'
+      }">
+      {{ fixture.odds }}
+    </span></td>
+      <td>{{ fixture.result }}</td>
+      <td *ngIf="authorize" (click)="modifyGame(fixture)">
+        <i class="material-icons">email</i>
+    </td>
+  
+    </tr>
+  </tbody>
+</table>
 
 
   <br>
