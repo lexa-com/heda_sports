@@ -41,7 +41,7 @@ export class GameDetailsComponent implements OnInit {
       category: [''],
       date: ['']
     });
-   
+     
   }
 
   removeGame(index: number) {
@@ -58,7 +58,7 @@ export class GameDetailsComponent implements OnInit {
       this.hideTable = false
       this.title = "Updating Game"
     }
-    if (this.category == "add"){
+    if (this.Data == "add"){
       this.emptyForm()
       this.addGame = true
       this.title = "Adding a new Game"

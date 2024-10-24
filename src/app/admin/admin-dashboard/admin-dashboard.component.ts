@@ -6,6 +6,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { VvipService } from '../../Services/vip.service/vvip.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MessagesComponent } from '../../main-components/contacts/messages/messages.component';
+import { GameDetailsComponent } from '../admin-update-games/game-details/game-details.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -77,8 +78,12 @@ userDetails(user: any) {
     }
 
     addGame(){
-      this.router.navigate(['game/details'], 
-        { queryParams: { category:"add"} });
+      const message = 'add'
+      const dialogRef = this.dialog.open(GameDetailsComponent, {
+        width: '700px',
+        height:'520px',
+        data:message
+      });
     }
 
     addTipsterGame() {
