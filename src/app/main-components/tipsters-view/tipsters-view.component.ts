@@ -6,6 +6,7 @@ import { SharedService } from '../../Services/shared.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { TipsterPaywallComponent } from '../paywalls/tipster-paywall/tipster-paywall.component';
 import { TestPaywallComponent } from '../paywalls/test-paywall/test-paywall.component';
+import { TipsterGameUpdateComponent } from '../../admin/tipster-games/tipster-game-update/tipster-game-update.component';
 
 @Component({
   selector: 'app-tipsters-view',
@@ -25,6 +26,7 @@ hideSub2:boolean = true
   matchDays2: any[] = [];
   paymentRequest: any;
   admin: any;
+  isAdmin:boolean = false
 
   constructor(
     private gamesService: GamesService,
@@ -119,9 +121,17 @@ hideSub2:boolean = true
 
   checkSubscription(){
     this.sharedService.userArray.subscribe((res)=>{
+      if (res.length === 0){
+        return
+      }
+      
       this.admin = res[0].admin
       this.subscriptionOne = res[0].tipster1.split('+')[0]
       this.subscriptionTwo = res[0].tipster2.split('+')[0]
+
+      if(this.admin =='Yes'){
+        this.isAdmin = true
+      }
 
       if (this.subscriptionOne == "Yes"|| this.admin =='Yes'){
            this.tipsterOne = true
@@ -141,21 +151,20 @@ hideSub2:boolean = true
       const today = new Date();
       const formattedToday = this.formatDateToDDMMYYYY(today);
       this.matchDays2 = matchDays
-        .filter(day => day.date == formattedToday)
-        .reverse(); 
+        .filter(day => day.date == formattedToday && day.category =="tipster2") 
     });
-
+    
+   
   }
   getTip1(){
   
-    this.sharedService.tipster1Array.subscribe((matchDays: any[]) => {
+    this.sharedService.tipster2Array.subscribe((matchDays: any[]) => {
       const today = new Date();
       const formattedToday = this.formatDateToDDMMYYYY(today);
       this.matchDays = matchDays
-        .filter(day => day.date == formattedToday)
-        .reverse();
+        .filter(day => day.date == formattedToday && day.category =="tipster1")
     });
-
+   
   }
 
   formatDateToDDMMYYYY(date: Date): string {
@@ -167,6 +176,28 @@ hideSub2:boolean = true
 
   viewResults(tip:string){
     this.router.navigate(['tipsters/details'],{queryParams:{tipster:tip}})
+  }
+  modifyGame(game:any){
+    const dialogRef = this.dialog.open(TipsterGameUpdateComponent, {
+      width: '520px',
+      height:'450px',
+      data:{
+        match:game,
+        category:"update",
+        }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+    if (result.data == "modify"){
+      this.checkAuth()
+
+    }else if (result.data == "delete"){
+      this.checkAuth()
+      
+    }
+      
+    });
+
+
   }
   
 }

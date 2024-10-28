@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { GamesService } from '../../../Services/games.service';
@@ -11,9 +11,9 @@ import { AdminNotifComponent } from '../../admin-notif/admin-notif.component';
   templateUrl: './tipster-game-update.component.html',
   styleUrls: ['./tipster-game-update.component.css']
 })
-export class TipsterGameUpdateComponent {
+export class TipsterGameUpdateComponent implements OnInit {
   gameData: any;
-  category: string;
+  category: any;
   formData: FormGroup;
   date: any;
 
@@ -22,20 +22,14 @@ export class TipsterGameUpdateComponent {
     private router: Router,
     private snackBar: MatSnackBar,
     private gamesService: GamesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public dialogRef: MatDialogRef<TipsterGameUpdateComponent>,
+    @Inject(MAT_DIALOG_DATA) public Data: any,
   ) {
-    // Get the navigation extras (queryParams) for category and gameData
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation && navigation.extras && navigation.extras.queryParams) {
-      this.gameData = navigation.extras.queryParams['gameData'];
-      this.category = navigation.extras.queryParams['category'];
-      this.date = navigation.extras.queryParams['date'];
-    } else {
-      this.snackBar.open('No game data found in query params.', '', { duration: 3000 });
-      this.gameData = null;
-      this.category = '';
-    }
 
+    this.gameData = Data.match
+    this.category = Data.tipster
+  
     // Initialize the form group with default or passed game data
     this.formData = this.formBuilder.group({
       date: [this.gameData ? this.gameData.date : ''],
@@ -44,22 +38,23 @@ export class TipsterGameUpdateComponent {
       league: [this.gameData ? this.gameData.league : ''],
       predict: [this.gameData ? this.gameData.predict : ''],
       odds: [this.gameData ? this.gameData.odds : ''],
-      category: [this.gameData ? this.category : ''],
+      category: [this.gameData ? this.gameData.category : ''],
       result: [this.gameData ? this.gameData.result : ''],
       verdict: [this.gameData ? this.gameData.verdict : '']
     });
+    
+  }
+  ngOnInit(): void {
+   
   }
 
   onSubmit() {
     this.updateGame(); // Call the update method when form is submitted
   }
+  
 
   updateGame() {
-    const gameDate = this.date; // Extract the game date from form data
     const gameId = this.gameData.id; // Assuming the game ID is available in this.gameData
-    const category = this.category;
-  
-    // Get updated data from form controls
     const updatedGameData = {
       games: this.formData.value.games,
       result: this.formData.value.result,
@@ -68,13 +63,14 @@ export class TipsterGameUpdateComponent {
       ko: this.formData.value.ko,
       league: this.formData.value.league,
       odds: this.formData.value.odds,
+      category: this.formData.value.category,
       
     };
   
-    // Call the service to update the game in Firestore
-    this.gamesService.updateGameInArrayById(category, gameDate, gameId, updatedGameData)
+    this.gamesService.updateGameInArrayById(gameId, updatedGameData)
       .then(() => {
         this.snackBar.open('Game updated successfully!', '', { duration: 3000 });
+        this.dialogRef.close({ event: 'close', data: "modify" })
       })
       .catch((error) => {
         console.error('Error updating game:', error);
@@ -106,10 +102,10 @@ export class TipsterGameUpdateComponent {
   }
 
   deleteGame(gameId: string): void {
-    this.gamesService.deleteGameFromArrayById(this.category, this.date, gameId)
+    this.gamesService.deleteGameFromArrayById(gameId)
       .then(() => {
         this.snackBar.open('Game deleted successfully!', '', { duration: 3000 });
-        //this.getAllGames(); // Refresh the game list
+        this.dialogRef.close({ event: 'close', data: "delete" })
       })
       .catch((error) => {
         console.error('Error deleting game:', error);

@@ -13,6 +13,7 @@
           <th>Tip</th>
           <th>Odd</th>
           <th>Results</th>
+          <th *ngIf="authorize">Update</th>
         </tr>
       </thead>
       <tbody>
@@ -31,6 +32,10 @@
             </span>
           </td>
           <td>{{ match.result }}</td>
+          <td *ngIf="authorize" (click)="modifyGame(match)">
+            
+            <span>update</span>
+        </td>
         </tr>
       </tbody>
     </table>

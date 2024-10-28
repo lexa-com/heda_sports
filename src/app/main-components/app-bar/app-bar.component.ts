@@ -50,6 +50,9 @@ export class AppBarComponent implements OnInit {
     }
     checkUser(){
       this.shared.userArray.subscribe((res)=>{
+        if (res.length ===0){
+          return
+        }
         this.user = res
         if (this.user[0].admin =='Yes'){
           this.admin = true

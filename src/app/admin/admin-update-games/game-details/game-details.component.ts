@@ -190,7 +190,7 @@ deleteGame() {
   this.gamesService.deleteGame(gameId)
   .then(() => {
     this.snackBar.open('Game deleted successfully!', '', { duration: 3000 });
-    //this.getAllGames(); // Refresh the game list
+    this.dialogRef.close()
   })
   .catch((error) => {
     console.error('Error deleting game:', error);

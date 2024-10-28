@@ -37,9 +37,6 @@ export class AuthService {
       });
   }
   
-
-  
-
   logOut() {
     this.fireAuth.signOut().then(() => {
       localStorage.removeItem('token');

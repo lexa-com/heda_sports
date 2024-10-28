@@ -19,16 +19,24 @@
               <th>predict</th>
               <th>Odd</th>
               <th>Results</th>
+              <th *ngIf="isAdmin">Update</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let match of matchDay.matches">
+            <tr *ngFor="let match of matchDays">
               <td>{{match.ko}}</td>
               <td>{{match.league}}</td>
               <td>{{match.games}}</td>
               <td>{{ match.predict }}</td>
-              <td>{{ match.odds }}</td>
+              <td><span [ngClass]="{
+                'won': match.verdict == 'win',
+                'lost': match.verdict =='lost',
+                'pending': match.verdict == 'pending'
+              }">
+              {{ match.odds }}
+            </span></td>
               <td>{{match.result}}</td>
+              <td *ngIf="isAdmin" (click)="modifyGame(match)">Update</td>
             </tr>
           </tbody>
         </table>
@@ -75,16 +83,24 @@
               <th>predict</th>
               <th>Odd</th>
               <th>Results</th>
+              <th *ngIf="isAdmin">Update</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let match of matchDay.matches">
+            <tr *ngFor="let match of matchDays2">
               <td>{{match.ko}}</td>
               <td>{{match.league}}</td>
               <td>{{match.games}}</td>
               <td>{{ match.predict }}</td>
-              <td>{{ match.odds }}</td>
+              <td><span [ngClass]="{
+                'won': match.verdict == 'win',
+                'lost': match.verdict =='lost',
+                'pending': match.verdict == 'pending'
+              }">
+              {{ match.odds }}
+            </span></td>
               <td>{{match.result}}</td>
+              <td *ngIf="isAdmin" (click)="modifyGame(match)">Update</td>
             </tr>
           </tbody>
         </table>

@@ -30,6 +30,9 @@ andrewOdds: boolean = false;
 
   checkSubscription(){
     this.sharedService.userArray.subscribe((res)=>{
+      if(res.length ===0){
+        return
+      }
       const subscrib = res[0].five.split('+')[0]
       const subscribten = res[0].ten.split('+')[0]
       const subscribtwenty = res[0].twenty.split('+')[0]

@@ -138,3 +138,12 @@ button {
   width: 100%;
   max-width: 200px;
 }
+.primary{
+  background-color: rgb(17, 189, 137);
+  color: aliceblue;
+
+}
+.secondary{
+  background-color: #e03e16;
+  color: #fff;
+}

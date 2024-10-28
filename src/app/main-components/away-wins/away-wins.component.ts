@@ -28,10 +28,8 @@ export class AwayWinsComponent implements OnInit {
   ngOnInit(): void {
     this.setTodayDate()
     this.fetchGames()
-    this.fetchGames()
+    this.checkAuth()
   }
-  
-  
   fetchGames(){
   this.sharedService.currentArray.subscribe((res)=>{
     this.data = res
@@ -66,19 +64,6 @@ export class AwayWinsComponent implements OnInit {
     // Log today's date
   }
   
-  getVerdictEmoji(verdict: string): string {
-    switch (verdict) {
-      case 'win':
-        return '✅✅✅'; // Trophy emoji
-      case 'lost':
-        return '❌'; // Cross mark emoji
-      case 'post':
-        return 'postponed'; // Handshake emoji
-      default:
-        return '-'; // Scales emoji for unknown verdict
-    }
-  }
-
   modifyGame(game:any){
     const dialogRef = this.dialog.open(GameDetailsComponent, {
       width: '520px',
@@ -94,7 +79,6 @@ export class AwayWinsComponent implements OnInit {
     this.sharedService.userArray.subscribe((res)=>{
       if (res[0].admin=='Yes'){
         this.authorize = true
-
       }
     })
   }

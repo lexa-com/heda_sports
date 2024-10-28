@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../Services/shared.service';
 import { differenceInDays } from 'date-fns';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-user-profile',
@@ -26,7 +27,9 @@ fiveDays: any;
   tip2Days: any;
   showCard:boolean = true
 
-constructor(private shared: SharedService){
+constructor(private shared: SharedService,
+  private firestore: AngularFirestore,
+){
 
 }
 
@@ -44,7 +47,7 @@ checkAuth(){
     }
     if (res[0]=='null' || res[0]==''){
       this.showCard = false
-  
+   
       }
 
   })
@@ -52,6 +55,9 @@ checkAuth(){
 
   getSupscriptions() {
     this.shared.userArray.subscribe((res)=>{
+      if (res.length ===0){
+        return
+      }
       this.user = res[0]
       this.email = this.user.email
       this.fivestatus = this.user.five.split('+')[0]
@@ -65,23 +71,16 @@ checkAuth(){
       this.tip1Status = this.user.tipster1.split('+')[0]
       this.tip1Days = this.calculateDaysRemaining(this.user.tipster1.split('+')[1].split('+')[0])
       this.tip2Status = this.user.tipster2.split('+')[0]
-      this.tip2Days = this.calculateDaysRemaining(this.user.tipster2.split('+')[1].split('+')[0])
-
-      this.removeSubscription()
-      
+      this.tip2Days = this.calculateDaysRemaining(this.user.tipster2.split('+')[1].split('+')[0])      
     })
+    
   }
 
   calculateDaysRemaining(subscriptionEndDate:any): number {
     const currentDate = new Date();
     const daysRemaining = differenceInDays(subscriptionEndDate, currentDate);
-    return daysRemaining > 0 ? daysRemaining : 0;
+    return daysRemaining
   }
 
-  
-  removeSubscription(){
-
-
-  }
 
 }

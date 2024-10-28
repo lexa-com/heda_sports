@@ -38,6 +38,11 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'dashboard',
+        redirectTo: 'malenge',
+        pathMatch: 'full'
+      },
+      {
         path: 'over',
         component: OverUnderComponent,
       },

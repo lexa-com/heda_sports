@@ -82,6 +82,9 @@ this.sharedService.currentAuthStatus.subscribe((res)=>{
 
 if (res[0]=='authenticated'){
   this.sharedService.userArray.subscribe((res)=>{
+    if(res.length===0){
+      return
+    }
     if (res[0].admin=='Yes'){
       this.authorize = true
 

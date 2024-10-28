@@ -3,8 +3,11 @@
 </mat-card>
 
 <div class="container-fluid">
-  <!-- Form for Category and Date -->
-  <form [formGroup]="formCategory" (ngSubmit)="onCategorySubmit()" novalidate class="form">
+  
+  <br>
+
+  <!-- Form for Game Details -->
+  <form [formGroup]="formData" (ngSubmit)="onSubmit()" novalidate class="form">
     <div class="form-item">
       <label for="" class="start">Category</label>
       <mat-form-field appearance="fill">
@@ -20,15 +23,6 @@
       <input type="text" formControlName="date" class="form-control" />
     </div>
 
-    <button mat-raised-button type="submit" class="bg-primary text-white">
-      Submit Category and Date
-    </button>
-  </form>
-
-  <br>
-
-  <!-- Form for Game Details -->
-  <form [formGroup]="formData" (ngSubmit)="onSubmit()" novalidate class="form">
     <div class="form-row">
       <!-- Kick Off -->
       <div class="form-item">
@@ -89,24 +83,26 @@
     <table class="football-fixtures">
       <thead>
         <tr>
+          <th>Date</th>
           <th>Time</th>
           <th>League</th>
           <th>Match</th>
           <th>Pick</th>
           <th>Odds</th>
-          <th>Results</th>
+          <th>Tipster</th>
           <th>Outcome</th>
-          <th>Action</th> <!-- New column header -->
+          <th>Action</th> 
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let fixture of gamesArray; let i = index">
+          <td>{{ fixture.date }}</td>
           <td>{{ fixture.ko }}</td>
           <td>{{ fixture.league }}</td>
           <td>{{ fixture.games }}</td>
           <td>{{ fixture.predict }}</td>
           <td>{{ fixture.odds }}</td>
-          <td>{{ fixture.result }}</td>
+          <td>{{ fixture.category }}</td>
           <td>{{ fixture.verdict }}</td>
           <td>
             <span mat-icon-button (click)="removeGame(i)">

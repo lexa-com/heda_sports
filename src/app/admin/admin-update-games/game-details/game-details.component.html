@@ -130,13 +130,13 @@
   
       <!-- Submit and Back Buttons -->
       
-        <button (click)="submitGame()" *ngIf="addGame" mat-raised-button class="bg-primary text-white">
+        <button (click)="submitGame()" *ngIf="addGame" mat-raised-button class="primary" >
           Add
         </button>
-        <button (click)="updateGame()" *ngIf="modifyGame" mat-raised-button type="button" class="bg-secondary text-white">
+        <button (click)="updateGame()" *ngIf="modifyGame" mat-raised-button type="button" class="primary">
           Modify
         </button>
-        <button (click)="openDialog()" *ngIf="modifyGame" mat-raised-button type="button" class="bg-secondary text-white">
+        <button (click)="openDialog()" *ngIf="modifyGame" mat-raised-button type="button" class="secondary">
             Delete
           </button>
       

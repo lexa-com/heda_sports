@@ -37,7 +37,7 @@ export class TipsterGamesComponent implements OnInit{
   }
 
   getTip1(){
-    this.gamesService.getAllGamesFromDB(this.category).subscribe(data => {
+    this.gamesService.getAllGamesFromDB().subscribe(data => {
       console.log(data)
       this.fixtures = data.reduce((acc, doc) => {
         if (doc.games && Array.isArray(doc.games)) {

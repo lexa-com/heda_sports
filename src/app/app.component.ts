@@ -34,8 +34,8 @@ constructor(
 ngOnInit(): void {
   
   this.getUserInfo()
-  this.getTip1()
-  this.getTip2()
+  this.getTipsters()
+  
 }
 
 
@@ -75,27 +75,15 @@ async readUserData(email: string) {
   }
 }
 
-getTip2(){
-  const category = 'tipster2'; // Replace with your actual category
-
-  this.dataService.getAllMatchDays(category).subscribe((matchDays: any[]) => {
-    this.matchDays2 = matchDays
-      .reverse(); 
-
-      this.sendTip2Array(this.matchDays2)    
+getTipsters(){
+  
+  this.dataService.getAllGamesFromDB().subscribe((matchDays: any[]) => {
+        
+       
   });
 
 }
-getTip1(){
-  const category = 'tipster1'; // Replace with your actual category
 
-  this.dataService.getAllMatchDays(category).subscribe((matchDays: any[]) => {
-    this.matchDays = matchDays
-      .reverse(); 
-   this.sendTip1Array(this.matchDays)
-  });
-
-}
 sendTip1Array(gamesArray:any) {
   this.sharedService.changeTip1Array(gamesArray);
 }

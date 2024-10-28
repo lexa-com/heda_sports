@@ -47,13 +47,16 @@
 }
 
 .delete-btn:hover {
-  background-color: #0056b3;
+  background-color: #b34800;
 }
 
 .left-btn {
   align-self: flex-start;
+  background-color: rgb(98, 144, 29);
+  
 }
 
 .right-btn {
   align-self: flex-end;
+  background-color: rgba(220, 45, 45, 0.445);
 }
