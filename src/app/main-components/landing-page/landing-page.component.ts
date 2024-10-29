@@ -47,8 +47,9 @@ fiveDays: any;
     ngOnInit(): void {
       if (isPlatformBrowser(this.platformId)) {
         this.fetchGames(); // Only call fetchGames in the browser
+        this.getSupscriptions()
       }
-      this.getSupscriptions()
+      
     }
 
   async fetchGames() {
@@ -81,7 +82,7 @@ fiveDays: any;
 
         if (res.length ==0){
           console.log("not autheeed")
-          return
+          
         }
 
         this.user = res[0]
@@ -116,25 +117,25 @@ fiveDays: any;
   
 checkDates(days:any,status:any,category:any){
       if (days < 0 && status =="Yes"){ 
-        this.removeSubscription(this.email,category)
+        //this.removeSubscription(this.email,category)
       }
     }
   
-async removeSubscription(email: string,category:any) {
+// async removeSubscription(email: string,category:any) {
   
-      const today = new Date();
-      try {
-        const userDocRef = this.firestore.collection('users').doc(email);
-        const status = `No+${today.toISOString()}+4`
-        const updatedData = {
-          [category]: status
-        };
-        await userDocRef.update(updatedData);  
-        this.readUserData(this.email)
-      } catch (error) {
+//       const today = new Date();
+//       try {
+//         const userDocRef = this.firestore.collection('users').doc(email);
+//         const status = `No+${today.toISOString()}+4`
+//         const updatedData = {
+//           [category]: status
+//         };
+//         await userDocRef.update(updatedData);  
+//         this.readUserData(this.email)
+//       } catch (error) {
         
-      }
-    }
+//       }
+//     }
  async readUserData(email: string) {
       try {
         const userDocRef = doc(this.firestore.firestore, 'users', email);
