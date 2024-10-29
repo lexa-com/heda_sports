@@ -24,9 +24,14 @@ hideSub2:boolean = true
   subscriptionTwo: any;
   matchDays: any[] = [];
   matchDays2: any[] = [];
+  matchOdds: any[] = [];
+  matchOdds2: any[] = [];
   paymentRequest: any;
   admin: any;
   isAdmin:boolean = false
+  dateTitle:any
+  totalOdds: any;
+  totalOdds1: any;
 
   constructor(
     private gamesService: GamesService,
@@ -40,6 +45,9 @@ hideSub2:boolean = true
   ngOnInit(): void {
     this.dialogConfig = new MatDialogConfig();
     this.checkAuth()
+    const date = new Date();
+    this.dateTitle = this.formatDateToDDMMYYYY(date);
+    this.getOdds()
   }
 
   openDialog(name: string, price: string, id: string) {
@@ -145,6 +153,30 @@ hideSub2:boolean = true
    }
     })
   }
+  getOdds(){
+    this.sharedService.tipster2Array.subscribe((matchDays: any[]) => {
+      const today = new Date();
+      const formattedToday = this.formatDateToDDMMYYYY(today);
+      this.matchOdds2 = matchDays
+        .filter(day => day.date == formattedToday && day.category =="tipster2") 
+
+        this.totalOdds = this.matchOdds2.reduce((sum, day) => {
+          const odds = parseFloat(day.odds) || 0; // Convert to float, default to 0 if invalid
+          return sum + odds;
+        }, 0);
+    });
+
+    this.sharedService.tipster2Array.subscribe((matchDays: any[]) => {
+      const today = new Date();
+      const formattedToday = this.formatDateToDDMMYYYY(today);
+      this.matchOdds = matchDays
+        .filter(day => day.date == formattedToday && day.category =="tipster1")
+        this.totalOdds1 = this.matchOdds.reduce((sum, day) => {
+          const odds = parseFloat(day.odds) || 0; 
+          return sum + odds;
+        }, 0);
+    });
+  }
 
   getTip2(){
     this.sharedService.tipster2Array.subscribe((matchDays: any[]) => {
@@ -152,9 +184,13 @@ hideSub2:boolean = true
       const formattedToday = this.formatDateToDDMMYYYY(today);
       this.matchDays2 = matchDays
         .filter(day => day.date == formattedToday && day.category =="tipster2") 
+
+        this.totalOdds = this.matchDays2.reduce((sum, day) => {
+          const odds = parseFloat(day.odds) || 0; // Convert to float, default to 0 if invalid
+          return sum + odds;
+        }, 0);
     });
     
-   
   }
   getTip1(){
   
@@ -163,6 +199,10 @@ hideSub2:boolean = true
       const formattedToday = this.formatDateToDDMMYYYY(today);
       this.matchDays = matchDays
         .filter(day => day.date == formattedToday && day.category =="tipster1")
+        this.totalOdds1 = this.matchDays.reduce((sum, day) => {
+          const odds = parseFloat(day.odds) || 0; 
+          return sum + odds;
+        }, 0);
     });
    
   }

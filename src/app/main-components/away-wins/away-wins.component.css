@@ -61,3 +61,11 @@ input {
 .footer{
   margin-top: 400px;
 }
+.odds_card {
+  padding: 10px;
+  background-color: #18c2ba;
+  color: aliceblue;
+  font-weight: bold;
+  
+
+}

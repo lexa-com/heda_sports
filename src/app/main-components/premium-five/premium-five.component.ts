@@ -25,6 +25,7 @@ export class PremiumFiveComponent implements OnInit {
     loggedIn:string = ''
     dialogConfig: MatDialogConfig<any> | undefined;
   authorize: boolean = false;
+totalOdds: any;
   
   constructor(
     private dataService: GamesService,
@@ -38,6 +39,7 @@ export class PremiumFiveComponent implements OnInit {
     this.setTodayDate()
     this.dialogConfig = new MatDialogConfig();
     this.checkAuth()
+    this.getOdds()
   }
 
   getOlderGames(){
@@ -56,9 +58,27 @@ export class PremiumFiveComponent implements OnInit {
     this.data = res
   this.overGames = res.filter(item => item.category === "11" && item.date == this.pickedDate)
   this.fixtures = this.overGames.reverse()
+  this.totalOdds = this.fixtures.reduce((sum: number, item: { odds: string; }) => {
+    const odds = parseFloat(item.odds) || 0; 
+    return sum + odds;
+  }, 0).toFixed(2)
   
   })
   
+  }
+
+  getOdds(){
+
+    this.sharedService.vipArray.subscribe((res)=>{
+      this.data = res
+    this.overGames = res.filter(item => item.category === "11" && item.date == this.pickedDate)
+    //this.fixtures = this.overGames.reverse()
+    this.totalOdds = this.overGames.reduce((sum: number, item: { odds: string; }) => {
+      const odds = parseFloat(item.odds) || 0; 
+      return sum + odds;
+    }, 0).toFixed(2);
+    
+    })
   }
   
   onDateChange(event: Event): void {
@@ -68,6 +88,10 @@ export class PremiumFiveComponent implements OnInit {
     const formattedDate = this.formatDate(selectedDate);
     this.pickedDate = formattedDate
     this.fixtures = this.data.filter(item => item.date == formattedDate && item.category =="11")
+    this.totalOdds = this.fixtures.reduce((sum: number, item: { odds: string; }) => {
+      const odds = parseFloat(item.odds) || 0; 
+      return sum + odds;
+    }, 0);
     
   }
   

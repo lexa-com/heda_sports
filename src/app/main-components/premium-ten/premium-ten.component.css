@@ -84,3 +84,27 @@ button {
   max-width: 200px; /* Optional: limit the maximum width of the buttons */
 }
 
+.odds_card {
+  padding: 10px;
+  background-color: #18c2ba;
+  color: aliceblue;
+  font-weight: bold;
+  
+
+}
+.odds_card {
+  padding: 10px;
+  background-color: #18c2ba;
+  color: aliceblue;
+  font-weight: bold;
+  
+
+}
+.odds {
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start; /* Align the date picker to the right */
+  width: 100%; /* Full width for proper alignment */
+  margin-bottom: 20px; /* Add some space below the date picker */
+}
+

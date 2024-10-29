@@ -7,8 +7,8 @@
         <span class="tipster-name">Akpınar</span>
       </div>
   
-      <div *ngFor="let matchDay of matchDays" class="match-day">
-        <div class="date-header">{{ matchDay.date}}</div>
+      <div class="match-day">
+        <div class="date-header">{{dateTitle}}</div>
         
         <table class="results-table" *ngIf="tipsterOne">
           <thead>
@@ -52,8 +52,8 @@
           <span>85%</span>
         </div>
         <div class="stat">
-          <p>Avg Odd</p>
-          <span>2.23</span>
+          <p>Odds</p>
+          <span class="odds">{{totalOdds1}}</span>
         </div>
       </div>
   
@@ -71,8 +71,8 @@
         <span class="tipster-name">Petridis</span>
       </div>
   
-      <div *ngFor="let matchDay of matchDays2" class="match-day">
-        <div class="date-header">{{ matchDay.date}}</div>
+      <div class="match-day">
+        <div class="date-header">{{dateTitle}}</div>
         
         <table class="results-table" *ngIf="tipsterOne">
           <thead>
@@ -117,8 +117,8 @@
           <span>88%</span>
         </div>
         <div class="stat">
-          <p>Avg Odd</p>
-          <span>1.79</span>
+          <p>Odds</p>
+          <span class="odds">{{totalOdds}}</span>
         </div>
       </div>
   

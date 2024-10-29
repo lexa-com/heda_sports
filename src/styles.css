@@ -9,7 +9,7 @@ body {
 body {
   /* // text-transform: uppercase !important; */
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .won {
@@ -32,3 +32,11 @@ body {
 .secondary{
   background-color: aqua;
 }
+.odds {
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start; /* Align the date picker to the right */
+  width: 100%; /* Full width for proper alignment */
+  margin-bottom: 20px; /* Add some space below the date picker */
+}
+
