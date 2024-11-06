@@ -115,7 +115,7 @@ fiveDays: any;
       return daysRemaining
     }
   
-checkDates(days:any,status:any,category:any){
+    checkDates(days:any,status:any,category:any){
       if (days < 0 && status =="Yes"){ 
         this.removeSubscription(this.email,category)
       }

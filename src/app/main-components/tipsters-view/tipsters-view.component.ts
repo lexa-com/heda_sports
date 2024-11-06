@@ -166,7 +166,7 @@ hideSub2:boolean = true
         }, 0);
     });
 
-    this.sharedService.tipster2Array.subscribe((matchDays: any[]) => {
+    this.sharedService.tipster1Array.subscribe((matchDays: any[]) => {
       const today = new Date();
       const formattedToday = this.formatDateToDDMMYYYY(today);
       this.matchOdds = matchDays
@@ -194,7 +194,7 @@ hideSub2:boolean = true
   }
   getTip1(){
   
-    this.sharedService.tipster2Array.subscribe((matchDays: any[]) => {
+    this.sharedService.tipster1Array.subscribe((matchDays: any[]) => {
       const today = new Date();
       const formattedToday = this.formatDateToDDMMYYYY(today);
       this.matchDays = matchDays

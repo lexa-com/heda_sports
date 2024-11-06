@@ -20,6 +20,7 @@ interface Game {
   predict: string;
   result: string;
   verdict: string;
+  category:string
 }
 
 interface DocumentData {
@@ -199,7 +200,11 @@ getAllGamesFromDB(): Observable<any[]> {
         // Extract the games array from the document data
         const data = docSnapshot.data() as DocumentData; // Type assertion
         const gamesArray = Array.isArray(data?.games) ? data.games : [];
-        this.updateTipsterArray(gamesArray)
+        const tip1Array = gamesArray.filter(item => item.category === 'tipster1');
+        const tip2Array = gamesArray.filter(item => item.category === 'tipster2');
+              
+        this.updateTipster1Array(tip1Array)
+        this.updateTipster2Array(tip2Array)
         return gamesArray as Game[]; 
       }),
       catchError(error => {
@@ -210,14 +215,17 @@ getAllGamesFromDB(): Observable<any[]> {
 
   }
 
- updateTipsterArray(gamesArray:any) {
-    this.sharedService.changeTip2Array(gamesArray);
+updateTipster1Array(gamesArray:any) {
+    this.sharedService.changeTip1Array(gamesArray);
   }
+updateTipster2Array(gamesArray:any) {
+    this.sharedService.changeTip2Array(gamesArray);
+  }  
 
-  sendMainGames(gamesArray:any) {
+sendMainGames(gamesArray:any) {
     this.sharedService.changeArray(gamesArray);
   }
-  sendVipArray(gamesArray:any) {
+sendVipArray(gamesArray:any) {
     this.sharedService.changeVipArray(gamesArray);
   }
      
@@ -246,7 +254,12 @@ async updateGameInArrayById(gameId: string, updatedGameData: Partial<Game>): Pro
           });
           console.log('Game successfully updated!');
           this.getAllGamesFromDB().subscribe((res)=>{
-            this.updateTipsterArray(res)
+            const tip1Array = res.filter(item => item.category === 'tipster1');
+            const tip2Array = res.filter(item => item.category === 'tipster2');
+              
+             this.updateTipster1Array(tip1Array)
+             this.updateTipster2Array(tip2Array)
+            
           })
         } else {
           console.error('Game not found in the array');
@@ -290,7 +303,12 @@ async deleteGameFromArrayById(gameId: string): Promise<void> {
   
       console.log('Game successfully deleted!');
       this.getAllGamesFromDB().subscribe((res)=>{
-        this.updateTipsterArray(res)
+        const tip1Array = res.filter(item => item.category === 'tipster1');
+            const tip2Array = res.filter(item => item.category === 'tipster2');
+              
+             this.updateTipster1Array(tip1Array)
+             this.updateTipster2Array(tip2Array)
+        
       })
     } catch (error) {
       console.error('Error deleting game:', error);

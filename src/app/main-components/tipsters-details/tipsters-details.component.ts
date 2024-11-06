@@ -62,10 +62,26 @@ export class TipstersDetailsComponent implements OnInit {
   
     this.sharedService.tipster1Array.subscribe((matchDays: any[]) => {
       const today = new Date();
-      const formattedToday = this.formatDateToDDMMYYYY(today);
-      this.matchDays = matchDays
-        .filter(day => day.date < formattedToday)
-        
+      const formattedToday = this.formatDateToDDMMYYYY(today); // Using your formatter
+  
+      // Filter and group matches by date, retaining formatted dates
+      const groupedByDate = matchDays
+        .filter(day => {
+          // Compare day.date with formattedToday directly, assuming day.date is in the same format
+          return day.date < formattedToday; // Only include dates before today
+        })
+        .reduce((acc, day) => {
+          // Group by original date string
+          if (!acc[day.date]) {
+            acc[day.date] = { date: day.date, matches: [] };
+          }
+          acc[day.date].matches.push(day);
+          return acc;
+        }, {} as Record<string, { date: string; matches: any[] }>);
+  
+      // Convert grouped object to an array format
+      this.matchDays = Object.values(groupedByDate);
+      
     });
 
   }
